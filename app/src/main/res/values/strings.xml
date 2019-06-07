@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">GithubTraining</string>
+    <string name="action_logout">Log out</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="login">Login</string>
+    <string name="error_no_internet">No Internet Connection!!!</string>
+    <string name="received_error_no_internet">Unable to resolve host "api.github.com": No address associated with
+        hostname
+    </string>
+    <string name="bio">Bio</string>
+    <string name="location">Location</string>
+    <string name="created">Created</string>
+    <string name="email">Email</string>
+    <string name="updated">Updated</string>
+    <string name="public_repo">PublicRepo</string>
+    <string name="private_repo">PrivateRepo</string>
+    <string name="view_repository">View Repository</string>
+    <string name="contact_by_email">Contact by email</string>
+    <string name="title_activity_repositories">RepositoriesActivity</string>
+
+    <string name="intent_repo">UserName</string>
+    <string name="settings">SETTINGS</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="affiliation">Affiliation</string>
+    <string name="affiliation_text">Affiliation optin for fetching repositories</string>
+    <string name="sort">Sort</string>
+    <string name="sort_text">Sort criteria dor repositories</string>
+    <string name="title_activity_repo_details">RepoDetails</string>
+    <string name="status_repository">Status Repository</string>
+    <string name="name_repository">Name Repository</string>
+    <string name="details_repository">Details Repository</string>
+
+
+</resources>

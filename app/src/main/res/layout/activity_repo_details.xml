@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="repoDetails"
+                type="com.example.githubtraining.screen.login.LoginViewModel" />
+    </data>
+<android.support.constraint.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.repoDetails.RepoDetailsActivity"
+        android:layout_margin="10dp"
+>
+
+    <TextView
+            android:id="@+id/nTitleHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/name_repository"
+    />
+
+    <TextView
+            android:id="@+id/nTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nTitleHeader"
+            android:layout_marginTop="10dp"
+            android:text="asgfasdfasdfsdfsdaf"
+    />
+
+
+    <TextView
+            android:id="@+id/nStatusRepoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/nTitleText"
+            android:layout_marginTop="30sp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="@string/status_repository"
+    />
+
+    <TextView
+            android:id="@+id/nStatusRepoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/nStatusRepoHeader"
+            android:text="asdlfkajsdflasdf"
+    />
+
+
+    <TextView
+            android:id="@+id/nDetailsRepoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:text="@string/details_repository"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/nStatusRepoText"
+            tools:ignore="MissingConstraints"/>
+
+    <TextView
+            android:id="@+id/nDetailsRepoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            app:layout_constraintTop_toBottomOf="@id/nDetailsRepoHeader"
+            tools:ignore="MissingConstraints"/>
+
+</android.support.constraint.ConstraintLayout>
+    </layout>
