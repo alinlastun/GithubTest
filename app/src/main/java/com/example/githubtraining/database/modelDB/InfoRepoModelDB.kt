@@ -17,6 +17,18 @@ data class InfoRepoModelDB(
     @ColumnInfo(name = "name")
     var name: String?,
 
+    @ColumnInfo(name = "full_name")
+    var full_name: String?,
+
+    @ColumnInfo(name = "created_at")
+    var created_at: String?,
+
+    @ColumnInfo(name = "updated_at")
+    var updated_at: String?,
+
+    @ColumnInfo(name = "pushed_at")
+    var pushed_at: String?,
+
     @ColumnInfo(name = "description")
     var description: String?,
 
