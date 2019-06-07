@@ -30,6 +30,11 @@ class RepositoriesActivity : AppCompatActivity() {
         nRecylerView.setRepoAdapter(this)
 
 
+        mViewModel.repoListData.observe(this, Observer {
+            if(it!=null){
+                (nRecylerView.adapter as RepositoriesAdapter).addData(it)
+            }
+        })
         nSettings.setOnClickListener { startActivity(Intent(this,SettingsActivity::class.java)) }
 
     }
@@ -46,9 +51,10 @@ class RepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemRepoClicked(idRepo:String){
+    fun onItemRepoClicked(idRepo:Int){
+        Log.d("asdfasf", idRepo.toString())
         val intent = Intent(this, RepoDetailsActivity::class.java)
-        intent.getStringExtra(idRepo)
+        intent.putExtra("idRepo",idRepo)
         startActivity(intent)
     }
 

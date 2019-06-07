@@ -14,7 +14,7 @@ class RepositoryRepoDB(mContext: Context) {
         return appDB.daoInfoRepo().getInfoRepo()
     }
 
-    fun insertInfoRepoIntoDB(repoList: List<InfoRepoModelDB>) {
+    fun insertInfoRepoIntoDB(repoList: InfoRepoModelDB) {
         AddAsynTask(appDB).execute(repoList)
     }
 
@@ -23,9 +23,9 @@ class RepositoryRepoDB(mContext: Context) {
     }
 
 
-    class AddAsynTask(db: AppDataBase) : AsyncTask<List<InfoRepoModelDB>, Void, Void>() {
+    class AddAsynTask(db: AppDataBase) : AsyncTask<InfoRepoModelDB, Void, Void>() {
         private var infoRepoDB = db
-        override fun doInBackground(vararg params: List<InfoRepoModelDB>): Void? {
+        override fun doInBackground(vararg params: InfoRepoModelDB): Void? {
             infoRepoDB.daoInfoRepo().insertInfoRepo(params[0])
             return null
         }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.githubtraining.BR
@@ -19,7 +20,6 @@ class RepositoriesAdapter(var activity:Activity) : RecyclerView.Adapter<Reposito
         val binding: ViewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.row_repo_list, parent, false)
         return RepositoriesHolder(binding,activity)
     }
-
 
     override fun onBindViewHolder(holder: RepositoriesHolder, position: Int) {
         holder.bind(mData[position])
@@ -40,6 +40,7 @@ class RepositoriesAdapter(var activity:Activity) : RecyclerView.Adapter<Reposito
     }
 
     fun addData(listPaymentInfo: MutableList<InfoRepoModelDB>) {
+        Log.d("asdfasdf", listPaymentInfo.size.toString())
         mData = ArrayList()
         mData.addAll(listPaymentInfo)
         notifyDataSetChanged()

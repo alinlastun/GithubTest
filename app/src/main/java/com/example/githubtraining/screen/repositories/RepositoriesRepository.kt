@@ -14,8 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class RepositoriesRepository(mContext: Context, var mViewModel:RepositoriesViewModel) {
 
     private val mRepositoryWS = RepositoryWs()
-
-
+    val mRepositoryRepoDB = RepositoryRepoDB(mContext)
 
     fun getRepoData(userPass:String): Disposable {
         return mRepositoryWS.getRepoList(userPass)
@@ -25,6 +24,13 @@ class RepositoriesRepository(mContext: Context, var mViewModel:RepositoriesViewM
     }
 
     private fun successRepoList(repoList:MutableList<InfoRepoModelDB>){
+        val infoRepoModelDB = InfoRepoModelDB(id = 0,description = "",name = "")
+        for(infoRepo in repoList){
+            infoRepoModelDB.id = infoRepo.id
+            infoRepoModelDB.name = infoRepo.name
+            infoRepoModelDB.description = infoRepo.description
+            mRepositoryRepoDB.insertInfoRepoIntoDB(infoRepoModelDB)
+        }
 
     }
 
