@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "repoInfo_table",indices = [android.arch.persistence.room.Index(value = ["id"],unique = true)])
+@Entity(tableName = "repoInfo_table", indices = [android.arch.persistence.room.Index(value = ["id"], unique = true)])
 
 data class InfoRepoModelDB(
     @PrimaryKey(autoGenerate = true)
@@ -18,7 +18,10 @@ data class InfoRepoModelDB(
     var name: String?,
 
     @ColumnInfo(name = "description")
-    var description: String?
+    var description: String?,
+
+    @ColumnInfo(name = "private")
+    var typeRepo: Boolean?
 
 
-    )
+)

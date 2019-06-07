@@ -32,6 +32,8 @@ class RepositoriesActivity : AppCompatActivity() {
 
         mViewModel.repoListData.observe(this, Observer {
             if(it!=null){
+                Log.d("asfasdf", mViewModel.repoData.size.toString())
+
                 (nRecylerView.adapter as RepositoriesAdapter).addData(it)
             }
         })

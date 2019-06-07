@@ -1,17 +1,15 @@
 package com.example.githubtraining.screen.repositories
 
-import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.util.Log
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryWs
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class RepositoriesRepository(mContext: Context, var mViewModel:RepositoriesViewModel) {
+class RepositoriesRepository(mContext: Context) {
 
     private val mRepositoryWS = RepositoryWs()
     val mRepositoryRepoDB = RepositoryRepoDB(mContext)
@@ -24,14 +22,8 @@ class RepositoriesRepository(mContext: Context, var mViewModel:RepositoriesViewM
     }
 
     private fun successRepoList(repoList:MutableList<InfoRepoModelDB>){
-        val infoRepoModelDB = InfoRepoModelDB(id = 0,description = "",name = "")
-        for(infoRepo in repoList){
-            infoRepoModelDB.id = infoRepo.id
-            infoRepoModelDB.name = infoRepo.name
-            infoRepoModelDB.description = infoRepo.description
-            mRepositoryRepoDB.insertInfoRepoIntoDB(infoRepoModelDB)
-        }
-
+        mRepositoryRepoDB.deleteInfoRepo()
+        mRepositoryRepoDB.insertInfoRepoIntoDB(repoList)
     }
 
     private fun errorRepoList(mError: Throwable){

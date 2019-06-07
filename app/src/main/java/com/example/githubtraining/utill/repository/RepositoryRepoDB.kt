@@ -14,7 +14,11 @@ class RepositoryRepoDB(mContext: Context) {
         return appDB.daoInfoRepo().getInfoRepo()
     }
 
-    fun insertInfoRepoIntoDB(repoList: InfoRepoModelDB) {
+    fun getInfoRepoFromDBList() : MutableList<InfoRepoModelDB> {
+        return appDB.daoInfoRepo().getInfoRepoList()
+    }
+
+    fun insertInfoRepoIntoDB(repoList: List<InfoRepoModelDB>) {
         AddAsynTask(appDB).execute(repoList)
     }
 
@@ -22,10 +26,14 @@ class RepositoryRepoDB(mContext: Context) {
         appDB.daoInfoRepo().deleteInfoRepo()
     }
 
+    fun getInfoRepoById(repoId:Int):LiveData<InfoRepoModelDB>{
+       return appDB.daoInfoRepo().getRepoById(repoId)
+    }
 
-    class AddAsynTask(db: AppDataBase) : AsyncTask<InfoRepoModelDB, Void, Void>() {
+
+    class AddAsynTask(db: AppDataBase) : AsyncTask<List<InfoRepoModelDB>, Void, Void>() {
         private var infoRepoDB = db
-        override fun doInBackground(vararg params: InfoRepoModelDB): Void? {
+        override fun doInBackground(vararg params: List<InfoRepoModelDB>): Void? {
             infoRepoDB.daoInfoRepo().insertInfoRepo(params[0])
             return null
         }

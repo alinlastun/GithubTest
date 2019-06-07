@@ -9,13 +9,10 @@ import com.example.githubtraining.utill.repository.RepositoryUserDB
 class RepositoriesViewModel(mContext:Context) : ViewModel() {
 
     private val mRepositoryUserDB = RepositoryUserDB(mContext)
-    private val repository = RepositoriesRepository(mContext,this)
+    private val repository = RepositoriesRepository(mContext)
     val repoListData = repository.mRepositoryRepoDB.getInfoRepoFromDB()
-
-
+    val repoData = repository.mRepositoryRepoDB.getInfoRepoFromDBList()
     var mEncodedUserPass:String = mRepositoryUserDB.getEncodedUserPass()
-
-
 
     fun getDataWs() {
         repository.getRepoData(mEncodedUserPass)
