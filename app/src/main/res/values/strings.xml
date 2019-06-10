@@ -30,6 +30,9 @@
     <string name="status_repository">Status Repository</string>
     <string name="name_repository">Name Repository</string>
     <string name="details_repository">Details Repository</string>
+    <string name="pushed">Pushed</string>
+    <string name="full_name">Full Name</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

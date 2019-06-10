@@ -1,26 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screen.settings.SettingsActivity">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="activity"
+                type="com.example.githubtraining.screen.settings.SettingsActivity"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent"
+            tools:showIn="@layout/activity_settings"
+            tools:context=".screen.settings.SettingsActivity">
 
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    </android.support.design.widget.AppBarLayout>
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/nContainerAffiliation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints">
 
-    <include layout="@layout/content_settings"/>
 
-</android.support.design.widget.CoordinatorLayout>
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/nDevider"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/nAffiliationHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/affiliation"
+                        android:textColor="@color/black"/>
+                <TextView
+                        android:id="@+id/nAffiliationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/nAffiliationHeader"
+                        android:text="@string/affiliation_text"
+                        android:layout_marginBottom="10dp"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <View
+
+                    android:id="@+id/nDevider"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="1dp"/>
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/nContainerSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:onClick="@{() -> activity.onClickSortRepo()}"
+                app:layout_constraintTop_toBottomOf="@id/nContainerAffiliation">
+
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/nDevider2"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/nSortHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sort"
+                        android:textColor="@color/black"/>
+                <TextView
+                        android:id="@+id/nSortText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/nSortHeader"
+                        android:text="@string/sort_text"
+                        android:layout_marginBottom="10dp"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <View
+                    android:id="@+id/nDevider2"
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="1dp"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
