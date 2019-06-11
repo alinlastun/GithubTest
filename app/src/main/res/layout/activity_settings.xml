@@ -20,7 +20,9 @@
                 android:id="@+id/nContainerAffiliation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints">
+                tools:ignore="MissingConstraints"
+                android:onClick="@{() -> activity.onClickAffiliationRepo()}"
+        >
 
 
             <android.support.constraint.ConstraintLayout

@@ -11,7 +11,9 @@ data class StuffModelDB (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     var _id: Int = 1,
+    @ColumnInfo(name = "sort")
     var sort: Int = 1,
+    @ColumnInfo(name = "idRadioButton")
     var idRadioButton: Int = -1
 
     )

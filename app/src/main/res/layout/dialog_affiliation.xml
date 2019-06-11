@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+>
+    <TextView
+            android:id="@+id/nSortHeader"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:text="@string/affiliation"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"/>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/nRadioGroup"
+            android:layout_marginLeft="7dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nSortHeader"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+        <CheckBox
+                android:checked="true"
+                android:id="@+id/nOwner"
+                android:text="@string/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <CheckBox
+                android:id="@+id/nCollaborator"
+                android:text="@string/collaborator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/nOwner"/>
+        <CheckBox
+                android:id="@+id/nOrganizationMember"
+                android:text="@string/organization_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/nCollaborator"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <TextView
+            android:id="@+id/nOkDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            app:layout_constraintTop_toBottomOf="@+id/nRadioGroup"
+            android:layout_marginTop="15sp"
+            android:padding="20sp"
+            android:textColor="#C74545"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="MissingConstraints"/>
+
+    <TextView
+            android:id="@+id/nCancelDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            app:layout_constraintTop_toBottomOf="@+id/nRadioGroup"
+            android:layout_marginTop="15sp"
+            android:padding="20sp"
+            android:textColor="#C74545"
+           app:layout_constraintRight_toLeftOf="@id/nOkDialog"
+            tools:ignore="MissingConstraints"/>
+
+
+</android.support.constraint.ConstraintLayout>
