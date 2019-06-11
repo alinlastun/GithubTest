@@ -31,7 +31,7 @@ class RepositoriesActivity : AppCompatActivity() {
         mViewModel =ViewModelProviders.of(this, LocalViewModelFactory(this)).get(RepositoriesViewModel::class.java)
 
         mViewModel.getDataWs()
-        nRecylerView.setRepoAdapter(this)
+        nRecylerView.setRepoAdapter(this,mViewModel)
 
 
         mViewModel.repoListData.observe(this, Observer {
@@ -42,9 +42,11 @@ class RepositoriesActivity : AppCompatActivity() {
             }
         })
 
+        Log.d("awefas43f", "1 "+mViewModel.sortNr.toString())
         mViewModel.stuffData.observe(this, Observer {
             if(it!=null){
                 sortByItemSelected(it.sort)
+                Log.d("awefas43f", "2 "+it.sort)
                 (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
             }
         })
