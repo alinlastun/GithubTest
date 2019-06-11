@@ -6,16 +6,19 @@ import android.content.Context
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.repository.RepositoryUserDB
 
-class RepositoriesViewModel(mContext:Context) : ViewModel() {
+class RepositoriesViewModel(mContext: Context) : ViewModel() {
 
-    private val mRepositoryUserDB = RepositoryUserDB(mContext)
+
     private val repository = RepositoriesRepository(mContext)
-    val repoListData = repository.mRepositoryRepoDB.getInfoRepoFromDB()
-    val repoData = repository.mRepositoryRepoDB.getInfoRepoFromDBList()
-    var mEncodedUserPass:String = mRepositoryUserDB.getEncodedUserPass()
+
+    var sortNr = repository.sortNrFormDB
+
+    val stuffData = repository.observableDataStuff
+    val repoListData = repository.observableDataRepo
+
 
     fun getDataWs() {
-        repository.getRepoData(mEncodedUserPass)
+        repository.getRepoData(repository.mEncodedUserPass)
     }
 
 }
