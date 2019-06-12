@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.databinding.ActivityRepoDetailsBinding
 import com.example.githubtraining.utill.LocalViewModelFactory
@@ -22,6 +23,11 @@ class RepoDetailsActivity : AppCompatActivity() {
 
         mViewModel.getRepoFromDBById(intent.getIntExtra(getString(R.string.idRepo), -1)).observe(this, Observer {
             if (it != null) {
+                if(it.private!!){
+                    mViewModel.mStatusRepository.set("private")
+                }else{
+                    mViewModel.mStatusRepository.set("public")
+                }
                 mViewModel.mNameRepository.set(it.name)
                 if (it.description == null) {
                     mViewModel.mDescriptionRepository.set(getString(R.string.no_description))
@@ -32,6 +38,8 @@ class RepoDetailsActivity : AppCompatActivity() {
             }
 
         })
+
+
     }
 
 }
