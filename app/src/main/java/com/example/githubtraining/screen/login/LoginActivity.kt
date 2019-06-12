@@ -3,11 +3,9 @@ package com.example.githubtraining.screen.login
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.content.res.Configuration
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
 import com.example.githubtraining.R
 import com.example.githubtraining.databinding.ActivityMainBinding
