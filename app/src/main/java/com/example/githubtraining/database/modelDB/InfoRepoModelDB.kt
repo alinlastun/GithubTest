@@ -1,18 +1,20 @@
 package com.example.githubtraining.database.modelDB
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
-@Entity(tableName = "repoInfo_table", indices = [android.arch.persistence.room.Index(value = ["id"], unique = true)])
+@Entity(tableName = "repoInfo_table",
+    foreignKeys = arrayOf(ForeignKey(entity = OwnerModelDB::class,
+    parentColumns = arrayOf("id"),
+    childColumns = arrayOf("ownerId"),
+    onDelete = ForeignKey.CASCADE)))
 
 data class InfoRepoModelDB(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_table")
-    var id_table: Int = 0,
-
     @ColumnInfo(name = "id")
     var id: Int?,
+
+    @ColumnInfo(name = "ownerId")
+    var ownerId: Int?,
 
     @ColumnInfo(name = "name")
     var name: String?,
@@ -35,5 +37,7 @@ data class InfoRepoModelDB(
     @ColumnInfo(name = "private")
     var private: Boolean?
 
-){constructor():this(0,0,"","","","","","",false)
+)
+{
+    constructor():this(0,0,"","","","","","",false)
 }
