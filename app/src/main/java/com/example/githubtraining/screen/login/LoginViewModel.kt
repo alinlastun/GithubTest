@@ -6,12 +6,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.util.Base64
 import com.example.githubtraining.utill.isValidEmail
+import okhttp3.Credentials
 
 
 class LoginViewModel(mContext: Context) : ViewModel() {
 
-    val mUser = ObservableField("alinlastun@gmail.com")
-    val mPassword = ObservableField("github@0306")
+    val mUser = ObservableField("")
+    val mPassword = ObservableField("")
     val mCredentialError = ObservableField("")
     private val mRepository = LoginRepository(this, mContext)
     val mSuccessLogin = MutableLiveData<Boolean>()
@@ -21,9 +22,7 @@ class LoginViewModel(mContext: Context) : ViewModel() {
 
     fun login() {
         if (isValidEmail() && isValidPassword()) {
-            val password = "${mUser.get()}:${mPassword.get()}"
-            val data = password.toByteArray(charset("UTF-8"))
-            encodedUserPass ="Basic "+ Base64.encodeToString(data, Base64.NO_WRAP)
+            encodedUserPass = Credentials.basic(mUser.get()!!, mPassword.get()!!)
             mRepository.login(encodedUserPass)
         }
     }
