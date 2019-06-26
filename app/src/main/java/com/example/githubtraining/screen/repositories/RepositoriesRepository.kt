@@ -15,12 +15,12 @@ class RepositoriesRepository(mContext: Context) {
 
     private val mRepositoryWS = RepositoryWs()
     private val mRepositoryUserDB = RepositoryUserDB(mContext)
-    private val mRepositoryRepoDB = RepositoryRepoDB(mContext)
+    private val mRepositoryRepoDB = RepositoryRepoDB()
     private val mRepositoryStuff = RepositoryStuffDB(mContext)
 
     var mEncodedUserPass:String = mRepositoryUserDB.getEncodedUserPass()
     var observableDataStuff = mRepositoryStuff.getStuffFromDB()
-    var observableDataRepo = mRepositoryRepoDB.getInfoRepoFromDB()
+    var observableDataRepo = mRepositoryRepoDB.getLiveDataInfoRepo()
     var sortNrFormDB = mRepositoryStuff.getSortNr()
 
 
@@ -33,7 +33,7 @@ class RepositoriesRepository(mContext: Context) {
 
     private fun successRepoList(repoList:MutableList<InfoRepoModelDB>){
         mRepositoryRepoDB.deleteInfoRepo()
-        mRepositoryRepoDB.insertInfoRepoIntoDB(repoList)
+        mRepositoryRepoDB.insertInfoRepo(repoList)
     }
 
     private fun errorRepoList(mError: Throwable){

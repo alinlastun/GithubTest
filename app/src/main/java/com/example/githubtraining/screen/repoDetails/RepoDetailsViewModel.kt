@@ -6,15 +6,15 @@ import android.content.Context
 import android.databinding.ObservableField
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 
-class RepoDetailsViewModel(mContext: Context): ViewModel() {
+class RepoDetailsViewModel: ViewModel() {
+
     val mNameRepository = ObservableField("")
     val mDescriptionRepository = ObservableField("")
     val mStatusRepository = ObservableField("")
-    val repository = RepoDetailsRepository(mContext)
 
 
     fun getRepoFromDBById(repoId:Int): LiveData<InfoRepoModelDB> {
-        return repository.getRepoById(repoId)
+        return RepoDetailsRepository.getRepoById(repoId)
     }
 
 

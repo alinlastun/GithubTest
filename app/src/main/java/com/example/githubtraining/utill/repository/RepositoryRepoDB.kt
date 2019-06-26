@@ -9,33 +9,30 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-class RepositoryRepoDB(mContext: Context) {
-    @Inject
-    lateinit var appDB:AppDataBase
+class RepositoryRepoDB @Inject constructor() :Repo{
 
+    @Inject lateinit var appDB:AppDataBase
 
-    init {
-        appComponent.inject(this)
+    init { appComponent.injectDatabase(this) }
+
+    override fun getInfoRepoById(repoId: Int): LiveData<InfoRepoModelDB> {
+        return appDB.daoInfoRepo().getRepoById(repoId)
     }
 
-    fun getInfoRepoFromDB() : LiveData<MutableList<InfoRepoModelDB>> {
-        return appDB.daoInfoRepo().getInfoRepo()
-    }
-
-    fun getInfoRepoFromDBList() : MutableList<InfoRepoModelDB> {
-        return appDB.daoInfoRepo().getInfoRepoList()
-    }
-
-    fun insertInfoRepoIntoDB(repoList: List<InfoRepoModelDB>) {
-        AddAsynTask(appDB).execute(repoList)
-    }
-
-    fun deleteInfoRepo(){
+    override fun deleteInfoRepo() {
         appDB.daoInfoRepo().deleteInfoRepo()
     }
 
-    fun getInfoRepoById(repoId:Int):LiveData<InfoRepoModelDB>{
-       return appDB.daoInfoRepo().getRepoById(repoId)
+    override fun getLiveDataInfoRepo(): LiveData<MutableList<InfoRepoModelDB>> {
+        return appDB.daoInfoRepo().getInfoRepo()
+    }
+
+    override fun getListInfoRepo(): MutableList<InfoRepoModelDB> {
+        return appDB.daoInfoRepo().getInfoRepoList()
+    }
+
+    override fun insertInfoRepo(repoList: List<InfoRepoModelDB>) {
+        AddAsynTask(appDB).execute(repoList)
     }
 
 

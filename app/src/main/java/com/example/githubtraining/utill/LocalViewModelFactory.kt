@@ -19,8 +19,6 @@ class LocalViewModelFactory(private val nContext: Context) : ViewModelProvider.F
             return SettingsViewModel(nContext) as T
         }else if (modelClass.isAssignableFrom(RepositoriesViewModel::class.java)) {
             return RepositoriesViewModel(nContext) as T
-        }else if (modelClass.isAssignableFrom(RepoDetailsViewModel::class.java)) {
-            return RepoDetailsViewModel(nContext) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")

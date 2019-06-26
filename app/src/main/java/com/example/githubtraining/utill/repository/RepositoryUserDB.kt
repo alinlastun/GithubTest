@@ -13,7 +13,7 @@ class RepositoryUserDB(mContext: Context) {
     lateinit var appDB:AppDataBase
 
     init {
-        appComponent.inject(this)
+        appComponent.injectDatabase(this)
     }
 
 

@@ -18,7 +18,7 @@ class RepoDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repo_details)
-        mViewModel = ViewModelProviders.of(this, LocalViewModelFactory(this)).get(RepoDetailsViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(RepoDetailsViewModel::class.java)
         mBinding.repoDetails = mViewModel
 
         mViewModel.getRepoFromDBById(intent.getIntExtra(getString(R.string.idRepo), -1)).observe(this, Observer {
