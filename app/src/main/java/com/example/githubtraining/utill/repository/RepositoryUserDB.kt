@@ -3,11 +3,19 @@ package com.example.githubtraining.utill.repository
 import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.os.AsyncTask
+import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
+import javax.inject.Inject
 
 class RepositoryUserDB(mContext: Context) {
-    private var appDB: AppDataBase = AppDataBase.getDataBase(mContext)
+    @Inject
+    lateinit var appDB:AppDataBase
+
+    init {
+        appComponent.inject(this)
+    }
+
 
     fun getInfoUserFromDB() : LiveData<MutableList<UserInformationModelDB>> {
         return appDB.daoInfoUser().getInfoUser()

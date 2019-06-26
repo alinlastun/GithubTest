@@ -13,16 +13,6 @@ import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
 @Database(entities = [(UserInformationModelDB::class),(InfoRepoModelDB::class),(StuffModelDB::class)], version =1, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
-    companion object {
-        private var INSTANCE: AppDataBase? = null
-        fun getDataBase(context: Context): AppDataBase {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, "data-db")
-                    .allowMainThreadQueries().build()
-            }
-            return INSTANCE as AppDataBase
-        }
-    }
 
     abstract fun daoInfoUser(): DaoInfoUser
     abstract fun daoInfoRepo(): DaoInfoRepo

@@ -3,18 +3,26 @@ package com.example.githubtraining.utill.repository
 import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.os.AsyncTask
+import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
+import javax.inject.Inject
 
-class RepositoryStuffDB(mContext: Context) {
-    private var appDB: AppDataBase = AppDataBase.getDataBase(mContext)
+open class RepositoryStuffDB(mContext: Context) {
+    @Inject
+    lateinit var appDB:AppDataBase
 
-    fun getStuffFromDB() : LiveData<StuffModelDB> {
+    init {
+        appComponent.inject(this)
+    }
+
+
+   open fun getStuffFromDB() : LiveData<StuffModelDB> {
         return appDB.daoStuff().getStuff()
     }
 
-    fun insertStuffIntoDB(stuffDB: StuffModelDB) {
+    open fun insertStuffIntoDB(stuffDB: StuffModelDB) {
         AddAsynTask(appDB).execute(stuffDB)
     }
 
@@ -22,15 +30,15 @@ class RepositoryStuffDB(mContext: Context) {
         appDB.daoStuff().deleteStuff()
     }
 
-    fun getSortNr():Int{
+    open  fun getSortNr():Int{
         return appDB.daoStuff().getSortNumber()
     }
 
-    fun getRadioButtonId():Int{
+    open fun getRadioButtonId():Int{
         return appDB.daoStuff().getRadioBtnId()
     }
 
-    fun upDateSort(sortItem:Int){
+    open fun upDateSort(sortItem:Int){
         appDB.daoStuff().updateSort(sortItem)
     }
 
