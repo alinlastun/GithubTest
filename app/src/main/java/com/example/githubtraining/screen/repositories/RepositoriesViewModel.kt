@@ -17,8 +17,8 @@ class RepositoriesViewModel(mContext: Context) : ViewModel() {
     val repoListData = repository.observableDataRepo
 
 
-    fun getDataWs() {
-        repository.getRepoData(repository.mEncodedUserPass)
+    fun getDataWs(encodePass:String) {
+        repository.getRepoData(encodePass)
     }
 
 }

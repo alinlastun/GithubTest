@@ -1,6 +1,5 @@
 package com.example.githubtraining.utill
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context

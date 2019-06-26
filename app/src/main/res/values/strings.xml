@@ -43,6 +43,9 @@
     <string name="organization_member">Organization Member</string>
     <string name="ok">OK</string>
 
+    <string name="sharedPrefToken">token</string>
+    <string name="sharedPrefNoToken">no token</string>
+
 
 
 </resources>

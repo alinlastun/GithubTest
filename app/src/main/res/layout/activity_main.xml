@@ -8,6 +8,7 @@
                 type="com.example.githubtraining.screen.login.LoginViewModel"/>
     </data>
     <android.support.v4.widget.NestedScrollView
+            android:id="@+id/mLoginContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
