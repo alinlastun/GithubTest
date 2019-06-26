@@ -13,6 +13,9 @@ interface DaoInfoUser {
     @Query("select * from userInfo_table")
     fun getInfoUser(): LiveData<MutableList<UserInformationModelDB>>
 
+    @Query("select * from userInfo_table")
+    fun getListOfInfoUser(): MutableList<UserInformationModelDB>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInfoUser(infoUserDB: UserInformationModelDB)
 

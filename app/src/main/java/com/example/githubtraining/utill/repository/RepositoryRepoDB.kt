@@ -14,12 +14,20 @@ class RepositoryRepoDB(mContext: Context) {
         return appDB.daoInfoRepo().getInfoRepo()
     }
 
+    fun getInfoRepoFromDBList() : MutableList<InfoRepoModelDB> {
+        return appDB.daoInfoRepo().getInfoRepoList()
+    }
+
     fun insertInfoRepoIntoDB(repoList: List<InfoRepoModelDB>) {
         AddAsynTask(appDB).execute(repoList)
     }
 
     fun deleteInfoRepo(){
         appDB.daoInfoRepo().deleteInfoRepo()
+    }
+
+    fun getInfoRepoById(repoId:Int):LiveData<InfoRepoModelDB>{
+       return appDB.daoInfoRepo().getRepoById(repoId)
     }
 
 

@@ -13,6 +13,11 @@ class RepositoryUserDB(mContext: Context) {
         return appDB.daoInfoUser().getInfoUser()
     }
 
+    fun getListOfInfoUser():MutableList<UserInformationModelDB>{
+        return appDB.daoInfoUser().getListOfInfoUser()
+    }
+
+
     fun insertInfoUserIntoDB(movieDB: UserInformationModelDB) {
         AddAsynTask(appDB).execute(movieDB)
     }

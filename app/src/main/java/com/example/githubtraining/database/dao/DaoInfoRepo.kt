@@ -14,9 +14,15 @@ interface DaoInfoRepo {
     @Query("select * from repoInfo_table")
     fun getInfoRepo(): LiveData<MutableList<InfoRepoModelDB>>
 
+    @Query("select * from repoInfo_table")
+    fun getInfoRepoList(): MutableList<InfoRepoModelDB>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInfoRepo(infoRepoDB:  List<InfoRepoModelDB>)
 
     @Query("delete from repoInfo_table")
     fun deleteInfoRepo()
+
+    @Query("select * from repoInfo_table where id in (:id)")
+    fun getRepoById(id: Int): LiveData<InfoRepoModelDB>
 }

@@ -18,6 +18,7 @@ class InfoUserViewModel(mContext:Context) : ViewModel() {
 
     private val mRepository = RepositoryUserDB(mContext)
     var mValuesDataBase = mRepository.getInfoUserFromDB()
+    val mListInfoUser = mRepository.getListOfInfoUser()
 
     fun deleteInfoUserFromDB(){
         mRepository.deleteInfoUser()

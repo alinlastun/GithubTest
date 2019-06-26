@@ -1,6 +1,7 @@
 package com.example.githubtraining.screen.login
 
 import android.content.Context
+import android.util.Log
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -23,8 +24,7 @@ class LoginRepository(private val mViewModel: LoginViewModel, mContext: Context)
 
 
     private fun successLogin(userInfo: UserInformationModelDB) {
-        userInfo.isLogin=true
-        userInfo.encodedUserPass= mViewModel.encodedUserPass
+        Log.d("userInfo",userInfo.avatar_url)
         repositoryDB.insertInfoUserIntoDB(userInfo)
         mViewModel.mSuccessLogin.value = true
     }
@@ -38,6 +38,7 @@ class LoginRepository(private val mViewModel: LoginViewModel, mContext: Context)
                 mViewModel.mErrorLogin.value = true
             }
         } else if (mError.message?.contains("No address associated with hostname")!!) {
+            mViewModel.mCredentialError.set("No Internet Connection!!")
             mViewModel.mErrorLogin.value = true
         }
 

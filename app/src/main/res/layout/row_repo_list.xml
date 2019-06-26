@@ -4,21 +4,26 @@
 >
     <data>
         <import type="android.view.View"/>
-        <variable name="model" type="com.example.githubtraining.model.RepoModel"/>
+        <variable name="viewModel" type="com.example.githubtraining.screen.repositories.RepositoriesViewModel"/>
+        <variable name="model" type="com.example.githubtraining.database.modelDB.InfoRepoModelDB"/>
+        <variable name="model2" type="com.example.githubtraining.database.modelDB.UserInformationModelDB"/>
         <variable name="repoActivity" type="com.example.githubtraining.screen.repositories.RepositoriesActivity"/>
     </data>
 
 <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-
+        android:background="@drawable/btn_row_list"
+        android:onClick="@{() -> repoActivity.onItemRepoClicked(model.id)}"
 >
-<!--android:onClick="@{() -> repoActivity.onItemRepoClicked(model.id)}"
--->
-    <TextView
 
+    <TextView
+            android:text="@{viewModel.stuffData.sort==3 ? model.full_name : model.name}"
             android:id="@+id/nTVList"
             android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="wrap_content"

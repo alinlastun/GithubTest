@@ -19,7 +19,11 @@
     <string name="contact_by_email">Contact by email</string>
     <string name="title_activity_repositories">RepositoriesActivity</string>
 
+    //Intent string
     <string name="intent_repo">UserName</string>
+    <string name="idRepo">idRepo</string>
+
+
     <string name="settings">SETTINGS</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="affiliation">Affiliation</string>
@@ -30,6 +34,18 @@
     <string name="status_repository">Status Repository</string>
     <string name="name_repository">Name Repository</string>
     <string name="details_repository">Details Repository</string>
+    <string name="pushed">Pushed</string>
+    <string name="full_name">Full Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_description">No description</string>
+    <string name="owner">Owner</string>
+    <string name="collaborator">Collaborator</string>
+    <string name="organization_member">Organization Member</string>
+    <string name="ok">OK</string>
+
+    <string name="sharedPrefToken">token</string>
+    <string name="sharedPrefNoToken">no token</string>
+
 
 
 </resources>

@@ -5,69 +5,73 @@
     <data>
         <variable
                 name="login"
-                type="com.example.githubtraining.screen.login.LoginViewModel" />
+                type="com.example.githubtraining.screen.login.LoginViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
-            xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v4.widget.NestedScrollView
+            android:id="@+id/mLoginContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:showIn="@layout/activity_main"
-            tools:context=".screen.login.LoginActivity">
+            android:layout_height="match_parent">
 
-        <ImageView
-                android:id="@+id/nImageGithub"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@mipmap/octocat"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="150dp"
 
-        />
+        <android.support.constraint.ConstraintLayout
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:showIn="@layout/activity_main"
+                tools:context=".screen.login.LoginActivity">
 
-        <EditText
-                android:id="@+id/nUsername"
-                android:layout_width="wrap_content"
-                android:background="@null"
-                android:hint="@string/hint_username"
-                android:text="@={login.MUser}"
-                android:inputType="textEmailAddress"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@+id/nImageGithub"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-        />
+            <ImageView
+                    android:id="@+id/nImageGithub"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@mipmap/octocat"
+                    tools:ignore="MissingConstraints"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="150dp"/>
 
-        <EditText
-                android:id="@+id/nPassword"
-                android:layout_width="wrap_content"
-                android:background="@null"
-                android:hint="@string/hint_password"
-                android:text="@={login.MPassword}"
-                android:inputType="textPassword"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@+id/nUsername"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-        />
+            <EditText
+                    android:id="@+id/nUsername"
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_username"
+                    android:text="@={login.MUser}"
+                    android:inputType="textEmailAddress"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints"
+                    app:layout_constraintTop_toBottomOf="@+id/nImageGithub"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <Button
-                android:id="@+id/nBtnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                android:text="@string/login"
-                android:background="@drawable/btn_login"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nPassword"/>
+            <EditText
+                    android:id="@+id/nPassword"
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/hint_password"
+                    android:text="@={login.MPassword}"
+                    android:inputType="textPassword"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints"
+                    app:layout_constraintTop_toBottomOf="@+id/nUsername"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                    android:id="@+id/nBtnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/login"
+                    android:background="@drawable/btn_login"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nPassword"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 </layout>

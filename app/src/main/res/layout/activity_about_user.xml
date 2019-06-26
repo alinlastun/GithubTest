@@ -12,203 +12,204 @@
                 name="activity"
                 type="com.example.githubtraining.screen.infoUser.InfoUserActivity"/>
     </data>
+
     <android.support.constraint.ConstraintLayout
+            android:id="@+id/mInfoUserContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".screen.infoUser.InfoUserActivity"
-            android:layout_margin="5dp"
-    >
+            tools:context=".screen.infoUser.InfoUserActivity" >
 
-        <ImageView
-                android:id="@+id/nAvatarImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+
+        <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintTop_toTopOf="parent"
-                app:picture_url="@{aboutUser.mUrlAvatar}"
+                app:layout_constraintBottom_toTopOf="@id/nContainerButtomButtons" >
 
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
 
-        />
+                <ImageView
+                        android:id="@+id/nAvatarImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:ignore="MissingConstraints"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:picture_url="@{aboutUser.mUrlAvatar}" />
 
-        <TextView
-                android:id="@+id/nBioHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bio"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@id/nAvatarImage"
-        />
-        <TextView
-                android:id="@+id/nBioText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{aboutUser.mBio}"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@id/nBioHeader"
-        />
+                <TextView
+                        android:id="@+id/nBioHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bio"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:ignore="MissingConstraints"
+                        app:layout_constraintTop_toBottomOf="@id/nAvatarImage"/>
+                <TextView
+                        android:id="@+id/nBioText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{aboutUser.mBio}"
+                        tools:ignore="MissingConstraints"
+                        app:layout_constraintTop_toBottomOf="@id/nBioHeader"/>
 
-        <TextView
-                android:id="@+id/nLocationHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/nBioText"
-        />
+                <TextView
+                        android:id="@+id/nLocationHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/nBioText"/>
 
-        <TextView
-                android:id="@+id/nLocationText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{aboutUser.MLocation}"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@id/nBioText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nLocationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{aboutUser.MLocation}"
+                        tools:ignore="MissingConstraints"
+                        app:layout_constraintTop_toBottomOf="@id/nBioText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
 
-        <TextView
-                android:id="@+id/nEmailHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nLocationText"
-        />
+                <TextView
+                        android:id="@+id/nEmailHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nLocationText"/>
 
-        <TextView
-                android:id="@+id/nEmailText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{aboutUser.MEmail}"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nLocationText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nEmailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{aboutUser.MEmail}"
+                        tools:ignore="MissingConstraints"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nLocationText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
 
-        <TextView
-                android:id="@+id/nCreatedHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/created"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nEmailText"
-        />
+                <TextView
+                        android:id="@+id/nCreatedHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/created"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nEmailText"/>
 
-        <TextView
-                android:id="@+id/nCreatedText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{aboutUser.MCreated}"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nEmailText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nCreatedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{aboutUser.MCreated}"
+                        tools:ignore="MissingConstraints"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nEmailText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
 
-        <TextView
-                android:id="@+id/nUpdatedHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/updated"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nCreatedText"
-        />
+                <TextView
+                        android:id="@+id/nUpdatedHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/updated"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nCreatedText"/>
 
-        <TextView
-                android:id="@+id/nUpdatedText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{aboutUser.MUpdated}"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nCreatedText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nUpdatedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{aboutUser.MUpdated}"
+                        tools:ignore="MissingConstraints"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nCreatedText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
 
-        <TextView
-                android:id="@+id/nPublicRepoHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/public_repo"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nUpdatedText"
-        />
+                <TextView
+                        android:id="@+id/nPublicRepoHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/public_repo"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nUpdatedText"/>
 
-        <TextView
-                android:id="@+id/nPublicRepoText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                android:text="@{String.valueOf(aboutUser.MPublicRepo)}"
-                app:layout_constraintTop_toBottomOf="@id/nUpdatedText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nPublicRepoText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:ignore="MissingConstraints"
+                        android:layout_marginTop="10dp"
+                        android:text="@{String.valueOf(aboutUser.MPublicRepo)}"
+                        app:layout_constraintTop_toBottomOf="@id/nUpdatedText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
 
-        <TextView
-                android:id="@+id/nPrivateRepoHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/private_repo"
-                tools:ignore="MissingConstraints"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nPublicRepoText"
-        />
+                <TextView
+                        android:id="@+id/nPrivateRepoHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/private_repo"
+                        tools:ignore="MissingConstraints"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nPublicRepoText"/>
 
-        <TextView
-                android:id="@+id/nPrivateRepoText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(aboutUser.MPrivateRepo)}"
-                tools:ignore="MissingConstraints"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/nPublicRepoText"
-                app:layout_constraintRight_toRightOf="parent"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#0963AD"
-        />
+                <TextView
+                        android:id="@+id/nPrivateRepoText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(aboutUser.MPrivateRepo)}"
+                        tools:ignore="MissingConstraints"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/nPublicRepoText"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0963AD"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
 
         <android.support.constraint.ConstraintLayout
+                android:id="@+id/nContainerButtomButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"
-                app:layout_constraintBottom_toBottomOf="parent"
-        >
+                app:layout_constraintBottom_toBottomOf="parent">
 
             <android.support.constraint.ConstraintLayout
                     android:id="@+id/nViewRepo"
@@ -224,8 +225,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                >
+                        app:layout_constraintRight_toRightOf="parent">
 
                     <ImageView
                             android:id="@+id/dbImage"
@@ -233,8 +233,7 @@
                             android:layout_height="20dp"
                             android:src="@drawable/ic_download_button"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -243,8 +242,7 @@
                             android:layout_marginLeft="10sp"
                             app:layout_constraintLeft_toRightOf="@id/dbImage"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
                 </android.support.constraint.ConstraintLayout>

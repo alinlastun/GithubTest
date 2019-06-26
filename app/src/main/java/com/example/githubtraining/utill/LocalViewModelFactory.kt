@@ -1,11 +1,11 @@
 package com.example.githubtraining.utill
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import com.example.githubtraining.screen.infoUser.InfoUserViewModel
 import com.example.githubtraining.screen.login.LoginViewModel
+import com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.screen.repositories.RepositoriesViewModel
 import com.example.githubtraining.screen.settings.SettingsViewModel
 
@@ -19,6 +19,8 @@ class LocalViewModelFactory(private val nContext: Context) : ViewModelProvider.F
             return SettingsViewModel(nContext) as T
         }else if (modelClass.isAssignableFrom(RepositoriesViewModel::class.java)) {
             return RepositoriesViewModel(nContext) as T
+        }else if (modelClass.isAssignableFrom(RepoDetailsViewModel::class.java)) {
+            return RepoDetailsViewModel(nContext) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")

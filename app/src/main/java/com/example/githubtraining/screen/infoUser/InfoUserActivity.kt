@@ -3,6 +3,7 @@ package com.example.githubtraining.screen.infoUser
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -11,13 +12,20 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.githubtraining.R
+import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivityAboutUserBinding
+import com.example.githubtraining.isInternetConnection
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.repositories.RepositoriesActivity
 import com.example.githubtraining.utill.LocalViewModelFactory
+import com.example.githubtraining.utill.Tools
+import kotlinx.android.synthetic.main.activity_about_user.*
+import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
-
+    @Inject
+    lateinit var pref: SharedPreferences
     private lateinit var mViewModel: InfoUserViewModel
     private lateinit var mBinding: ActivityAboutUserBinding
     private var userName = ""
@@ -29,6 +37,7 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_about_user)
         mBinding.aboutUser = mViewModel
         mBinding.activity = this
+        appComponent.inject(this)
 
         mViewModel.mValuesDataBase.observe(this, Observer {
             if(it!=null){
@@ -47,6 +56,12 @@ class InfoUserActivity : AppCompatActivity() {
 
         })
 
+        if(!isInternetConnection){
+             if(mViewModel.mListInfoUser.size>0){
+                Tools().showSnackBar(mInfoUserContainer)
+            }
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,9 +73,9 @@ class InfoUserActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 mViewModel.deleteInfoUserFromDB()
+                pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))
                 startActivity(Intent(this,LoginActivity::class.java))
                 finish()
-                Log.d("Adfasd","daaaa")
                 return true
             }
             else -> super.onOptionsItemSelected(item)
