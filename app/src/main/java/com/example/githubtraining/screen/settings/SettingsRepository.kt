@@ -8,9 +8,11 @@ import com.example.githubtraining.utill.repository.RepositoryWs
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class SettingsRepository(mContext:Context) {
-    var mRepositorDB = RepositoryStuffDB(mContext)
+    @Inject
+    lateinit var mRepositorDB: RepositoryStuffDB
     var radioBtnIdFormDB = mRepositorDB.getRadioButtonId()
 
 

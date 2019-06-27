@@ -10,10 +10,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import javax.inject.Inject
 
 class LoginRepository(private val mViewModel: LoginViewModel, mContext: Context) {
     private val repositoryWS = RepositoryWs()
-    private val repositoryDB = RepositoryUserDB(mContext)
+
+    @Inject
+    lateinit var repositoryDB : RepositoryUserDB
+
 
     fun login(userPass: String): Disposable {
         return repositoryWS.loginUser(userPass)

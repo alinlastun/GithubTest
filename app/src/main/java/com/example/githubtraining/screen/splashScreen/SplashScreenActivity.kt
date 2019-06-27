@@ -1,6 +1,5 @@
 package com.example.githubtraining.screen.splashScreen
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
-import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.screen.infoUser.InfoUserActivity
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.login.LoginViewModel
@@ -27,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        appComponent.inject(this)
+        appComponent.injectSP(this)
         mViewModel = ViewModelProviders.of(this, LocalViewModelFactory(this)).get(LoginViewModel::class.java)
 
         token = pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))

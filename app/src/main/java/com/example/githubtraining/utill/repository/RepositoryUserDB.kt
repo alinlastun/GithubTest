@@ -8,13 +8,7 @@ import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-class RepositoryUserDB(mContext: Context) {
-    @Inject
-    lateinit var appDB:AppDataBase
-
-    init {
-        appComponent.injectDatabase(this)
-    }
+class RepositoryUserDB @Inject constructor(private val appDB:AppDataBase) {
 
 
     fun getInfoUserFromDB() : LiveData<MutableList<UserInformationModelDB>> {

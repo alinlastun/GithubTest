@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.githubtraining.dagger.component.AppComponent
 import com.example.githubtraining.dagger.component.DaggerAppComponent
 import com.example.githubtraining.dagger.module.AppDataBaseModule
+import com.example.githubtraining.dagger.module.ApplicationContextModule
 import com.example.githubtraining.dagger.module.SharedPreferencesModule
 
 lateinit var appComponent: AppComponent
@@ -15,9 +16,9 @@ class MainApplication : Application() {
         super.onCreate()
 
         appComponent = DaggerAppComponent.builder()
-            .sharedPreferencesModule(SharedPreferencesModule(this))
-            .appDataBaseModule(AppDataBaseModule(this))
+            .applicationContextModule(ApplicationContextModule(this))
             .build()
+
 
 
     }

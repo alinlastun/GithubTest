@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.githubtraining.R
@@ -20,7 +19,6 @@ import com.example.githubtraining.screen.repositories.RepositoriesActivity
 import com.example.githubtraining.utill.LocalViewModelFactory
 import com.example.githubtraining.utill.Tools
 import kotlinx.android.synthetic.main.activity_about_user.*
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
@@ -37,7 +35,7 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_about_user)
         mBinding.aboutUser = mViewModel
         mBinding.activity = this
-        appComponent.inject(this)
+        appComponent.injectSP(this)
 
         mViewModel.mValuesDataBase.observe(this, Observer {
             if(it!=null){

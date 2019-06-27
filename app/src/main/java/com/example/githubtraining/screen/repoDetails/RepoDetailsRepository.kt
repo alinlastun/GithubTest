@@ -7,12 +7,7 @@ import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import javax.inject.Inject
 
 
- object RepoDetailsRepository {
+ class RepoDetailsRepository @Inject constructor(private val repositoryRepoDB: RepositoryRepoDB) {
 
-    var repositoryRepoDB: RepositoryRepoDB = appComponent.getRepositoryRepoDB()
-        @Inject set
-
-    fun getRepoById(repoId:Int): LiveData<InfoRepoModelDB> {
-        return repositoryRepoDB.getInfoRepoById(repoId)
-    }
+    fun getRepoById(repoId:Int): LiveData<InfoRepoModelDB> = repositoryRepoDB.getInfoRepoById(repoId)
 }

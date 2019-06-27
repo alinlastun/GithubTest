@@ -3,6 +3,7 @@ package com.example.githubtraining.screen.repositories
 import android.content.Context
 import android.util.Log
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.screen.repoDetails.RepoDetailsRepository
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -10,13 +11,11 @@ import com.example.githubtraining.utill.repository.RepositoryWs
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepositoriesRepository(mContext: Context) {
+class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB,private val mRepositoryUserDB: RepositoryUserDB,private val mRepositoryStuff: RepositoryStuffDB) {
 
     private val mRepositoryWS = RepositoryWs()
-    private val mRepositoryUserDB = RepositoryUserDB(mContext)
-    private val mRepositoryRepoDB = RepositoryRepoDB()
-    private val mRepositoryStuff = RepositoryStuffDB(mContext)
 
     var mEncodedUserPass:String = mRepositoryUserDB.getEncodedUserPass()
     var observableDataStuff = mRepositoryStuff.getStuffFromDB()

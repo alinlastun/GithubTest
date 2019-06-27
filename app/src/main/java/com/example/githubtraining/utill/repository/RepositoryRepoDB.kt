@@ -9,11 +9,8 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-class RepositoryRepoDB @Inject constructor() :Repo{
+class RepositoryRepoDB @Inject constructor(private val appDB:AppDataBase) :Repo{
 
-    @Inject lateinit var appDB:AppDataBase
-
-    init { appComponent.injectDatabase(this) }
 
     override fun getInfoRepoById(repoId: Int): LiveData<InfoRepoModelDB> {
         return appDB.daoInfoRepo().getRepoById(repoId)

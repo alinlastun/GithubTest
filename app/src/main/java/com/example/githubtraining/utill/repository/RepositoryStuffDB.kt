@@ -9,14 +9,7 @@ import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-open class RepositoryStuffDB(mContext: Context) {
-    @Inject
-    lateinit var appDB:AppDataBase
-
-    init {
-        appComponent.injectDatabase(this)
-    }
-
+open class RepositoryStuffDB @Inject constructor(private val appDB:AppDataBase) {
 
    open fun getStuffFromDB() : LiveData<StuffModelDB> {
         return appDB.daoStuff().getStuff()

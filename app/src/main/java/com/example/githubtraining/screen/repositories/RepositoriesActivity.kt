@@ -33,7 +33,7 @@ class RepositoriesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
         mViewModel =ViewModelProviders.of(this, LocalViewModelFactory(this)).get(RepositoriesViewModel::class.java)
-        appComponent.inject(this)
+        appComponent.injectSP(this)
 
         if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=null){
             mViewModel.getDataWs((pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)))!!)
