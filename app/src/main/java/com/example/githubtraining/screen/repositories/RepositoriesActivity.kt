@@ -1,6 +1,7 @@
 package com.example.githubtraining.screen.repositories
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,9 +15,9 @@ import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
 import com.example.githubtraining.screen.settings.SettingsActivity
-import com.example.githubtraining.utill.LocalViewModelFactory
 import com.example.githubtraining.utill.Sort
 import com.example.githubtraining.utill.SortType
+import com.example.githubtraining.utill.ViewModelFactory
 import com.example.githubtraining.utill.setRepoAdapter
 import kotlinx.android.synthetic.main.activity_repositories.*
 import javax.inject.Inject
@@ -27,13 +28,16 @@ class RepositoriesActivity : AppCompatActivity() {
     lateinit var pref: SharedPreferences
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList :MutableList<InfoRepoModelDB> = arrayListOf()
+    @Inject lateinit var factory: ViewModelProvider.Factory
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
-        mViewModel =ViewModelProviders.of(this, LocalViewModelFactory(this)).get(RepositoriesViewModel::class.java)
-        appComponent.injectSP(this)
+
+        appComponent.inject(this)
+
+        mViewModel =ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
         if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=null){
             mViewModel.getDataWs((pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)))!!)

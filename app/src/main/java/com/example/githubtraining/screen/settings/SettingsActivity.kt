@@ -1,5 +1,6 @@
 package com.example.githubtraining.screen.settings
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,24 +13,24 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.StuffModelDB
-import com.example.githubtraining.utill.LocalViewModelFactory
+import com.example.githubtraining.utill.ViewModelFactory
 import android.widget.CheckBox
-
-
-
-
+import com.example.githubtraining.databinding.ActivitySettingsBinding
+import javax.inject.Inject
 
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
-
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
-    private lateinit var mBinding: com.example.githubtraining.databinding.ActivitySettingsBinding
+    private lateinit var mBinding: ActivitySettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         mBinding.activity = this
-        mViewModel = ViewModelProviders.of(this, LocalViewModelFactory(this)).get(SettingsViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)
 
     }
 

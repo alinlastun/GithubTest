@@ -8,14 +8,8 @@ import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import javax.inject.Inject
 
-class RepoDetailsViewModel: ViewModel() {
+class RepoDetailsViewModel @Inject constructor(private val repo:RepoDetailsRepository): ViewModel() {
 
-    @Inject
-    lateinit var repo:RepoDetailsRepository
-
-    init {
-        appComponent.injectRepoDetailsViewModel(this)
-    }
 
     val mNameRepository = ObservableField("")
     val mDescriptionRepository = ObservableField("")

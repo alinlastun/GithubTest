@@ -1,5 +1,6 @@
 package com.example.githubtraining.screen.splashScreen
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,35 +12,35 @@ import com.example.githubtraining.appComponent
 import com.example.githubtraining.screen.infoUser.InfoUserActivity
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.login.LoginViewModel
-import com.example.githubtraining.utill.LocalViewModelFactory
+import com.example.githubtraining.utill.ViewModelFactory
 import javax.inject.Inject
 
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var pref:SharedPreferences
+    @Inject lateinit var pref:SharedPreferences
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: LoginViewModel
     private var token:String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        appComponent.injectSP(this)
-        mViewModel = ViewModelProviders.of(this, LocalViewModelFactory(this)).get(LoginViewModel::class.java)
+        appComponent.inject(this)
+        mViewModel = ViewModelProviders.of(this,factory).get(LoginViewModel::class.java)
 
         token = pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))
 
 
-        Log.d("asdfasd",token)
+        Log.d("asdf",token)
         if(token!=getString(R.string.sharedPrefNoToken)){
-            Log.d("asdfasd","1")
+            Log.d("asdf","1: "  )
             mViewModel.login(token!!)
             startActivity(Intent(this, InfoUserActivity::class.java))
             finish()
 
         }else{
-            Log.d("asdfasd","2")
+            Log.d("asdf","2")
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }

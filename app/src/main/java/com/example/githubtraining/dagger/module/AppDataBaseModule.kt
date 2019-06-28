@@ -12,7 +12,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppDataBaseModule() {
+class AppDataBaseModule {
 
     private lateinit var appDataBase : AppDataBase
 

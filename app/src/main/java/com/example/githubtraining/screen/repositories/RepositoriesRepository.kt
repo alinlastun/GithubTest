@@ -1,9 +1,7 @@
 package com.example.githubtraining.screen.repositories
 
-import android.content.Context
 import android.util.Log
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.screen.repoDetails.RepoDetailsRepository
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -13,7 +11,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB,private val mRepositoryUserDB: RepositoryUserDB,private val mRepositoryStuff: RepositoryStuffDB) {
+class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB, mRepositoryUserDB: RepositoryUserDB, mRepositoryStuff: RepositoryStuffDB) {
 
     private val mRepositoryWS = RepositoryWs()
 

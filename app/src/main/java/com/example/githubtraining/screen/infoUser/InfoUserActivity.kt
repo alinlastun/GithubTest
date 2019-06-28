@@ -1,6 +1,7 @@
 package com.example.githubtraining.screen.infoUser
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,6 +9,7 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.githubtraining.R
@@ -16,14 +18,14 @@ import com.example.githubtraining.databinding.ActivityAboutUserBinding
 import com.example.githubtraining.isInternetConnection
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.repositories.RepositoriesActivity
-import com.example.githubtraining.utill.LocalViewModelFactory
 import com.example.githubtraining.utill.Tools
+import com.example.githubtraining.utill.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_about_user.*
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
-    @Inject
-    lateinit var pref: SharedPreferences
+    @Inject lateinit var pref: SharedPreferences
+    @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: InfoUserViewModel
     private lateinit var mBinding: ActivityAboutUserBinding
     private var userName = ""
@@ -31,11 +33,12 @@ class InfoUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_user)
-        mViewModel = ViewModelProviders.of(this, LocalViewModelFactory(this)).get(InfoUserViewModel::class.java)
+        appComponent.inject(this)
+        mViewModel = ViewModelProviders.of(this, factory).get(InfoUserViewModel::class.java)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_about_user)
         mBinding.aboutUser = mViewModel
         mBinding.activity = this
-        appComponent.injectSP(this)
+
 
         mViewModel.mValuesDataBase.observe(this, Observer {
             if(it!=null){
@@ -72,6 +75,7 @@ class InfoUserActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 mViewModel.deleteInfoUserFromDB()
                 pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))
+                Log.d("Asdfasdf", pref.edit().toString())
                 startActivity(Intent(this,LoginActivity::class.java))
                 finish()
                 return true

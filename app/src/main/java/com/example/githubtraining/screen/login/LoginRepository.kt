@@ -1,6 +1,5 @@
 package com.example.githubtraining.screen.login
 
-import android.content.Context
 import android.util.Log
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
@@ -12,11 +11,10 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class LoginRepository(private val mViewModel: LoginViewModel, mContext: Context) {
-    private val repositoryWS = RepositoryWs()
+class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB) {
 
-    @Inject
-    lateinit var repositoryDB : RepositoryUserDB
+    lateinit var mViewModel:LoginViewModel
+    private val repositoryWS = RepositoryWs()
 
 
     fun login(userPass: String): Disposable {
@@ -28,20 +26,23 @@ class LoginRepository(private val mViewModel: LoginViewModel, mContext: Context)
 
 
     private fun successLogin(userInfo: UserInformationModelDB) {
-        Log.d("userInfo",userInfo.avatar_url)
         repositoryDB.insertInfoUserIntoDB(userInfo)
         mViewModel.mSuccessLogin.value = true
+        Log.d("asdfasdf","success")
     }
 
     private fun errorLogin(mError: Throwable) {
+        Log.d("asdfasdf","error " + mError.message)
         if (mError is HttpException) {
             val mErrorModel =
                 com.google.gson.Gson().fromJson(mError.response().errorBody()!!.string(), LoginModelError::class.java)
             if (mError.code() == 401) {
+                Log.d("asdfasdf","" + mErrorModel.message)
                 mViewModel.mCredentialError.set(mErrorModel.message)
                 mViewModel.mErrorLogin.value = true
             }
         } else if (mError.message?.contains("No address associated with hostname")!!) {
+            Log.d("asdfasdf","" + mError.message)
             mViewModel.mCredentialError.set("No Internet Connection!!")
             mViewModel.mErrorLogin.value = true
         }

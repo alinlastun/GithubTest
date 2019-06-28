@@ -7,14 +7,7 @@ import com.example.githubtraining.appComponent
 import com.example.githubtraining.utill.repository.RepositoryUserDB
 import javax.inject.Inject
 
-class InfoUserViewModel(mContext:Context) : ViewModel() {
-
-    @Inject
-    lateinit var mRepository: RepositoryUserDB
-
-    init {
-        appComponent.injectInfoUserViewModel(this)
-    }
+class InfoUserViewModel @Inject constructor(private val mRepository: RepositoryUserDB) : ViewModel() {
 
     val mUrlAvatar = ObservableField("")
     val mBio = ObservableField("")
