@@ -17,7 +17,8 @@ class LoginRepository  @Inject constructor (private val repositoryDB : Repositor
     private val repositoryWS = RepositoryWs()
 
 
-    fun login(userPass: String): Disposable {
+    fun login(userPass: String,mViewModel:LoginViewModel): Disposable {
+        this.mViewModel=mViewModel
         return repositoryWS.loginUser(userPass)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -28,21 +29,18 @@ class LoginRepository  @Inject constructor (private val repositoryDB : Repositor
     private fun successLogin(userInfo: UserInformationModelDB) {
         repositoryDB.insertInfoUserIntoDB(userInfo)
         mViewModel.mSuccessLogin.value = true
-        Log.d("asdfasdf","success")
     }
 
     private fun errorLogin(mError: Throwable) {
-        Log.d("asdfasdf","error " + mError.message)
+
         if (mError is HttpException) {
             val mErrorModel =
                 com.google.gson.Gson().fromJson(mError.response().errorBody()!!.string(), LoginModelError::class.java)
             if (mError.code() == 401) {
-                Log.d("asdfasdf","" + mErrorModel.message)
                 mViewModel.mCredentialError.set(mErrorModel.message)
                 mViewModel.mErrorLogin.value = true
             }
         } else if (mError.message?.contains("No address associated with hostname")!!) {
-            Log.d("asdfasdf","" + mError.message)
             mViewModel.mCredentialError.set("No Internet Connection!!")
             mViewModel.mErrorLogin.value = true
         }

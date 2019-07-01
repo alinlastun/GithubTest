@@ -3,9 +3,7 @@ package com.example.githubtraining
 import android.app.Application
 import com.example.githubtraining.dagger.component.AppComponent
 import com.example.githubtraining.dagger.component.DaggerAppComponent
-import com.example.githubtraining.dagger.module.AppDataBaseModule
 import com.example.githubtraining.dagger.module.ApplicationContextModule
-import com.example.githubtraining.dagger.module.SharedPreferencesModule
 
 lateinit var appComponent: AppComponent
 var isInternetConnection = false

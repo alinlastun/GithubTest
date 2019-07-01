@@ -74,8 +74,8 @@ class InfoUserActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 mViewModel.deleteInfoUserFromDB()
-                pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))
-                Log.d("Asdfasdf", pref.edit().toString())
+                mViewModel.deleteInfoRepo()
+                pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)).apply()
                 startActivity(Intent(this,LoginActivity::class.java))
                 finish()
                 return true

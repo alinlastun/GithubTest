@@ -15,6 +15,7 @@ import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.utill.ViewModelFactory
 import android.widget.CheckBox
+import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivitySettingsBinding
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        appComponent.inject(this)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         mBinding.activity = this
         mViewModel = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)

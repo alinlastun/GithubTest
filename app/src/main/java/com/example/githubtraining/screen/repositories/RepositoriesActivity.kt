@@ -18,25 +18,26 @@ import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.utill.Sort
 import com.example.githubtraining.utill.SortType
 import com.example.githubtraining.utill.ViewModelFactory
+import com.example.githubtraining.utill.loading.Loading
 import com.example.githubtraining.utill.setRepoAdapter
 import kotlinx.android.synthetic.main.activity_repositories.*
 import javax.inject.Inject
 
 
 class RepositoriesActivity : AppCompatActivity() {
-    @Inject
-    lateinit var pref: SharedPreferences
+    @Inject lateinit var pref: SharedPreferences
+    @Inject lateinit var factory: ViewModelProvider.Factory
+
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList :MutableList<InfoRepoModelDB> = arrayListOf()
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    private lateinit var mLoading : Loading
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
-
+        mLoading = Loading(this).refresh().showLoading(true)
         appComponent.inject(this)
-
         mViewModel =ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
         if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=null){
@@ -47,18 +48,21 @@ class RepositoriesActivity : AppCompatActivity() {
 
 
         mViewModel.repoListData.observe(this, Observer {
+
             if(it!=null){
                 repoList=it
                 sortByItemSelected(mViewModel.sortNr)
+                if(it.size>0){
+                    mLoading.showLoading(false)
+                }
                 (nRecylerView.adapter as RepositoriesAdapter).addData(it)
+
             }
         })
 
-        Log.d("awefas43f", "1 "+mViewModel.sortNr.toString())
         mViewModel.stuffData.observe(this, Observer {
             if(it!=null){
                 sortByItemSelected(it.sort)
-                Log.d("awefas43f", "2 "+it.sort)
                 (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
             }
         })

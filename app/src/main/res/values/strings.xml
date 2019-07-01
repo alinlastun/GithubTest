@@ -46,6 +46,8 @@
     <string name="sharedPrefToken">token</string>
     <string name="sharedPrefNoToken">no token</string>
 
+    <string name="loading">Loading...</string>
+
 
 
 </resources>

@@ -36,8 +36,6 @@ class RepositoriesAdapter(var activity:Activity,var mViewModel:RepositoriesViewM
             binding.setVariable(BR.repoActivity, activity)
             binding.executePendingBindings()
         }
-
-
     }
 
     fun addData(listPaymentInfo: MutableList<InfoRepoModelDB>) {

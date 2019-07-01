@@ -9,6 +9,7 @@ import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
 import com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.screen.repositories.RepositoriesActivity
 import com.example.githubtraining.screen.repositories.RepositoriesViewModel
+import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.screen.splashScreen.SplashScreenActivity
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB
@@ -17,7 +18,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelFactoryModule::class,ViewModelModule::class,ApplicationContextModule::class, SharedPreferencesModule::class,AppDataBaseModule::class, RetrofitModule::class ])
+@Component(modules = [ViewModelModule::class,ApplicationContextModule::class, SharedPreferencesModule::class,AppDataBaseModule::class, RetrofitModule::class ])
 interface AppComponent {
 
 
@@ -27,6 +28,7 @@ interface AppComponent {
     fun inject(application: RepositoriesActivity)
     fun inject(application: RepoDetailsActivity)
     fun inject(application: LoginRepository)
+    fun inject(application: SettingsActivity)
 
 
 }
