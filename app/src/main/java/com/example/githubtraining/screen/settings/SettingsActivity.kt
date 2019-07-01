@@ -12,20 +12,21 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import com.example.githubtraining.R
-import com.example.githubtraining.database.modelDB.StuffModelDB
-import com.example.githubtraining.utill.ViewModelFactory
-import android.widget.CheckBox
 import com.example.githubtraining.appComponent
+import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.databinding.ActivitySettingsBinding
 import javax.inject.Inject
 
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener {
+    override fun onClick(v: View?) {
+
+    }
 
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
     private lateinit var mBinding: ActivitySettingsBinding
-
+    private val stuffDb = StuffModelDB()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
@@ -40,7 +41,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun onClickAffiliationRepo() {
-        showAffiliationDialog()
+        //showAffiliationDialog()
+        affialtiasd()
     }
 
     private fun showSortDialog() {
@@ -62,7 +64,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         }
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val rb = dialogView.findViewById<RadioButton>(checkedId)
-            val stuffDb = StuffModelDB()
+
             stuffDb.idRadioButton = checkedId
             stuffDb.sort = radioGroup.indexOfChild(rb)
             mViewModel.insertIntoStuffDB(stuffDb)
@@ -71,6 +73,46 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
         alertDialog.show()
     }
+
+
+   fun affialtiasd(){
+       lateinit var dialog:AlertDialog
+       val arrayColors = arrayOf("Owner","Collaborator","Organization Member")
+       var myarray = arrayListOf<Boolean>(stuffDb.owner,stuffDb.collaborator,stuffDb.organizationMember)
+       val arrayChecked :BooleanArray= myarray.toBooleanArray()
+       val builder = AlertDialog.Builder(this)
+       builder.setTitle("Affiliation")
+       builder.setMultiChoiceItems(arrayColors, arrayChecked) { _, which, isChecked->
+           // Update the clicked item checked status
+           arrayChecked[which] = isChecked
+
+           when(which){
+              0->stuffDb.owner=isChecked
+              1->stuffDb.collaborator=isChecked
+              2->stuffDb.organizationMember=isChecked
+           }
+
+           Log.d("asdfdasf","  ${which}")
+           Log.d("asdfdasf","  ${isChecked}")
+       }
+
+       builder.setPositiveButton("OK") { _, _ ->
+           mViewModel.insertIntoStuffDB(stuffDb)
+           // Do something when click positive button
+           val mutableIterator = arrayChecked.iterator()
+           //Log.d("asdfdasf","  ${arrayChecked.size}")
+           for (i in  0..1) {
+             //  Log.d("asdfdasf","  ${mutableIterator.next()}")
+           }
+       }
+
+       // Initialize the AlertDialog using builder object
+       dialog = builder.create()
+
+       // Finally, display the alert dialog
+       dialog.show()
+
+   }
 
     private fun showAffiliationDialog(){
         val dialogBuilder = AlertDialog.Builder(this)
@@ -91,28 +133,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         val btnCancel = dialogView.findViewById<TextView>(R.id.nCancelDialog)
         btnCancel.setOnClickListener { alertDialog.dismiss() }
         alertDialog.show()
+        btnOK.setOnClickListener {
+            mViewModel.insertIntoStuffDB(stuffDb)
+            alertDialog.dismiss()
+        }
 
     }
 
-    override fun onClick(view: View?) {
 
-       when(view?.id){
-           R.id.nOwner->{
-               if((view as CheckBox).isChecked){
-                   Log.d("wefasdfasd","nOwner")
-               }
-           }
-           R.id.nCollaborator->{
-               if((view as CheckBox).isChecked){
-                   Log.d("wefasdfasd","nCollaborator")
-               }
-           }
-           R.id.nOrganizationMember->{
-               if((view as CheckBox).isChecked){
-                   Log.d("wefasdfasd","nOrganizationMember")
-               }
-           }
-       }
-    }
 
 }

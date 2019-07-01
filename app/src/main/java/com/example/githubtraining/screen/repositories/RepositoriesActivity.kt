@@ -25,12 +25,14 @@ import javax.inject.Inject
 
 
 class RepositoriesActivity : AppCompatActivity() {
-    @Inject lateinit var pref: SharedPreferences
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var pref: SharedPreferences
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: RepositoriesViewModel
-    private var repoList :MutableList<InfoRepoModelDB> = arrayListOf()
-    private lateinit var mLoading : Loading
+    private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
+    private lateinit var mLoading: Loading
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,36 +40,43 @@ class RepositoriesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_repositories)
         mLoading = Loading(this).refresh().showLoading(true)
         appComponent.inject(this)
-        mViewModel =ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
-        if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=null){
-            mViewModel.getDataWs((pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)))!!)
+        if (pref.getString(getString(R.string.sharedPrefToken), getString(R.string.sharedPrefNoToken)) != null) {
+            mViewModel.getDataWs(
+                (pref.getString(
+                    getString(R.string.sharedPrefToken),
+                    getString(R.string.sharedPrefNoToken)
+                ))!!
+            )
         }
 
-        nRecylerView.setRepoAdapter(this,mViewModel)
+        nRecylerView.setRepoAdapter(this, mViewModel)
 
 
         mViewModel.repoListData.observe(this, Observer {
 
-            if(it!=null){
-                repoList=it
+            if (it != null) {
+                repoList = it
                 sortByItemSelected(mViewModel.sortNr)
-                if(it.size>0){
+                if (it.size > 0) {
                     mLoading.showLoading(false)
                 }
                 (nRecylerView.adapter as RepositoriesAdapter).addData(it)
+                getCollaboratorList(it)
 
             }
         })
 
         mViewModel.stuffData.observe(this, Observer {
-            if(it!=null){
+            if (it != null) {
                 sortByItemSelected(it.sort)
+
                 (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
             }
         })
 
-        nSettings.setOnClickListener { startActivity(Intent(this,SettingsActivity::class.java)) }
+        nSettings.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
 
     }
 
@@ -83,19 +92,30 @@ class RepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemRepoClicked(idRepo:Int){
+    fun onItemRepoClicked(idRepo: Int) {
         val intent = Intent(this, RepoDetailsActivity::class.java)
-        intent.putExtra(getString(R.string.idRepo),idRepo)
+        intent.putExtra(getString(R.string.idRepo), idRepo)
         startActivity(intent)
     }
 
-    private fun sortByItemSelected(resultSort:Int){
-        when(resultSort){
-            0 ->Sort().sortListBy(repoList,SortType.CREATED)
-            1 ->Sort().sortListBy(repoList,SortType.UPDATED)
-            2 ->Sort().sortListBy(repoList,SortType.PUSHED)
-            3 ->Sort().sortListBy(repoList,SortType.FULL_NAME)
+    private fun sortByItemSelected(resultSort: Int) {
+        when (resultSort) {
+            0 -> Sort().sortListBy(repoList, SortType.CREATED)
+            1 -> Sort().sortListBy(repoList, SortType.UPDATED)
+            2 -> Sort().sortListBy(repoList, SortType.PUSHED)
+            3 -> Sort().sortListBy(repoList, SortType.FULL_NAME)
         }
+    }
+
+    private fun getCollaboratorList(list: MutableList<InfoRepoModelDB>): MutableList<InfoRepoModelDB> {
+        val myList: MutableList<InfoRepoModelDB> = arrayListOf()
+        myList.clear()
+        for (value in list) {
+            if (!value.full_name?.contains("alinlastun")!!) {
+                myList.add(value)
+            }
+        }
+        return myList
     }
 
 }

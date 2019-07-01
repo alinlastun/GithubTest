@@ -24,6 +24,7 @@ interface DaoStuff {
     @Query("select sort from stuff_table WHERE _id =1")
     fun getSortNumber(): Int
 
+
     @Query("select idRadioButton from stuff_table WHERE _id =1")
     fun getRadioBtnId(): Int
 

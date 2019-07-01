@@ -27,6 +27,7 @@ open class RepositoryStuffDB @Inject constructor(private val appDB:AppDataBase) 
         return appDB.daoStuff().getSortNumber()
     }
 
+
     open fun getRadioButtonId():Int{
         return appDB.daoStuff().getRadioBtnId()
     }
