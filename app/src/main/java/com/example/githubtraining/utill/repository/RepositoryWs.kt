@@ -2,21 +2,22 @@ package com.example.githubtraining.utill.repository
 
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
-import com.example.githubtraining.retrofit.RetrofitService
+import com.example.githubtraining.retrofit.ServiceUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepositoryWs {
+class RepositoryWs @Inject constructor(private val serviceUtil: ServiceUtil){
 
     fun loginUser(userPass: String): Observable<UserInformationModelDB> {
-        return RetrofitService().getInstance().interfaces.userLogin(userPass)
+        return serviceUtil.userLogin(userPass)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }
 
     fun getRepoList(userPass:String): Observable<MutableList<InfoRepoModelDB>> {
-        return RetrofitService().getInstance().interfaces.getRepo(userPass)
+        return serviceUtil.getRepo(userPass)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }

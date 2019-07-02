@@ -1,3 +1,4 @@
+/*
 package com.example.githubtraining.retrofit
 
 import okhttp3.OkHttpClient
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class RetrofitService {
-    val interfaces: RetrofitInterface
+    val interfaces: ServiceUtil
     init {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -21,7 +22,7 @@ class RetrofitService {
             .baseUrl("https://api.github.com")
             .build()
 
-        interfaces = retrofit.create(RetrofitInterface::class.java)
+        interfaces = retrofit.create(ServiceUtil::class.java)
     }
 
     private var instance: RetrofitService? = null
@@ -35,4 +36,4 @@ class RetrofitService {
         }
         return instance as RetrofitService
     }
-}
+}*/

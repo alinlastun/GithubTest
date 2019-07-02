@@ -1,27 +1,20 @@
 package com.example.githubtraining.screen.login
 
-import android.util.Log
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
 import com.example.githubtraining.utill.repository.RepositoryWs
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB) {
+class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB, private val repositoryWS:RepositoryWs ) {
 
     lateinit var mViewModel:LoginViewModel
-    private val repositoryWS = RepositoryWs()
-
 
     fun login(userPass: String,mViewModel:LoginViewModel): Disposable {
         this.mViewModel=mViewModel
         return repositoryWS.loginUser(userPass)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::successLogin, this::errorLogin)
     }
 

@@ -8,7 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RetrofitInterface {
+interface ServiceUtil {
     @GET("/user") fun userLogin(@Header("Authorization")userPass: String): Observable<UserInformationModelDB>
     @GET("/user/repos") fun getRepo(@Header("Authorization")userPass: String): Observable<MutableList<InfoRepoModelDB>>
 }

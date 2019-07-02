@@ -11,9 +11,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB, mRepositoryUserDB: RepositoryUserDB, mRepositoryStuff: RepositoryStuffDB) {
-
-    private val mRepositoryWS = RepositoryWs()
+class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB, mRepositoryUserDB: RepositoryUserDB, mRepositoryStuff: RepositoryStuffDB, private val repositoryWS:RepositoryWs) {
 
     var mEncodedUserPass:String = mRepositoryUserDB.getEncodedUserPass()
     var observableDataStuff = mRepositoryStuff.getStuffFromDB()
@@ -24,7 +22,7 @@ class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: 
 
 
     fun getRepoData(userPass:String): Disposable {
-        return mRepositoryWS.getRepoList(userPass)
+        return repositoryWS.getRepoList(userPass)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(this::successRepoList, this::errorRepoList)
