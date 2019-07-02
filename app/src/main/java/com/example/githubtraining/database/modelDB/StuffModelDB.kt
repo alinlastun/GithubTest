@@ -17,7 +17,7 @@ data class StuffModelDB (
     var sort: Int = 1,
 
     @ColumnInfo(name = "owner")
-    var owner: Boolean = false,
+    var owner: Boolean = true,
 
     @ColumnInfo(name = "collaborator")
     var collaborator: Boolean = false,

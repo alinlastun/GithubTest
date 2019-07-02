@@ -13,14 +13,20 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
     val mUser = ObservableField("")
     val mPassword = ObservableField("")
     val mCredentialError = ObservableField("")
-
     val mSuccessLogin = MutableLiveData<Boolean>()
     val mErrorLogin = MutableLiveData<Boolean>()
 
 
 
     fun login(encodedUserPass:String) {
-            mRepository.login(encodedUserPass,this)
+        mRepository.login(encodedUserPass){success, error,errorMsg ->
+            if(success){
+                mSuccessLogin.value = true
+            }else if(error){
+                mCredentialError.set(errorMsg)
+                mErrorLogin.value = true
+            }
+        }
     }
 
      fun isValidEmail(): Boolean {

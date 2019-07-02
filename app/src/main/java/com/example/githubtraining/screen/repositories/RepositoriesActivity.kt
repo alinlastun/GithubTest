@@ -26,10 +26,9 @@ import javax.inject.Inject
 
 
 class RepositoriesActivity : AppCompatActivity() {
-    @Inject
-    lateinit var pref: SharedPreferences
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
+
+    @Inject lateinit var pref: SharedPreferences
+    @Inject lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
@@ -61,8 +60,9 @@ class RepositoriesActivity : AppCompatActivity() {
                 repoList = it
                 getCollaboratorList(it)
                 sortByItemSelected(mViewModel.sortNr)
+                Log.d("asdfasf","0")
                 for (stuff in mViewModel.stuffList){
-
+                    Log.d("asdfasf","1")
                     showListBySort(stuff)
                 }
                 if (it.size > 0) {
@@ -85,9 +85,12 @@ class RepositoriesActivity : AppCompatActivity() {
     }
 
     private fun showListBySort(stuffModelDB: StuffModelDB){
+        Log.d("asdfasf","2")
         if(!stuffModelDB.owner && stuffModelDB.collaborator){
+            Log.d("asdfasf","3")
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
         }else{
+            Log.d("asdfasf","4")
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
         }
     }

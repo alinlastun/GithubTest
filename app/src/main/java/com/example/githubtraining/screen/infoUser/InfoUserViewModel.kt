@@ -20,7 +20,6 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
     val mPrivateRepo = ObservableField("")
 
     var mValuesDataBase = mRepositoryUser.getInfoUserFromDB()
-    val mListInfoUser = mRepositoryUser.getListOfInfoUser()
 
     fun deleteInfoUserFromDB(){
         mRepositoryUser.deleteInfoUser()

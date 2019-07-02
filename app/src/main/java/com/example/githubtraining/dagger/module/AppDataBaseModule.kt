@@ -1,6 +1,5 @@
 package com.example.githubtraining.dagger.module
 
-import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.githubtraining.database.AppDataBase
@@ -13,28 +12,23 @@ import javax.inject.Singleton
 
 @Module
 class AppDataBaseModule {
-
-    private lateinit var appDataBase : AppDataBase
-
-
     @Singleton @Provides
     fun provideAppDataBase(context: Context):AppDataBase{
-        appDataBase =  Room.databaseBuilder(context, AppDataBase::class.java, "demo-db").allowMainThreadQueries().build()
-        return appDataBase
+        return  Room.databaseBuilder(context, AppDataBase::class.java, "demo-db").allowMainThreadQueries().build()
     }
 
     @Singleton @Provides
-    fun provideDaoInfoRepo():DaoInfoRepo{
-        return appDataBase.daoInfoRepo()
+    fun provideDaoInfoRepo(db: AppDataBase):DaoInfoRepo{
+        return db.daoInfoRepo()
     }
 
     @Singleton @Provides
-    fun provideDaoInfoUser(): DaoInfoUser {
-        return appDataBase.daoInfoUser()
+    fun provideDaoInfoUser(db: AppDataBase): DaoInfoUser {
+        return db.daoInfoUser()
     }
 
     @Singleton @Provides
-    fun provideDaoStuff(): DaoStuff {
-        return appDataBase.daoStuff()
+    fun provideDaoStuff(db: AppDataBase): DaoStuff {
+        return db.daoStuff()
     }
 }

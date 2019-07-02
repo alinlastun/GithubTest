@@ -30,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
     @Inject lateinit var pref:SharedPreferences
     @Inject lateinit var factory: ViewModelProvider.Factory
 
-
-
     private lateinit var mViewModel: LoginViewModel
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mLoading :Loading
@@ -39,20 +37,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
-        mLoading = Loading(this).refresh()
+        //mLoading = Loading(this).refresh()
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
         mBinding.login = mViewModel
         nBtnLogin.setOnClickListener {
-            mLoading.showLoading(true)
+         //   mLoading.showLoading(true)
             if (mViewModel.isValidEmail() && mViewModel.isValidPassword()) {
                 mViewModel.login(encodeUserPass())
             }
         }
 
         mViewModel.mSuccessLogin.observe(this, Observer {
-            mLoading.showLoading(false)
+        //    mLoading.showLoading(false)
             startActivity(Intent(this,InfoUserActivity::class.java))
             isInternetConnection=true
             if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=(getString(R.string.sharedPrefNoToken))){
@@ -63,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         })
         mViewModel.mErrorLogin.observe(this, Observer {
             isInternetConnection=false
-            mLoading.showLoading(false)
+          //  mLoading.showLoading(false)
             Toast.makeText(this,mViewModel.mCredentialError.get(),Toast.LENGTH_LONG).show()
 
         })

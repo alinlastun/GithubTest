@@ -1,49 +1,44 @@
 package com.example.githubtraining.utill.repository
 
 import android.arch.lifecycle.LiveData
-import android.content.Context
 import android.os.AsyncTask
-import com.example.githubtraining.appComponent
-import com.example.githubtraining.database.AppDataBase
+import com.example.githubtraining.database.dao.DaoStuff
 import com.example.githubtraining.database.modelDB.StuffModelDB
-import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-open class RepositoryStuffDB @Inject constructor(private val appDB:AppDataBase) {
+open class RepositoryStuffDB @Inject constructor(private val daoStuff: DaoStuff):Stuff {
 
-   open fun getStuffFromDB() : LiveData<StuffModelDB> {
-        return appDB.daoStuff().getStuff()
+    override fun getStuffFromDB(): LiveData<StuffModelDB> {
+        return daoStuff.getStuff()
     }
 
-    open fun getStuffListFromDB() : MutableList<StuffModelDB> {
-        return appDB.daoStuff().getStuffList()
+    override fun getStuffListFromDB(): MutableList<StuffModelDB> {
+        return daoStuff.getStuffList()
     }
 
-    open fun insertStuffIntoDB(stuffDB: StuffModelDB) {
-        AddAsynTask(appDB).execute(stuffDB)
+    override fun insertStuffIntoDB(stuffDB: StuffModelDB) {
+        AddAsynTask(daoStuff).execute(stuffDB)
     }
 
-    fun deleteStuff(){
-        appDB.daoStuff().deleteStuff()
+    override fun deleteStuff() {
+        return daoStuff.deleteStuff()
     }
 
-    open  fun getSortNr():Int{
-        return appDB.daoStuff().getSortNumber()
+    override fun getSortNr(): Int {
+        return daoStuff.getSortNumber()
     }
 
-
-    open fun getRadioButtonId():Int{
-        return appDB.daoStuff().getRadioBtnId()
+    override fun getRadioButtonId(): Int {
+        return daoStuff.getRadioBtnId()
     }
 
-    open fun upDateSort(sortItem:Int){
-        appDB.daoStuff().updateSort(sortItem)
+    override fun upDateSort(sortItem: Int) {
+        return daoStuff.updateSort(sortItem)
     }
 
-    class AddAsynTask(db: AppDataBase) : AsyncTask<StuffModelDB, Void, Void>() {
-        private var infoUserDB = db
+    class AddAsynTask(private val daoStuff: DaoStuff) : AsyncTask<StuffModelDB, Void, Void>() {
         override fun doInBackground(vararg params: StuffModelDB): Void? {
-            infoUserDB.daoStuff().insertStuff(params[0])
+            daoStuff.insertStuff(params[0])
             return null
         }
     }

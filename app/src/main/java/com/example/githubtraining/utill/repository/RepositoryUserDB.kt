@@ -5,38 +5,36 @@ import android.content.Context
 import android.os.AsyncTask
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.AppDataBase
+import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import javax.inject.Inject
 
-class RepositoryUserDB @Inject constructor(private val appDB:AppDataBase) {
+class RepositoryUserDB @Inject constructor(private val daoInfoUser:DaoInfoUser):User {
 
 
-    fun getInfoUserFromDB() : LiveData<MutableList<UserInformationModelDB>> {
-        return appDB.daoInfoUser().getInfoUser()
+    override fun getInfoUserFromDB() : LiveData<MutableList<UserInformationModelDB>> {
+        return daoInfoUser.getInfoUser()
     }
 
-    fun getListOfInfoUser():MutableList<UserInformationModelDB>{
-        return appDB.daoInfoUser().getListOfInfoUser()
+    override fun getListOfInfoUser():MutableList<UserInformationModelDB>{
+        return daoInfoUser.getListOfInfoUser()
     }
 
-
-    fun insertInfoUserIntoDB(movieDB: UserInformationModelDB) {
-        AddAsynTask(appDB).execute(movieDB)
+    override fun insertInfoUserIntoDB(movieDB: UserInformationModelDB) {
+        AddAsynTask(daoInfoUser).execute(movieDB)
     }
 
-    fun deleteInfoUser(){
-        appDB.daoInfoUser().deleteInfoUser()
+    override fun deleteInfoUser(){
+        daoInfoUser.deleteInfoUser()
     }
 
-
-    fun getEncodedUserPass():String{
-        return appDB.daoInfoUser().getEncodeUserPass()
+    override fun getEncodedUserPass():String{
+        return daoInfoUser.getEncodeUserPass()
     }
 
-    class AddAsynTask(db: AppDataBase) : AsyncTask<UserInformationModelDB, Void, Void>() {
-        private var infoUserDB = db
+    class AddAsynTask(private val daoInfoUser:DaoInfoUser) : AsyncTask<UserInformationModelDB, Void, Void>() {
         override fun doInBackground(vararg params: UserInformationModelDB): Void? {
-            infoUserDB.daoInfoUser().insertInfoUser(params[0])
+            daoInfoUser.insertInfoUser(params[0])
             return null
         }
     }

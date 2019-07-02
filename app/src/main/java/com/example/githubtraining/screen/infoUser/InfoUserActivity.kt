@@ -7,20 +7,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivityAboutUserBinding
-import com.example.githubtraining.isInternetConnection
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.repositories.RepositoriesActivity
-import com.example.githubtraining.utill.Tools
-import com.example.githubtraining.utill.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_about_user.*
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
@@ -56,12 +51,6 @@ class InfoUserActivity : AppCompatActivity() {
             }
 
         })
-
-       /* if(!isInternetConnection){
-             if(mViewModel.mListInfoUser.size>0){
-                Tools().showSnackBar(mInfoUserContainer)
-            }
-        }*/
 
     }
 

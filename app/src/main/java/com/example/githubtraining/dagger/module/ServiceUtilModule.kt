@@ -10,9 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class])
-class ServiceUtilModule {
+class ServiceUtilModule (val BASE_URL : String) {
 
-    private val BASE_URL ="https://api.github.com"
 
     @Provides
     @Singleton

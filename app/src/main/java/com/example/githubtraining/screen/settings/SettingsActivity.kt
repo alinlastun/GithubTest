@@ -19,9 +19,6 @@ import javax.inject.Inject
 
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener {
-    override fun onClick(v: View?) {
-
-    }
 
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
@@ -108,6 +105,9 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
    }
 
+    override fun onClick(v: View?) {
+
+    }
 
 
 }
