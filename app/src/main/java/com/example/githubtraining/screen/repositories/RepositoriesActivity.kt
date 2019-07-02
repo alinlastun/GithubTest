@@ -13,6 +13,7 @@ import android.view.MenuItem
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
 import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.utill.Sort
@@ -60,11 +61,14 @@ class RepositoriesActivity : AppCompatActivity() {
                 repoList = it
                 getCollaboratorList(it)
                 sortByItemSelected(mViewModel.sortNr)
+                for (stuff in mViewModel.stuffList){
+
+                    showListBySort(stuff)
+                }
                 if (it.size > 0) {
                     mLoading.showLoading(false)
                 }
-                (nRecylerView.adapter as RepositoriesAdapter).addData(it)
-                getCollaboratorList(it)
+
 
             }
         })
@@ -72,16 +76,20 @@ class RepositoriesActivity : AppCompatActivity() {
         mViewModel.stuffData.observe(this, Observer {
             if (it != null) {
                 sortByItemSelected(it.sort)
-                if(!it.owner && it.collaborator){
-                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
-                }else{
-                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
-                }
+                showListBySort(it)
             }
         })
 
         nSettings.setOnClickListener { startActivity(Intent(this, SettingsActivity::class.java)) }
 
+    }
+
+    private fun showListBySort(stuffModelDB: StuffModelDB){
+        if(!stuffModelDB.owner && stuffModelDB.collaborator){
+            (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
+        }else{
+            (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

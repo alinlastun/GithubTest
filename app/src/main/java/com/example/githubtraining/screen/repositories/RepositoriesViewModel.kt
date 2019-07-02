@@ -11,6 +11,7 @@ class RepositoriesViewModel @Inject constructor(private val repository: Reposito
     val stuffData = repository.observableDataStuff
     val repoListData = repository.observableDataRepo
     val repoList =repository.repoList
+    val stuffList=repository.stuffDbList
 
     fun getDataWs(encodePass:String) {
         repository.getRepoData(encodePass)

@@ -20,6 +20,7 @@ class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: 
     var observableDataRepo = mRepositoryRepoDB.getLiveDataInfoRepo()
     var sortNrFormDB = mRepositoryStuff.getSortNr()
     var repoList = mRepositoryRepoDB.getListInfoRepo()
+    var  stuffDbList = mRepositoryStuff.getStuffListFromDB()
 
 
     fun getRepoData(userPass:String): Disposable {

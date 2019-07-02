@@ -15,6 +15,9 @@ interface DaoStuff {
     @Query("select * from stuff_table")
     fun getStuff(): LiveData<StuffModelDB>
 
+    @Query("select * from stuff_table")
+    fun getStuffList(): MutableList<StuffModelDB>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStuff(infoStuff:  StuffModelDB)
 

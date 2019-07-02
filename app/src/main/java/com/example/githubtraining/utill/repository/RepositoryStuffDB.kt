@@ -15,6 +15,10 @@ open class RepositoryStuffDB @Inject constructor(private val appDB:AppDataBase) 
         return appDB.daoStuff().getStuff()
     }
 
+    open fun getStuffListFromDB() : MutableList<StuffModelDB> {
+        return appDB.daoStuff().getStuffList()
+    }
+
     open fun insertStuffIntoDB(stuffDB: StuffModelDB) {
         AddAsynTask(appDB).execute(stuffDB)
     }

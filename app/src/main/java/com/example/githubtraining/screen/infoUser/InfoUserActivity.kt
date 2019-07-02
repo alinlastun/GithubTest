@@ -57,11 +57,11 @@ class InfoUserActivity : AppCompatActivity() {
 
         })
 
-        if(!isInternetConnection){
+       /* if(!isInternetConnection){
              if(mViewModel.mListInfoUser.size>0){
                 Tools().showSnackBar(mInfoUserContainer)
             }
-        }
+        }*/
 
     }
 
