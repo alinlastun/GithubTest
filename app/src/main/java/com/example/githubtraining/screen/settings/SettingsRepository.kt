@@ -5,6 +5,7 @@ import javax.inject.Inject
 
 class SettingsRepository @Inject constructor( val mRepositorDB: RepositoryStuffDB) {
     var radioBtnIdFormDB = mRepositorDB.getRadioButtonId()
+    var getStuff = mRepositorDB.getStuffFromDB()
 
 
 }

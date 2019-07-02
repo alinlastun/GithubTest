@@ -32,6 +32,7 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
+    private var repoListCollaborator: MutableList<InfoRepoModelDB> = arrayListOf()
     private lateinit var mLoading: Loading
 
 
@@ -55,9 +56,9 @@ class RepositoriesActivity : AppCompatActivity() {
 
 
         mViewModel.repoListData.observe(this, Observer {
-
             if (it != null) {
                 repoList = it
+                getCollaboratorList(it)
                 sortByItemSelected(mViewModel.sortNr)
                 if (it.size > 0) {
                     mLoading.showLoading(false)
@@ -71,8 +72,11 @@ class RepositoriesActivity : AppCompatActivity() {
         mViewModel.stuffData.observe(this, Observer {
             if (it != null) {
                 sortByItemSelected(it.sort)
-
-                (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
+                if(!it.owner && it.collaborator){
+                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
+                }else{
+                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
+                }
             }
         })
 
@@ -107,15 +111,13 @@ class RepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCollaboratorList(list: MutableList<InfoRepoModelDB>): MutableList<InfoRepoModelDB> {
-        val myList: MutableList<InfoRepoModelDB> = arrayListOf()
-        myList.clear()
+    private fun getCollaboratorList(list: MutableList<InfoRepoModelDB>) {
+        repoListCollaborator.clear()
         for (value in list) {
             if (!value.full_name?.contains("alinlastun")!!) {
-                myList.add(value)
+                repoListCollaborator.add(value)
             }
         }
-        return myList
     }
 
 }

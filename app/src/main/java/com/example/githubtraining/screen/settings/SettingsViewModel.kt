@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(private val repository : SettingsRepository):ViewModel() {
 
     var radioBtnId = repository.radioBtnIdFormDB
-
+    var getStuffLiveData = repository.getStuff
     fun insertIntoStuffDB(stuffDB: StuffModelDB){
         repository.mRepositorDB.insertStuffIntoDB(stuffDB)
     }
