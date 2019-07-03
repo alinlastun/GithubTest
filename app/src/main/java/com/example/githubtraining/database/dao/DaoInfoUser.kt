@@ -22,6 +22,6 @@ interface DaoInfoUser {
     @Query("delete from userInfo_table")
     fun deleteInfoUser()
 
-    @Query("select encodedUserPass from userInfo_table")
-    fun getEncodeUserPass():String
+    @Query("select login from userInfo_table")
+    fun getUserLogged():String
 }

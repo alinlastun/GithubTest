@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
@@ -33,6 +34,7 @@ class RepositoriesActivity : AppCompatActivity() {
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
     private var repoListCollaborator: MutableList<InfoRepoModelDB> = arrayListOf()
+    private var repoListOwner: MutableList<InfoRepoModelDB> = arrayListOf()
     private lateinit var mLoading: Loading
 
 
@@ -54,22 +56,28 @@ class RepositoriesActivity : AppCompatActivity() {
 
         nRecylerView.setRepoAdapter(this, mViewModel)
 
+        mViewModel.mSuccessReceive.observe(this, Observer {
+            mLoading.showLoading(false)
+        })
+            mViewModel.mErrorReceive.observe(this, Observer {
+            mLoading.showLoading(false)
+                Toast.makeText(this,mViewModel.mErrorMsgReceive.get(),Toast.LENGTH_LONG).show()
+        })
 
         mViewModel.repoListData.observe(this, Observer {
             if (it != null) {
                 repoList = it
                 getCollaboratorList(it)
                 sortByItemSelected(mViewModel.sortNr)
-                Log.d("asdfasf","0")
                 for (stuff in mViewModel.stuffList){
-                    Log.d("asdfasf","1")
                     showListBySort(stuff)
+                }
+                if(mViewModel.stuffList.size<1){
+                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
                 }
                 if (it.size > 0) {
                     mLoading.showLoading(false)
                 }
-
-
             }
         })
 
@@ -85,12 +93,11 @@ class RepositoriesActivity : AppCompatActivity() {
     }
 
     private fun showListBySort(stuffModelDB: StuffModelDB){
-        Log.d("asdfasf","2")
-        if(!stuffModelDB.owner && stuffModelDB.collaborator){
-            Log.d("asdfasf","3")
+        if(stuffModelDB.collaborator && !stuffModelDB.owner){
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
-        }else{
-            Log.d("asdfasf","4")
+        }else if(stuffModelDB.owner && !stuffModelDB.collaborator){
+            (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
+        }else if(stuffModelDB.owner && stuffModelDB.collaborator){
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
         }
     }
@@ -124,9 +131,12 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private fun getCollaboratorList(list: MutableList<InfoRepoModelDB>) {
         repoListCollaborator.clear()
+        repoListOwner.clear()
         for (value in list) {
-            if (!value.full_name?.contains("alinlastun")!!) {
+            if (!value.full_name?.contains(mViewModel.userNameLogged)!!) {
                 repoListCollaborator.add(value)
+            }else if(value.full_name?.contains(mViewModel.userNameLogged)!!){
+                repoListOwner.add(value)
             }
         }
     }

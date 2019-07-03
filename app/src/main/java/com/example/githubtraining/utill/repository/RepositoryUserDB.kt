@@ -28,8 +28,8 @@ class RepositoryUserDB @Inject constructor(private val daoInfoUser:DaoInfoUser):
         daoInfoUser.deleteInfoUser()
     }
 
-    override fun getEncodedUserPass():String{
-        return daoInfoUser.getEncodeUserPass()
+    override fun getUserLogged():String{
+        return daoInfoUser.getUserLogged()
     }
 
     class AddAsynTask(private val daoInfoUser:DaoInfoUser) : AsyncTask<UserInformationModelDB, Void, Void>() {

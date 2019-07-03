@@ -9,6 +9,7 @@ interface User {
     fun getListOfInfoUser():MutableList<UserInformationModelDB>
     fun insertInfoUserIntoDB(movieDB: UserInformationModelDB)
     fun deleteInfoUser()
-    fun getEncodedUserPass():String
+    fun getUserLogged():String
+
 
 }

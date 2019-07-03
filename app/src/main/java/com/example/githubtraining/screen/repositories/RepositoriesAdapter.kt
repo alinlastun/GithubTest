@@ -4,6 +4,7 @@ import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.githubtraining.BR
@@ -39,6 +40,7 @@ class RepositoriesAdapter(var activity:Activity,var mViewModel:RepositoriesViewM
     }
 
     fun addData(listPaymentInfo: MutableList<InfoRepoModelDB>) {
+        Log.d("asf4fasgfas", listPaymentInfo.size.toString())
         mData = ArrayList()
         mData.addAll(listPaymentInfo)
         notifyDataSetChanged()

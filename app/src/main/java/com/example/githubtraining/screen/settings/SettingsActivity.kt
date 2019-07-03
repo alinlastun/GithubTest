@@ -73,7 +73,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
             stuffDb.idRadioButton = checkedId
             stuffDb.sort = radioGroup.indexOfChild(rb)
-            mViewModel.insertIntoStuffDB(stuffDb)
+            mViewModel.insertStuff(stuffDb)
 
         }
 
@@ -98,7 +98,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
        }
        builder.setPositiveButton("OK") { _, _ ->
-           mViewModel.insertIntoStuffDB(stuffDb)
+           mViewModel.insertStuff(stuffDb)
        }
        dialog = builder.create()
        dialog.show()

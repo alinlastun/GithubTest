@@ -9,8 +9,9 @@ class SettingsViewModel @Inject constructor(private val repository : SettingsRep
 
     var radioBtnId = repository.radioBtnIdFormDB
     var getStuffLiveData = repository.getStuff
-    fun insertIntoStuffDB(stuffDB: StuffModelDB){
-        repository.mRepositorDB.insertStuffIntoDB(stuffDB)
+
+    fun insertStuff(stuffDB: StuffModelDB){
+        repository.insertIntoStuffDB(stuffDB)
     }
 
 }
