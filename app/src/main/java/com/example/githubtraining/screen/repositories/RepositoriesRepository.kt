@@ -13,30 +13,30 @@ import javax.inject.Inject
 
 class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: RepositoryRepoDB, mRepositoryUserDB: RepositoryUserDB, mRepositoryStuff: RepositoryStuffDB, private val repositoryWS:RepositoryWs) {
 
-    private lateinit var listener: (success: Boolean, error: Boolean,errorMsg:String) -> Unit
     var infoUserLogged = mRepositoryUserDB.getUserLogged()
     var observableDataStuff = mRepositoryStuff.getStuffFromDB()
     var observableDataRepo = mRepositoryRepoDB.getLiveDataInfoRepo()
     var sortNrFormDB = mRepositoryStuff.getSortNr()
-    var repoList = mRepositoryRepoDB.getListInfoRepo()
     var  stuffDbList = mRepositoryStuff.getStuffListFromDB()
 
 
     fun getRepoData(userPass:String,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
-        this.listener= listener
         return repositoryWS.getRepoList(userPass)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::successRepoList, this::errorRepoList)
+            .subscribe({successRepoList(it,listener)},{errorRepoList(it,listener)})
+
     }
 
-    private fun successRepoList(repoList:MutableList<InfoRepoModelDB>){
+    private fun successRepoList(repoList:MutableList<InfoRepoModelDB>,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
+        Log.d("adasfewfawef","successRepoList")
         mRepositoryRepoDB.deleteInfoRepo()
         mRepositoryRepoDB.insertInfoRepo(repoList)
         listener.invoke(true,false,"")
     }
 
-    private fun errorRepoList(mError: Throwable){
+    private fun errorRepoList(mError: Throwable,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
+        Log.d("adasfewfawef","errorRepoList")
         Log.d("Asdfasdf",mError.message)
         listener.invoke(false,true,mError.message.toString())
 

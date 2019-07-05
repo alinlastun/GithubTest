@@ -1,7 +1,5 @@
 package com.example.githubtraining.screen.login
 
-import android.location.Location
-import android.util.Log
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -24,23 +22,17 @@ class LoginRepository  @Inject constructor (private val repositoryDB : Repositor
     private fun successLogin(userInfo: UserInformationModelDB) {
         listener.invoke(true,false,"")
         repositoryDB.insertInfoUserIntoDB(userInfo)
-        Log.d("Asdfasdf","successLogin")
     }
 
     private fun errorLogin(mError: Throwable) {
-        Log.d("Asdfasdf","errorLogin")
         if (mError is HttpException) {
             val mErrorModel =
                 com.google.gson.Gson().fromJson(mError.response().errorBody()!!.string(), LoginModelError::class.java)
             if (mError.code() == 401) {
                 listener.invoke(false,true,mErrorModel.message)
-               // mViewModel.mCredentialError.set(mErrorModel.message)
-               // mViewModel.mErrorLogin.value = true
             }
         } else if (mError.message?.contains("No address associated with hostname")!!) {
             listener.invoke(false,true,"No Internet Connection!!")
-          //  mViewModel.mCredentialError.set("No Internet Connection!!")
-           // mViewModel.mErrorLogin.value = true
         }
 
     }

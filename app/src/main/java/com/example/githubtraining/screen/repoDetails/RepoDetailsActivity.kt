@@ -1,6 +1,5 @@
 package com.example.githubtraining.screen.repoDetails
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -20,27 +19,14 @@ class RepoDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repo_details)
         mViewModel = ViewModelProviders.of(this,factory).get(RepoDetailsViewModel::class.java)
         mBinding.repoDetails = mViewModel
+        mBinding.lifecycleOwner = this
 
-        mViewModel.getRepoFromDBById(intent.getIntExtra(getString(R.string.idRepo), -1)).observe(this, Observer {
-            if (it != null) {
-                if(it.private!!){
-                    mViewModel.mStatusRepository.set("private")
-                }else{
-                    mViewModel.mStatusRepository.set("public")
-                }
-                mViewModel.mNameRepository.set(it.name)
-                if (it.description == null) {
-                    mViewModel.mDescriptionRepository.set(getString(R.string.no_description))
-                } else {
-                    mViewModel.mDescriptionRepository.set(it.description)
-                }
+        mViewModel.init(intent.getIntExtra(getString(R.string.idRepo), -1))
 
-            }
-
-        })
 
 
     }

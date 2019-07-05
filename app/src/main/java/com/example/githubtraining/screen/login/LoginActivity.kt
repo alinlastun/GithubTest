@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
         mBinding.login = mViewModel
+
         nBtnLogin.setOnClickListener {
             mLoading.showLoading(true)
             if (mViewModel.isValidEmail() && mViewModel.isValidPassword()) {
@@ -56,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
             if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=(getString(R.string.sharedPrefNoToken))){
                 pref.edit().putString(encodeUserPass(),getString(R.string.sharedPrefNoToken)).apply()
             }
-
             finish()
         })
         mViewModel.mErrorLogin.observe(this, Observer {

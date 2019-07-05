@@ -22,6 +22,7 @@ class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo) 
     }
 
     override fun getLiveDataInfoRepo(): LiveData<MutableList<InfoRepoModelDB>> {
+        // refresh from network
         return daoInfoRepo.getInfoRepo()
     }
 
