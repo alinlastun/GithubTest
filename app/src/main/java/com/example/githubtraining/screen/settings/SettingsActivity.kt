@@ -84,7 +84,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
    private fun showAffiliationDialog(){
        lateinit var dialog:AlertDialog
        val arrayColors = arrayOf("Owner","Collaborator","Organization Member")
-       var myarray = arrayListOf(stuffDb.owner,stuffDb.collaborator,stuffDb.organizationMember)
+       val myarray = arrayListOf(stuffDb.owner,stuffDb.collaborator,stuffDb.organizationMember)
        val arrayChecked :BooleanArray= myarray.toBooleanArray()
        val builder = AlertDialog.Builder(this)
        builder.setTitle("Affiliation")

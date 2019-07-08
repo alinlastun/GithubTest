@@ -28,13 +28,13 @@ import javax.inject.Inject
 
 class RepositoriesActivity : AppCompatActivity() {
 
-    @Inject lateinit var pref: SharedPreferences
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
     private var repoListCollaborator: MutableList<InfoRepoModelDB> = arrayListOf()
-    private var repoListOwner: MutableList<InfoRepoModelDB> = arrayListOf()
+    private var  repoListOwner: MutableList<InfoRepoModelDB> = arrayListOf()
     private lateinit var mLoading: Loading
 
 
@@ -45,34 +45,28 @@ class RepositoriesActivity : AppCompatActivity() {
         appComponent.inject(this)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
-        if (pref.getString(getString(R.string.sharedPrefToken), getString(R.string.sharedPrefNoToken)) != null) {
-            mViewModel.getDataWs(
-                (pref.getString(
-                    getString(R.string.sharedPrefToken),
-                    getString(R.string.sharedPrefNoToken)
-                ))!!
-            )
-        }
+        mViewModel.getDataWs()
 
         nRecylerView.setRepoAdapter(this, mViewModel)
 
         mViewModel.mSuccessReceive.observe(this, Observer {
             mLoading.showLoading(false)
         })
-            mViewModel.mErrorReceive.observe(this, Observer {
+        mViewModel.mErrorReceive.observe(this, Observer {
             mLoading.showLoading(false)
-                Toast.makeText(this,mViewModel.mErrorMsgReceive.get(),Toast.LENGTH_LONG).show()
+            Toast.makeText(this, mViewModel.mErrorMsgReceive.get(), Toast.LENGTH_LONG).show()
         })
+
 
         mViewModel.repoListData.observe(this, Observer {
             if (it != null) {
                 repoList = it
                 getCollaboratorList(it)
                 sortByItemSelected(mViewModel.sortNr)
-                for (stuff in mViewModel.stuffList){
+                for (stuff in mViewModel.stuffList) {
                     showListBySort(stuff)
                 }
-                if(mViewModel.stuffList.size<1){
+                if (mViewModel.stuffList.size < 1) {
                     (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
                 }
                 if (it.size > 0) {
@@ -92,12 +86,12 @@ class RepositoriesActivity : AppCompatActivity() {
 
     }
 
-    private fun showListBySort(stuffModelDB: StuffModelDB){
-        if(stuffModelDB.collaborator && !stuffModelDB.owner){
+    private fun showListBySort(stuffModelDB: StuffModelDB) {
+        if (stuffModelDB.collaborator && !stuffModelDB.owner) {
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
-        }else if(stuffModelDB.owner && !stuffModelDB.collaborator){
+        } else if (stuffModelDB.owner && !stuffModelDB.collaborator) {
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
-        }else if(stuffModelDB.owner && stuffModelDB.collaborator){
+        } else if (stuffModelDB.owner && stuffModelDB.collaborator) {
             (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
         }
     }
@@ -135,7 +129,7 @@ class RepositoriesActivity : AppCompatActivity() {
         for (value in list) {
             if (!value.full_name?.contains(mViewModel.userNameLogged)!!) {
                 repoListCollaborator.add(value)
-            }else if(value.full_name?.contains(mViewModel.userNameLogged)!!){
+            } else if (value.full_name?.contains(mViewModel.userNameLogged)!!) {
                 repoListOwner.add(value)
             }
         }

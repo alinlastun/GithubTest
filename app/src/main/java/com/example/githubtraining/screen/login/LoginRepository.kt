@@ -4,27 +4,25 @@ import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
 import com.example.githubtraining.utill.repository.RepositoryWs
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB, private val repositoryWS:RepositoryWs ) {
 
-
-    private lateinit var listener: (success: Boolean, error: Boolean,errorMsg:String) -> Unit
-
-    fun login(userPass: String, listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
-        this.listener = listener
-        return repositoryWS.loginUser(userPass)
-            .subscribe(this::successLogin, this::errorLogin)
+    fun login(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
+        return repositoryWS.loginUser()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({successLogin(it,listener)}, {errorLogin(it,listener)})
     }
 
-    private fun successLogin(userInfo: UserInformationModelDB) {
+    private fun successLogin(userInfo: UserInformationModelDB,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit) {
         listener.invoke(true,false,"")
         repositoryDB.insertInfoUserIntoDB(userInfo)
     }
 
-    private fun errorLogin(mError: Throwable) {
+    private fun errorLogin(mError: Throwable,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit) {
         if (mError is HttpException) {
             val mErrorModel =
                 com.google.gson.Gson().fromJson(mError.response().errorBody()!!.string(), LoginModelError::class.java)

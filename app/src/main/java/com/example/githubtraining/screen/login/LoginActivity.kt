@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-    @Inject lateinit var pref:SharedPreferences
+    @Inject lateinit var pref: SharedPreferences
     @Inject lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: LoginViewModel
@@ -44,23 +44,19 @@ class LoginActivity : AppCompatActivity() {
         mBinding.login = mViewModel
 
         nBtnLogin.setOnClickListener {
+            encodeUserPass()
             mLoading.showLoading(true)
             if (mViewModel.isValidEmail() && mViewModel.isValidPassword()) {
-                mViewModel.login(encodeUserPass())
+                mViewModel.login()
             }
         }
 
         mViewModel.mSuccessLogin.observe(this, Observer {
             mLoading.showLoading(false)
             startActivity(Intent(this,InfoUserActivity::class.java))
-            isInternetConnection=true
-            if(pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))!=(getString(R.string.sharedPrefNoToken))){
-                pref.edit().putString(encodeUserPass(),getString(R.string.sharedPrefNoToken)).apply()
-            }
             finish()
         })
         mViewModel.mErrorLogin.observe(this, Observer {
-            isInternetConnection=false
             mLoading.showLoading(false)
             Toast.makeText(this,mViewModel.mCredentialError.get(),Toast.LENGTH_LONG).show()
 
@@ -68,10 +64,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun encodeUserPass():String{
-       val encodedString = Credentials.basic(mViewModel.mUser.get()!!, mViewModel.mPassword.get()!!)
-            pref.edit().putString(getString(R.string.sharedPrefToken),encodedString).apply()
-        return encodedString
+    private fun encodeUserPass(){
+        val encodedString = Credentials.basic(mViewModel.mUser.get()!!, mViewModel.mPassword.get()!!)
+        pref.edit().putString(getString(R.string.sharedPrefToken),encodedString).apply()
+
     }
 
 

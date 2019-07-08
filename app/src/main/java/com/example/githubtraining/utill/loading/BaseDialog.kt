@@ -9,7 +9,7 @@ import android.view.View
 open class BaseDialog(private val nContext:Context): View.OnClickListener {
 
     private lateinit var mContainer : ConstraintLayout
-    lateinit var mBuilder: AlertDialog.Builder
+    private lateinit var mBuilder: AlertDialog.Builder
     lateinit var mDialog: AlertDialog
     private var mIsPopUpReady = false
 

@@ -19,8 +19,8 @@ class RepositoriesViewModel @Inject constructor(private val repository: Reposito
 
 
 
-    fun getDataWs(encodePass:String) {
-        repository.getRepoData(encodePass){success, error, errorMsg->
+    fun getDataWs() {
+        repository.getRepoData{success, error, errorMsg->
             when{
                 success-> mSuccessReceive.value=true
                 error-> {

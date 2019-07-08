@@ -1,6 +1,5 @@
 package com.example.githubtraining.screen.repositories
 
-import android.util.Log
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB
@@ -20,8 +19,8 @@ class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: 
     var  stuffDbList = mRepositoryStuff.getStuffListFromDB()
 
 
-    fun getRepoData(userPass:String,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
-        return repositoryWS.getRepoList(userPass)
+    fun getRepoData(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
+        return repositoryWS.getRepoList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({successRepoList(it,listener)},{errorRepoList(it,listener)})
@@ -29,15 +28,12 @@ class RepositoriesRepository @Inject constructor(private val mRepositoryRepoDB: 
     }
 
     private fun successRepoList(repoList:MutableList<InfoRepoModelDB>,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
-        Log.d("adasfewfawef","successRepoList")
         mRepositoryRepoDB.deleteInfoRepo()
         mRepositoryRepoDB.insertInfoRepo(repoList)
         listener.invoke(true,false,"")
     }
 
     private fun errorRepoList(mError: Throwable,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
-        Log.d("adasfewfawef","errorRepoList")
-        Log.d("Asdfasdf",mError.message)
         listener.invoke(false,true,mError.message.toString())
 
     }

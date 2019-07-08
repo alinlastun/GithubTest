@@ -2,9 +2,13 @@ package com.example.githubtraining.screen.login
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.content.Context
+import android.content.SharedPreferences
 import android.databinding.ObservableField
 import android.util.Log
+import com.example.githubtraining.R
 import com.example.githubtraining.utill.isValidEmail
+import okhttp3.Credentials
 import javax.inject.Inject
 
 
@@ -13,20 +17,22 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
     val mUser = ObservableField("")
     val mPassword = ObservableField("")
     val mCredentialError = ObservableField("")
+
     val mSuccessLogin = MutableLiveData<Boolean>()
     val mErrorLogin = MutableLiveData<Boolean>()
 
 
 
-    fun login(encodedUserPass:String) {
-        mRepository.login(encodedUserPass){success, error,errorMsg ->
+    fun login() {
+        mRepository.login{success, error,errorMsg ->
             if(success){
-                mSuccessLogin.value = true
+                mSuccessLogin.postValue(true)
             }else if(error){
                 mCredentialError.set(errorMsg)
-                mErrorLogin.value = true
+                mErrorLogin.postValue(true)
             }
         }
+
     }
 
      fun isValidEmail(): Boolean {

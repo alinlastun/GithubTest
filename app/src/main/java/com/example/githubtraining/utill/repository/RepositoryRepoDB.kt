@@ -8,9 +8,12 @@ import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
+import com.example.githubtraining.screen.repositories.RepositoriesRepository
 import javax.inject.Inject
 
-class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo) :Repo{
+class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo, private val repositoriesRepository: RepositoriesRepository) :Repo{
+
+
 
 
     override fun getInfoRepoById(repoId: Int): LiveData<InfoRepoModelDB> {

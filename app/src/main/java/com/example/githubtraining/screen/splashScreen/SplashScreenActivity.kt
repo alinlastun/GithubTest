@@ -32,11 +32,12 @@ class SplashScreenActivity : AppCompatActivity() {
         token = pref.getString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken))
 
         if(token!=getString(R.string.sharedPrefNoToken)){
-            mViewModel.login(token!!)
+            mViewModel.login()
             startActivity(Intent(this, InfoUserActivity::class.java))
             finish()
 
         }else{
+            Log.d("asdfasd","2")
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
