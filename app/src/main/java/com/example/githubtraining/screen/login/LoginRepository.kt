@@ -1,5 +1,6 @@
 package com.example.githubtraining.screen.login
 
+import android.arch.lifecycle.LiveData
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -11,7 +12,11 @@ import javax.inject.Inject
 
 class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB, private val repositoryWS:RepositoryWs ) {
 
-    fun login(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
+    fun getDataUser(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): LiveData<MutableList<UserInformationModelDB>> {
+      return repositoryDB.getInfoUserFromDB(listener)
+    }
+
+    /*fun login(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): Disposable {
         return repositoryWS.loginUser()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({successLogin(it,listener)}, {errorLogin(it,listener)})
@@ -33,7 +38,7 @@ class LoginRepository  @Inject constructor (private val repositoryDB : Repositor
             listener.invoke(false,true,"No Internet Connection!!")
         }
 
-    }
+    }*/
 
 
 }

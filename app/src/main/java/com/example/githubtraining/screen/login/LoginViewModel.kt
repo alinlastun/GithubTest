@@ -24,7 +24,7 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
 
 
     fun login() {
-        mRepository.login{success, error,errorMsg ->
+        mRepository.getDataUser{success, error,errorMsg ->
             if(success){
                 mSuccessLogin.postValue(true)
             }else if(error){

@@ -33,7 +33,12 @@ data class InfoRepoModelDB(
     var description: String?,
 
     @ColumnInfo(name = "private")
-    var private: Boolean?
+    var private: Boolean?,
 
-){constructor():this(0,0,"","","","","","",false)
+
+    @ColumnInfo(name = "type")
+    var type: Int?
+
+) {
+    constructor() : this(0, 0, "", "", "", "", "", "", false,1)
 }
