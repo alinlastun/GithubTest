@@ -4,10 +4,8 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -18,8 +16,7 @@ import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
 import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.utill.Sort
-import com.example.githubtraining.utill.SortType
-import com.example.githubtraining.utill.ViewModelFactory
+import com.example.githubtraining.utill.enums.SortType
 import com.example.githubtraining.utill.loading.Loading
 import com.example.githubtraining.utill.setRepoAdapter
 import kotlinx.android.synthetic.main.activity_repositories.*
@@ -45,7 +42,6 @@ class RepositoriesActivity : AppCompatActivity() {
         appComponent.inject(this)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
-        mViewModel.getDataWs()
 
         nRecylerView.setRepoAdapter(this, mViewModel)
 
@@ -58,7 +54,7 @@ class RepositoriesActivity : AppCompatActivity() {
         })
 
 
-        mViewModel.repoListData.observe(this, Observer {
+        mViewModel.repoListLiveData.observe(this, Observer {
             if (it != null) {
                 repoList = it
                 getCollaboratorList(it)

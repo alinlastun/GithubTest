@@ -35,7 +35,7 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding.activity = this
 
 
-        mViewModel.mValuesDataBase.observe(this, Observer {
+        mViewModel.mGetInfoUser.observe(this, Observer {
             if(it!=null){
                 for (userInfoDb in it){
                     mViewModel.mUrlAvatar.set(userInfoDb.avatar_url)

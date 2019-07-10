@@ -24,7 +24,7 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
 
 
     fun login() {
-        mRepository.login{success, error,errorMsg ->
+        mRepository.getDataUser{success, error,errorMsg ->
             if(success){
                 mSuccessLogin.postValue(true)
             }else if(error){
@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
 
     }
 
-     fun isValidEmail(): Boolean {
+    fun isValidEmail(): Boolean {
         var isValidEmail = true
         if (mUser.get().toString().isEmpty()) {
             isValidEmail = false
@@ -52,7 +52,7 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
         return isValidEmail
     }
 
-     fun isValidPassword(): Boolean {
+    fun isValidPassword(): Boolean {
         var isValidPass = true
         if (mPassword.get().toString().isEmpty()) {
             isValidPass = false

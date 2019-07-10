@@ -12,7 +12,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelModule::class,ApplicationContextModule::class, SharedPreferencesModule::class,AppDataBaseModule::class, ServiceUtilModule::class ])
+@Component(modules = [ViewModelModule::class,ApplicationContextModule::class, SharedPreferencesModule::class,AppDataBaseModule::class, ServiceUtilModule::class,AppExecutorModule::class ])
 interface AppComponent {
 
 

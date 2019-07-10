@@ -4,9 +4,11 @@ import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import com.example.githubtraining.database.dao.DaoStuff
 import com.example.githubtraining.database.modelDB.StuffModelDB
+import java.util.concurrent.Executor
 import javax.inject.Inject
+import javax.inject.Named
 
-open class RepositoryStuffDB @Inject constructor(private val daoStuff: DaoStuff):Stuff {
+open class RepositoryStuffDB @Inject constructor(private val daoStuff: DaoStuff, @Named("DiskExecutor") private val  diskExecutor : Executor):Stuff {
 
     override fun getStuffFromDB(): LiveData<StuffModelDB> {
         return daoStuff.getStuff()
@@ -17,7 +19,7 @@ open class RepositoryStuffDB @Inject constructor(private val daoStuff: DaoStuff)
     }
 
     override fun insertStuffIntoDB(stuffDB: StuffModelDB) {
-        AddAsynTask(daoStuff).execute(stuffDB)
+        diskExecutor.execute {  daoStuff.insertStuff(stuffDB)}
     }
 
     override fun deleteStuff() {
@@ -36,10 +38,4 @@ open class RepositoryStuffDB @Inject constructor(private val daoStuff: DaoStuff)
         return daoStuff.updateSort(sortItem)
     }
 
-    class AddAsynTask(private val daoStuff: DaoStuff) : AsyncTask<StuffModelDB, Void, Void>() {
-        override fun doInBackground(vararg params: StuffModelDB): Void? {
-            daoStuff.insertStuff(params[0])
-            return null
-        }
-    }
 }

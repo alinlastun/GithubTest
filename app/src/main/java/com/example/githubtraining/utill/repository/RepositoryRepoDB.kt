@@ -1,19 +1,17 @@
 package com.example.githubtraining.utill.repository
 
 import android.arch.lifecycle.LiveData
-import android.content.Context
-import android.os.AsyncTask
-import com.example.githubtraining.appComponent
-import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.database.modelDB.UserInformationModelDB
-import com.example.githubtraining.screen.repositories.RepositoriesRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executor
 import javax.inject.Inject
+import javax.inject.Named
 
-class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo, private val repositoriesRepository: RepositoriesRepository) :Repo{
 
-
+class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo, private val repositoryWS:RepositoryWs, @Named("DiskExecutor") private val  diskExecutor : Executor) :Repo{
 
 
     override fun getInfoRepoById(repoId: Int): LiveData<InfoRepoModelDB> {
@@ -24,8 +22,9 @@ class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo, 
         daoInfoRepo.deleteInfoRepo()
     }
 
-    override fun getLiveDataInfoRepo(): LiveData<MutableList<InfoRepoModelDB>> {
+    override fun getLiveDataInfoRepo(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit): LiveData<MutableList<InfoRepoModelDB>> {
         // refresh from network
+        getRepoData(listener)
         return daoInfoRepo.getInfoRepo()
     }
 
@@ -34,13 +33,27 @@ class RepositoryRepoDB @Inject constructor(private val daoInfoRepo:DaoInfoRepo, 
     }
 
     override fun insertInfoRepo(repoList: List<InfoRepoModelDB>) {
-        AddAsynTask(daoInfoRepo).execute(repoList)
+        diskExecutor.execute {  daoInfoRepo.insertInfoRepo(repoList) }
     }
 
-    class AddAsynTask(private val daoInfoRepo:DaoInfoRepo) : AsyncTask<List<InfoRepoModelDB>, Void, Void>() {
-        override fun doInBackground(vararg params: List<InfoRepoModelDB>): Void? {
-            daoInfoRepo.insertInfoRepo(params[0])
-            return null
-        }
+    private fun getRepoData(listener: (success:Boolean, error:Boolean, errorMsg:String) -> Unit): Disposable {
+        return repositoryWS.getRepoList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({successRepoList(it,listener)},{errorRepoList(it,listener)})
+
     }
+
+
+    private fun successRepoList(repoList:MutableList<InfoRepoModelDB>,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
+        deleteInfoRepo()
+        insertInfoRepo(repoList)
+        listener.invoke(true,false,"")
+    }
+
+    private fun errorRepoList(mError: Throwable,listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit){
+        listener.invoke(false,true,mError.message.toString())
+
+    }
+
 }

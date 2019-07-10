@@ -5,7 +5,7 @@ import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
 interface User {
 
-    fun getInfoUserFromDB() : LiveData<MutableList<UserInformationModelDB>>
+    fun getInfoUserFromDB(listener: (success:Boolean, error:Boolean,errorMsg:String) -> Unit) : LiveData<MutableList<UserInformationModelDB>>
     fun getListOfInfoUser():MutableList<UserInformationModelDB>
     fun insertInfoUserIntoDB(movieDB: UserInformationModelDB)
     fun deleteInfoUser()
