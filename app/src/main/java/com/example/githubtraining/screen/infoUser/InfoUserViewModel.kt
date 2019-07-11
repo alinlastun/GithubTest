@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
+import android.support.annotation.WorkerThread
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -49,11 +50,11 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
 
     var mGetInfoUser = mRepositoryUser.getInfoUserFromDB{_, _, _ ->}
 
-
+    @WorkerThread
     fun deleteInfoUserFromDB(){
         mRepositoryUser.deleteInfoUser()
     }
-
+    @WorkerThread
     fun deleteInfoRepo(){
         mRepositoryRepo.deleteInfoRepo()
     }

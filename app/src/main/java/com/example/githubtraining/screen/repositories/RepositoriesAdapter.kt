@@ -4,6 +4,7 @@ import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.githubtraining.BR
@@ -12,19 +13,19 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.model.DisplayRepo
 import com.example.githubtraining.model.RepoItem
 import com.example.githubtraining.model.YearItem
-import com.example.githubtraining.utill.enums.ItemDisplayedType
 
 
 class RepositoriesAdapter(var activity: Activity, var mViewModel: RepositoriesViewModel) :
     RecyclerView.Adapter<RepositoriesAdapter.RepositoriesHolder>() {
-
+    private val TYPE_HEADER = 0
+    private val TYPE_ITEM = 1
     private var mData: MutableList<DisplayRepo> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoriesHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        val binding: ViewDataBinding
-        binding = if (viewType == ItemDisplayedType.TYPE_ITEM.value) {
+        var binding: ViewDataBinding
+        binding = if (viewType == TYPE_ITEM) {
             DataBindingUtil.inflate(layoutInflater, R.layout.row_repo_list, parent, false)
         } else {
             DataBindingUtil.inflate(layoutInflater, R.layout.row_header, parent, false)
@@ -58,13 +59,9 @@ class RepositoriesAdapter(var activity: Activity, var mViewModel: RepositoriesVi
         mData = ArrayList()
         if (infoRepoList.size > 0) {
             val myListOfYears: MutableList<String> = arrayListOf()
-
-            //sort list descending
-            val mySortedList: MutableList<InfoRepoModelDB> =
-                infoRepoList.sortedWith(compareByDescending<InfoRepoModelDB> { it.created_at }.thenByDescending { it.created_at }) as MutableList<InfoRepoModelDB>
-
+            
             // extracted age from created_at and save into a String list
-            for (list in mySortedList) {
+            for (list in infoRepoList.sortedWith(compareByDescending<InfoRepoModelDB> { it.created_at }.thenByDescending { it.created_at }) as MutableList<InfoRepoModelDB>) {
                 val parts = list.created_at!!.substring(0, 4)
                 myListOfYears.add(parts)
             }
@@ -106,8 +103,8 @@ class RepositoriesAdapter(var activity: Activity, var mViewModel: RepositoriesVi
 
     override fun getItemViewType(position: Int): Int {
         if (isPositionHeader(position))
-            return ItemDisplayedType.TYPE_HEADER.value
-        return ItemDisplayedType.TYPE_ITEM.value
+            return TYPE_HEADER
+        return TYPE_ITEM
     }
 
 
