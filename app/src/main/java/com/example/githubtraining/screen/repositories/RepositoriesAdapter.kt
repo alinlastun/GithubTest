@@ -91,6 +91,14 @@ class RepositoriesAdapter(var activity: Activity, var mViewModel: RepositoriesVi
             }
             mData.sortBy { it.myCreatedAt.toLowerCase() }
 
+          /*  val reposGroupedByYear = infoRepoList
+                .groupBy { it.created_at!!.substring(0, 4) }
+
+            for (year in reposGroupedByYear.keys.sortedDescending()) {
+                mData.add(YearItem(year))
+                //reposGroupedByYear.forEach { mData.add(RepoItem(it)) }
+            }*/
+
         }
 
         notifyDataSetChanged()
