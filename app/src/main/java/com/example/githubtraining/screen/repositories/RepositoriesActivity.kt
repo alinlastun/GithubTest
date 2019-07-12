@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.example.githubtraining.utill.Sort
 import com.example.githubtraining.utill.enums.SortType
 import com.example.githubtraining.utill.loading.Loading
 import com.example.githubtraining.utill.setRepoAdapter
+import com.example.githubtraining.utill.setRepoAdapter2
 import kotlinx.android.synthetic.main.activity_repositories.*
 import javax.inject.Inject
 
@@ -42,8 +44,7 @@ class RepositoriesActivity : AppCompatActivity() {
         appComponent.inject(this)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
-
-        nRecylerView.setRepoAdapter(this, mViewModel)
+        nRecylerView.setRepoAdapter2()
 
         mViewModel.mSuccessReceive.observe(this, Observer {
             mLoading.showLoading(false)
@@ -63,7 +64,8 @@ class RepositoriesActivity : AppCompatActivity() {
                     showListBySort(stuff)
                 }
                 if (mViewModel.stuffList.size < 1) {
-                    (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
+                    d("Asdfasdf","1")
+                    (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListOwner)
                 }
                 if (it.size > 0) {
                     mLoading.showLoading(false)
@@ -84,11 +86,11 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private fun showListBySort(stuffModelDB: StuffModelDB) {
         if (stuffModelDB.collaborator && !stuffModelDB.owner) {
-            (nRecylerView.adapter as RepositoriesAdapter).addData(repoListCollaborator)
+            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListCollaborator)
         } else if (stuffModelDB.owner && !stuffModelDB.collaborator) {
-            (nRecylerView.adapter as RepositoriesAdapter).addData(repoListOwner)
+            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListOwner)
         } else if (stuffModelDB.owner && stuffModelDB.collaborator) {
-            (nRecylerView.adapter as RepositoriesAdapter).addData(repoList)
+            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoList)
         }
     }
 

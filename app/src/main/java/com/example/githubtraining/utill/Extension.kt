@@ -7,7 +7,7 @@ import com.example.githubtraining.screen.repositories.RepositoriesAdapter
 import com.example.githubtraining.screen.repositories.RepositoriesViewModel
 import java.util.regex.Pattern
 import android.support.v7.widget.DividerItemDecoration
-
+import com.example.githubtraining.screen.repositories.RepositoriesAdapter2
 
 
 fun String.isValidEmail(): Boolean {
@@ -23,7 +23,12 @@ fun RecyclerView.setRepoAdapter(activity: Activity,mViewModel: RepositoriesViewM
     this.addItemDecoration(dividerItemDecoration)
     adapter = RepositoriesAdapter(activity,mViewModel)
 
+}
 
-
+fun RecyclerView.setRepoAdapter2(){
+    layoutManager = GridLayoutManager(context, 1)
+    val dividerItemDecoration = DividerItemDecoration(this.context,1)
+    this.addItemDecoration(dividerItemDecoration)
+    adapter = RepositoriesAdapter2()
 
 }

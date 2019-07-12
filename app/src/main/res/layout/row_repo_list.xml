@@ -5,7 +5,7 @@
     <data>
         <import type="android.view.View"/>
         <variable name="viewModel" type="com.example.githubtraining.screen.repositories.RepositoriesViewModel"/>
-        <variable name="model" type="com.example.githubtraining.model.RepoItem"/>
+        <variable name="model" type="com.example.githubtraining.database.modelDB.InfoRepoModelDB"/>
         <variable name="model2" type="com.example.githubtraining.database.modelDB.UserInformationModelDB"/>
         <variable name="repoActivity" type="com.example.githubtraining.screen.repositories.RepositoriesActivity"/>
     </data>
@@ -18,7 +18,7 @@
 >
 
     <TextView
-            android:text="@{viewModel.stuffData.sort==3 ? model.full_name : model.name}"
+            android:text="@{model.name}"
             android:id="@+id/nTVList"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
