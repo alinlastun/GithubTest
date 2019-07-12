@@ -41,13 +41,13 @@ class RepositoriesAdapter2 : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
             }
             withContext(Dispatchers.Main) {
-
                 val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallBack(mData, data))
                 diffResult.dispatchUpdatesTo(this@RepositoriesAdapter2)
                 mData.clear()
                 mData.addAll(data)
 
             }
+
 
         }
     }
