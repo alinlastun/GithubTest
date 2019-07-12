@@ -1,8 +1,8 @@
 package com.example.githubtraining.screen.repositories
 
-import android.annotation.SuppressLint
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,7 @@ import com.example.githubtraining.BR
 import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.databinding.RowRepoListBinding
+import com.example.githubtraining.utill.MyDiffUtilCallBack
 import com.example.githubtraining.utill.enums.ItemDisplayedType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,16 +32,20 @@ class RepositoriesAdapter2 : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val reposGroupedByYear = list?.groupBy { it.created_at!!.substring(0, 4) }
 
             reposGroupedByYear?.entries?.forEach {
+                d("Asdfad",it.key)
+
                 data.add(DataItem.YearsHeader(it.key))
                 for (infoRepo in it.value) {
+                    d("Asdfad",infoRepo.name)
                     data.add(DataItem.MyRepoItem(infoRepo))
                 }
             }
             withContext(Dispatchers.Main) {
-                mData = data
 
-                notifyDataSetChanged()
-                //submitList(items)
+                val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallBack(mData, data))
+                diffResult.dispatchUpdatesTo(this@RepositoriesAdapter2)
+                mData.clear()
+                mData.addAll(data)
 
             }
 
@@ -88,7 +93,7 @@ class RepositoriesAdapter2 : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class YearHeaderHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        var textView = view.findViewById<TextView>(R.id.mNameYears)
+        var textView: TextView = view.findViewById<TextView>(R.id.mNameYears)!!
 
         companion object {
             fun form(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -108,18 +113,6 @@ class RepositoriesAdapter2 : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (isPositionHeader(position))
             return ItemDisplayedType.TYPE_HEADER.value
         return ItemDisplayedType.TYPE_ITEM.value
-    }
-
-
-    class RepoDiffCallback : DiffUtil.ItemCallback<DataItem>() {
-        override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-            return oldItem == newItem
-        }
     }
 
 
