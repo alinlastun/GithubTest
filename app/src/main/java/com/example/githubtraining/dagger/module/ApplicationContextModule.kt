@@ -14,4 +14,10 @@ class ApplicationContextModule (val app: Application){
     fun provideApplicationContext():Context{
         return app
     }
+
+    @Singleton
+    @Provides
+    fun provideApplication():Application{
+        return app
+    }
 }

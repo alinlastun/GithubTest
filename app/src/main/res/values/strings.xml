@@ -32,7 +32,7 @@
     <string name="sort_text">Sort criteria dor repositories</string>
     <string name="title_activity_repo_details">RepoDetails</string>
     <string name="status_repository">Status Repository</string>
-    <string name="name_repository">Name Repository</string>
+    <string name="name_repository">Info about repository</string>
     <string name="details_repository">Details Repository</string>
     <string name="pushed">Pushed</string>
     <string name="full_name">Full Name</string>
@@ -47,6 +47,17 @@
     <string name="sharedPrefNoToken">no token</string>
 
     <string name="loading">Loading...</string>
+
+    <!-- Output to TextView styled with a little HTML -->
+    <string name="title"><![CDATA[<h3>Details of Repositories</h3>]]></string>
+    <string name="name_repo"><![CDATA[<b>Name: </b>]]></string>
+    <string name="full_name_repo"><![CDATA[<b>Full Name: </b>]]></string>
+    <string name="created_repo"><![CDATA[<b>Created at: </b>]]></string>
+    <string name="updated_repo"><![CDATA[<b>Updated at: </b>]]></string>
+    <string name="pushed_repo"><![CDATA[<b>Pushed at: </b>]]></string>
+    <string name="description_repo"><![CDATA[<b>Description: </b>]]></string>
+    <string name="is_private_repo"><![CDATA[<b>Is Private: </b>]]></string>
+
 
 
 

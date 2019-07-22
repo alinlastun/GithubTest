@@ -5,6 +5,7 @@ import com.example.githubtraining.screen.infoUser.InfoUserActivity
 import com.example.githubtraining.screen.login.LoginActivity
 import com.example.githubtraining.screen.login.LoginRepository
 import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
+import com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.screen.repositories.RepositoriesActivity
 import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.screen.splashScreen.SplashScreenActivity
@@ -23,6 +24,7 @@ interface AppComponent {
     fun inject(application: RepoDetailsActivity)
     fun inject(application: LoginRepository)
     fun inject(application: SettingsActivity)
+    fun inject(application: RepoDetailsViewModel)
 
 
 }
