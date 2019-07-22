@@ -1,9 +1,9 @@
 package com.example.githubtraining.utill
 
 import android.support.v7.util.DiffUtil
-import com.example.githubtraining.screen.repositories.RepositoriesAdapter2
+import com.example.githubtraining.screen.repositories.RepositoriesAdapter
 
-class MyDiffUtilCallBack(private var oldList: MutableList<RepositoriesAdapter2.DataItem>,private var newList: MutableList<RepositoriesAdapter2.DataItem>) : DiffUtil.Callback() {
+class MyDiffUtilCallBack(private var oldList: MutableList<RepositoriesAdapter.DataItem>, private var newList: MutableList<RepositoriesAdapter.DataItem>) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
         return oldList[oldPosition].id == newList[newPosition].id
     }

@@ -1,15 +1,11 @@
 package com.example.githubtraining.utill
 
-import android.app.Activity
 import android.content.Context
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.githubtraining.screen.repositories.RepositoriesAdapter
-import com.example.githubtraining.screen.repositories.RepositoriesViewModel
 import java.util.regex.Pattern
-import android.support.v7.widget.DividerItemDecoration
-import android.util.AttributeSet
-import com.example.githubtraining.screen.repositories.RepositoriesAdapter2
 
 
 fun String.isValidEmail(): Boolean {
@@ -19,20 +15,13 @@ fun String.isValidEmail(): Boolean {
     return matcher.matches()
 }
 
-fun RecyclerView.setRepoAdapter(activity: Activity,mViewModel: RepositoriesViewModel){
-    layoutManager = GridLayoutManager(context, 1)
-    val dividerItemDecoration = DividerItemDecoration(this.context,1)
-    this.addItemDecoration(dividerItemDecoration)
-    adapter = RepositoriesAdapter(activity,mViewModel)
 
-}
-
-fun RecyclerView.setRepoAdapter2(){
+fun RecyclerView.setRepoAdapter2(clickListener: RepositoriesAdapter.RepoItemListener){
     layoutManager = NpaGridLayoutManager(context, 1)
     val dividerItemDecoration = DividerItemDecoration(this.context,1)
     this.addItemDecoration(dividerItemDecoration)
     (layoutManager as GridLayoutManager).removeAllViews()
-    adapter = RepositoriesAdapter2()
+    adapter = RepositoriesAdapter(clickListener)
 
 }
 

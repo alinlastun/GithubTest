@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -19,7 +18,6 @@ import com.example.githubtraining.screen.settings.SettingsActivity
 import com.example.githubtraining.utill.Sort
 import com.example.githubtraining.utill.enums.SortType
 import com.example.githubtraining.utill.loading.Loading
-import com.example.githubtraining.utill.setRepoAdapter
 import com.example.githubtraining.utill.setRepoAdapter2
 import kotlinx.android.synthetic.main.activity_repositories.*
 import javax.inject.Inject
@@ -27,8 +25,7 @@ import javax.inject.Inject
 
 class RepositoriesActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
+    @Inject lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: RepositoriesViewModel
     private var repoList: MutableList<InfoRepoModelDB> = arrayListOf()
@@ -44,7 +41,9 @@ class RepositoriesActivity : AppCompatActivity() {
         appComponent.inject(this)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
 
-        nRecylerView.setRepoAdapter2()
+        nRecylerView.setRepoAdapter2(RepositoriesAdapter.RepoItemListener{
+            onItemRepoClicked(it)
+        })
 
         mViewModel.mSuccessReceive.observe(this, Observer {
             mLoading.showLoading(false)
@@ -64,8 +63,7 @@ class RepositoriesActivity : AppCompatActivity() {
                     showListBySort(stuff)
                 }
                 if (mViewModel.stuffList.size < 1) {
-                    d("Asdfasdf","1")
-                    (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListOwner)
+                    (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(repoListOwner)
                 }
                 if (it.size > 0) {
                     mLoading.showLoading(false)
@@ -86,11 +84,11 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private fun showListBySort(stuffModelDB: StuffModelDB) {
         if (stuffModelDB.collaborator && !stuffModelDB.owner) {
-            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListCollaborator)
+            (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(repoListCollaborator)
         } else if (stuffModelDB.owner && !stuffModelDB.collaborator) {
-            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoListOwner)
+            (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(repoListOwner)
         } else if (stuffModelDB.owner && stuffModelDB.collaborator) {
-            (nRecylerView.adapter as RepositoriesAdapter2).addHeaderAndSubmitList(repoList)
+            (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(repoList)
         }
     }
 
@@ -106,7 +104,7 @@ class RepositoriesActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemRepoClicked(idRepo: Int) {
+    private fun onItemRepoClicked(idRepo: Int) {
         val intent = Intent(this, RepoDetailsActivity::class.java)
         intent.putExtra(getString(R.string.idRepo), idRepo)
         startActivity(intent)

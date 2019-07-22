@@ -1,118 +1,133 @@
 package com.example.githubtraining.screen.repositories
 
-import android.app.Activity
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
-import android.util.Log.d
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.githubtraining.BR
 import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.model.DisplayRepo
-import com.example.githubtraining.model.RepoItem
-import com.example.githubtraining.model.YearItem
+import com.example.githubtraining.databinding.RowRepoListBinding
+import com.example.githubtraining.utill.MyDiffUtilCallBack
+import com.example.githubtraining.utill.enums.ItemDisplayedType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
-class RepositoriesAdapter(var activity: Activity, var mViewModel: RepositoriesViewModel) :
-    RecyclerView.Adapter<RepositoriesAdapter.RepositoriesHolder>() {
-    private val TYPE_HEADER = 0
-    private val TYPE_ITEM = 1
-    private var mData: MutableList<DisplayRepo> = ArrayList()
+class RepositoriesAdapter(private val clickListener: RepoItemListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoriesHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
+    private var mData: MutableList<DataItem> = mutableListOf()
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
 
-        var binding: ViewDataBinding
-        binding = if (viewType == TYPE_ITEM) {
-            DataBindingUtil.inflate(layoutInflater, R.layout.row_repo_list, parent, false)
-        } else {
-            DataBindingUtil.inflate(layoutInflater, R.layout.row_header, parent, false)
+    fun addHeaderAndSubmitList(list: MutableList<InfoRepoModelDB>?) {
+
+        adapterScope.launch {
+            val data: MutableList<DataItem> = mutableListOf()
+
+            val reposGroupedByYear = list?.groupBy { it.created_at!!.substring(0, 4) }
+
+            reposGroupedByYear?.entries?.forEach {
+
+                data.add(DataItem.YearsHeader(it.key))
+                for (infoRepo in it.value) {
+                    data.add(DataItem.MyRepoItem(infoRepo))
+                }
+            }
+            withContext(Dispatchers.Main) {
+                val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallBack(mData, data))
+                diffResult.dispatchUpdatesTo(this@RepositoriesAdapter)
+                mData.clear()
+                mData.addAll(data)
+
+            }
+
         }
-        return RepositoriesHolder(binding, activity, mViewModel)
     }
 
-    override fun onBindViewHolder(holder: RepositoriesHolder, position: Int) {
-        holder.bind(mData[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ItemDisplayedType.TYPE_HEADER.value -> YearHeaderHolder.form(parent)
+            ItemDisplayedType.TYPE_ITEM.value -> RepositoriesHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
     }
-
 
     override fun getItemCount(): Int {
         return mData.size
     }
 
-    class RepositoriesHolder(
-        private val binding: ViewDataBinding,
-        private var activity: Activity,
-        private var mViewModel: RepositoriesViewModel
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(repoModel: DisplayRepo) {
-            binding.setVariable(BR.model, repoModel)
-            binding.setVariable(BR.viewModel, mViewModel)
-            binding.setVariable(BR.repoActivity, activity)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is RepositoriesHolder -> {
+                holder.bind((mData[position] as DataItem.MyRepoItem).infoRepoModelDB,clickListener)
+            }
+            is YearHeaderHolder -> {
+                holder.textView.text = (mData[position] as DataItem.YearsHeader).yearName
+            }
+        }
+    }
+
+    class RepositoriesHolder(private val binding: RowRepoListBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            fun from(parent: ViewGroup): RecyclerView.ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = RowRepoListBinding.inflate(layoutInflater, parent, false)
+                return RepositoriesHolder(binding)
+            }
+        }
+
+        fun bind(infoRepoModelDB: InfoRepoModelDB,clickListener: RepoItemListener) {
+            binding.setVariable(BR.model, infoRepoModelDB)
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }
 
-    fun addData(infoRepoList: MutableList<InfoRepoModelDB>) {
-        mData = ArrayList()
-        if (infoRepoList.size > 0) {
-            val myListOfYears: MutableList<String> = arrayListOf()
-            
-            // extracted age from created_at and save into a String list
-            for (list in infoRepoList.sortedWith(compareByDescending<InfoRepoModelDB> { it.created_at }.thenByDescending { it.created_at }) as MutableList<InfoRepoModelDB>) {
-                val parts = list.created_at!!.substring(0, 4)
-                myListOfYears.add(parts)
-            }
-            //add in DisplayRepoList all YearItem elements that are bigger then element +1
-            var lastYearSaved = ""
-            for (i in 0..myListOfYears.size) {
-                if (i < myListOfYears.size - 1) {
-                    if (myListOfYears[i] > myListOfYears[i + 1]) {
-                        val yearItem = YearItem(myListOfYears[i], myListOfYears[i])
-                        mData.add(yearItem)
-                        lastYearSaved = myListOfYears[i]
-                    }
-                }
-            }
-            // add last element from myListOfYears in DisplayRepoList if it is smaller then last element saved in DisplayRepoList
-            if (myListOfYears[myListOfYears.size - 1] < lastYearSaved) {
-                val yearItem = YearItem(myListOfYears[myListOfYears.size - 1], "")
-                mData.add(yearItem)
-            }
+    class YearHeaderHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-            // add in DisplayRepoList all InfoRepo from DB
-            for (repoList in infoRepoList) {
-                val repoItem = repoList.created_at?.let { RepoItem(repoList, it) }
-                if (repoItem != null) {
-                    mData.add(repoItem)
-                }
+        var textView: TextView = view.findViewById<TextView>(R.id.mNameYears)!!
+
+        companion object {
+            fun form(parent: ViewGroup): RecyclerView.ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.row_header, parent, false)
+                return YearHeaderHolder(view)
             }
-            mData.sortBy { it.myCreatedAt.toLowerCase() }
-
-          /*  val reposGroupedByYear = infoRepoList
-                .groupBy { it.created_at!!.substring(0, 4) }
-
-            for (year in reposGroupedByYear.keys.sortedDescending()) {
-                mData.add(YearItem(year))
-                //reposGroupedByYear.forEach { mData.add(RepoItem(it)) }
-            }*/
-
         }
-
-        notifyDataSetChanged()
     }
 
 
     private fun isPositionHeader(position: Int): Boolean {
-        return mData[position] is YearItem
+        return mData[position] is DataItem.YearsHeader
     }
 
     override fun getItemViewType(position: Int): Int {
         if (isPositionHeader(position))
-            return TYPE_HEADER
-        return TYPE_ITEM
+            return ItemDisplayedType.TYPE_HEADER.value
+        return ItemDisplayedType.TYPE_ITEM.value
+    }
+
+
+    sealed class DataItem {
+        abstract val id: Long
+
+        data class MyRepoItem(val infoRepoModelDB: InfoRepoModelDB) : DataItem() {
+            override val id: Long = infoRepoModelDB.id!!.toLong()
+        }
+
+        data class YearsHeader(var yearName: String) : DataItem() {
+            override val id: Long = Long.MIN_VALUE
+
+        }
+    }
+
+    class RepoItemListener(val clickListener: (idInfoRepo: Int) -> Unit){
+        fun onClick(idRepo: Int) = clickListener(idRepo)
     }
 
 

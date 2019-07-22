@@ -4,17 +4,15 @@
 >
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel" type="com.example.githubtraining.screen.repositories.RepositoriesViewModel"/>
         <variable name="model" type="com.example.githubtraining.database.modelDB.InfoRepoModelDB"/>
-        <variable name="model2" type="com.example.githubtraining.database.modelDB.UserInformationModelDB"/>
-        <variable name="repoActivity" type="com.example.githubtraining.screen.repositories.RepositoriesActivity"/>
+        <variable name="clickListener" type="com.example.githubtraining.screen.repositories.RepositoriesAdapter.RepoItemListener"/>
     </data>
 
 <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/btn_row_list"
-        android:onClick="@{() -> repoActivity.onItemRepoClicked(model.id)}"
+        android:onClick="@{() -> clickListener.onClick(model.id)}"
 >
 
     <TextView

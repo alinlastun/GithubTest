@@ -21,7 +21,6 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
     val mPublicRepo = ObservableField("")
     val mPrivateRepo = ObservableField("")
 
-/*
     lateinit var userInfo:LiveData<UserInformationModelDB>
 
     val nUrlAvatar:LiveData<String> = Transformations.map(userInfo) { repo ->
@@ -45,7 +44,6 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
     val nPrivateRepo:LiveData<String> = Transformations.map(userInfo) { repo ->
         repo.total_private_repos.toString()
     }
-*/
 
 
     var mGetInfoUser = mRepositoryUser.getInfoUserFromDB{_, _, _ ->}
