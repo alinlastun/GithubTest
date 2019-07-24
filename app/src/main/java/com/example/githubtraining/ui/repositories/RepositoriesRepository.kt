@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.database.dao.DaoInfoRepo
+import com.example.githubtraining.database.dao.DaoStuff
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.retrofit.ServiceUtil
-import com.example.githubtraining.utill.repository.RepositoryStuffDB
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,15 +17,15 @@ import javax.inject.Inject
 class RepositoriesRepository @Inject constructor(
     private val serviceUtil: ServiceUtil,
     private val daoInfoRepo: DaoInfoRepo,
-    val application: Application,
-    mRepositoryStuff: RepositoryStuffDB
+    private val daoStuff: DaoStuff,
+    val application: Application
 ) {
 
     @Inject
     lateinit var pref: SharedPreferences
-    var observableDataStuff = mRepositoryStuff.getStuffFromDB()
-    var sortNrFormDB = mRepositoryStuff.getSortNr()
-    var stuffDbList = mRepositoryStuff.getStuffListFromDB()
+    var observableDataStuff = daoStuff.getStuff()
+    var sortNrFormDB = daoStuff.getSortNumber()
+    var stuffDbList = daoStuff.getStuffList()
 
 
     suspend fun refreshDataRepo(listener: (success: Boolean, error: Boolean, errorMsg: String) -> Unit) {

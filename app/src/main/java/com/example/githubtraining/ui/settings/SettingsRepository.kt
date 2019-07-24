@@ -1,16 +1,16 @@
 package com.example.githubtraining.ui.settings
 
+import com.example.githubtraining.database.dao.DaoStuff
 import com.example.githubtraining.database.modelDB.StuffModelDB
-import com.example.githubtraining.utill.repository.RepositoryStuffDB
 import javax.inject.Inject
 
-class SettingsRepository @Inject constructor(private val mRepositoryDB: RepositoryStuffDB) {
+class SettingsRepository @Inject constructor(private val daoStaff: DaoStuff) {
 
-    val radioBtnIdFormDB = mRepositoryDB.getRadioButtonId()
-    val getStuff = mRepositoryDB.getStuffFromDB()
+    val radioBtnIdFormDB = daoStaff.getRadioBtnId()
+    val getStuff = daoStaff.getStuff()
 
     fun insertIntoStuffDB(stuffDB: StuffModelDB){
-        mRepositoryDB.insertStuffIntoDB(stuffDB)
+        daoStaff.insertStuff(stuffDB)
     }
 
 
