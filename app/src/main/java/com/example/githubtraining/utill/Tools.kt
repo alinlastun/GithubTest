@@ -2,9 +2,10 @@ package com.example.githubtraining.utill
 
 import android.content.res.Resources
 import android.os.Build
-import android.support.v4.text.HtmlCompat
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
+import androidx.core.text.HtmlCompat
 import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import java.text.SimpleDateFormat
@@ -14,6 +15,7 @@ import java.util.*
 class Tools {
 
     fun formatInfoRepo(infoRepo: InfoRepoModelDB, resources: Resources): Spanned {
+        Log.d("Asdfasdf",infoRepo.name)
         val sb = StringBuilder()
         sb.apply {
 

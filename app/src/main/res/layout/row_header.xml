@@ -5,10 +5,9 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="model" type="com.example.githubtraining.model.YearItem"/>
 
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
     >
@@ -24,7 +23,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="MissingConstraints"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

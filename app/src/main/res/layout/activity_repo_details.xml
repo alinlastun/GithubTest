@@ -6,9 +6,9 @@
     <data>
         <variable
                 name="repoDetails"
-                type="com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel" />
+                type="com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel" />
     </data>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screen.repoDetails.RepoDetailsActivity"
@@ -105,5 +105,5 @@
             android:text="@{repoDetails.MDescriptionRepository}"
             tools:ignore="MissingConstraints"/>-->
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
     </layout>

@@ -1,10 +1,13 @@
-package com.example.githubtraining.screen.repoDetails
+package com.example.githubtraining.ui.repoDetails
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivityRepoDetailsBinding
@@ -25,9 +28,11 @@ class RepoDetailsActivity : AppCompatActivity() {
         mBinding.repoDetails = mViewModel
         mBinding.lifecycleOwner = this
 
+
+        Log.d("Asdfasdf", "2 ${intent.getIntExtra(getString(R.string.idRepo), -1)}")
         mViewModel.init(intent.getIntExtra(getString(R.string.idRepo), -1))
 
-
+       mViewModel.resultInfoRepo.observe(this, Observer { Log.d("Asdfasdf", "3 ${it}") })
 
     }
 

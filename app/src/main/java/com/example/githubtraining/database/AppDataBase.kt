@@ -1,9 +1,7 @@
 package com.example.githubtraining.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
-import android.content.Context
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.database.dao.DaoStuff

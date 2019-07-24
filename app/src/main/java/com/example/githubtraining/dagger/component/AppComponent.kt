@@ -1,14 +1,14 @@
 package com.example.githubtraining.dagger.component
 
 import com.example.githubtraining.dagger.module.*
-import com.example.githubtraining.screen.infoUser.InfoUserActivity
-import com.example.githubtraining.screen.login.LoginActivity
-import com.example.githubtraining.screen.login.LoginRepository
-import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
-import com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel
-import com.example.githubtraining.screen.repositories.RepositoriesActivity
-import com.example.githubtraining.screen.settings.SettingsActivity
-import com.example.githubtraining.screen.splashScreen.SplashScreenActivity
+import com.example.githubtraining.ui.infoUser.InfoUserActivity
+import com.example.githubtraining.ui.login.LoginActivity
+import com.example.githubtraining.ui.login.LoginRepository
+import com.example.githubtraining.ui.repoDetails.RepoDetailsActivity
+import com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel
+import com.example.githubtraining.ui.repositories.RepositoriesActivity
+import com.example.githubtraining.ui.settings.SettingsActivity
+import com.example.githubtraining.ui.splashScreen.SplashScreenActivity
 import dagger.Component
 import javax.inject.Singleton
 

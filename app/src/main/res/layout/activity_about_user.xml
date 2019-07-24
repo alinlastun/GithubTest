@@ -6,28 +6,28 @@
         <import type="android.view.View"/>
         <variable
                 name="aboutUser"
-                type="com.example.githubtraining.screen.infoUser.InfoUserViewModel"/>
+                type="com.example.githubtraining.ui.infoUser.InfoUserViewModel"/>
 
         <variable
                 name="activity"
-                type="com.example.githubtraining.screen.infoUser.InfoUserActivity"/>
+                type="com.example.githubtraining.ui.infoUser.InfoUserActivity"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mInfoUserContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".screen.infoUser.InfoUserActivity" >
 
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/nContainerButtomButtons" >
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp">
@@ -36,7 +36,6 @@
                         android:id="@+id/nAvatarImage"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        tools:ignore="MissingConstraints"
                         app:layout_constraintTop_toTopOf="parent"
                         app:picture_url="@{aboutUser.mUrlAvatar}" />
 
@@ -199,19 +198,19 @@
                         android:textStyle="bold"
                         android:textColor="#0963AD"/>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nContainerButtomButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/nViewRepo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -219,7 +218,7 @@
                     android:onClick="@{() -> activity.goToRepoActivity()}"
                     android:background="@drawable/btn_border">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -245,12 +244,12 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/nContactEmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -260,7 +259,7 @@
                     android:background="@drawable/btn_border"
                     app:layout_constraintTop_toBottomOf="@id/nViewRepo">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -289,13 +288,13 @@
                     />
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

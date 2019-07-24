@@ -15,16 +15,16 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".screen.repoDetails.RepoDetailsActivity"
+                android:name=".ui.repoDetails.RepoDetailsActivity"
                 android:label="@string/title_activity_repo_details"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".screen.settings.SettingsActivity"
+                android:name=".ui.settings.SettingsActivity"
                 android:label="@string/title_activity_settings">
         </activity>
         <activity
-                android:name=".screen.splashScreen.SplashScreenActivity"
+                android:name=".ui.splashScreen.SplashScreenActivity"
                 android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,14 +33,14 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".screen.repositories.RepositoriesActivity"
+                android:name=".ui.repositories.RepositoriesActivity"
                 android:label="@string/title_activity_repositories"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".screen.infoUser.InfoUserActivity">
+        <activity android:name=".ui.infoUser.InfoUserActivity">
         </activity>
         <activity
-                android:name=".screen.login.LoginActivity"
+                android:name=".ui.login.LoginActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>

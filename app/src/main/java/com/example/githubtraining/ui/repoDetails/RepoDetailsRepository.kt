@@ -1,7 +1,6 @@
-package com.example.githubtraining.screen.repoDetails
+package com.example.githubtraining.ui.repoDetails
 
-import android.arch.lifecycle.LiveData
-import com.example.githubtraining.appComponent
+import androidx.lifecycle.LiveData
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import javax.inject.Inject

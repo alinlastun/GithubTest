@@ -1,10 +1,10 @@
 package com.example.githubtraining.utill.loading
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 
 open class BaseDialog(private val nContext:Context): View.OnClickListener {
 

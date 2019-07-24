@@ -1,6 +1,6 @@
-package com.example.githubtraining.screen.repositories
+package com.example.githubtraining.ui.repositories
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB

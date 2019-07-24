@@ -1,20 +1,21 @@
-package com.example.githubtraining.screen.repositories
+package com.example.githubtraining.ui.repositories
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.StuffModelDB
-import com.example.githubtraining.screen.repoDetails.RepoDetailsActivity
-import com.example.githubtraining.screen.settings.SettingsActivity
+import com.example.githubtraining.ui.repoDetails.RepoDetailsActivity
+import com.example.githubtraining.ui.settings.SettingsActivity
 import com.example.githubtraining.utill.Sort
 import com.example.githubtraining.utill.enums.SortType
 import com.example.githubtraining.utill.loading.Loading
@@ -106,6 +107,7 @@ class RepositoriesActivity : AppCompatActivity() {
 
     private fun onItemRepoClicked(idRepo: Int) {
         val intent = Intent(this, RepoDetailsActivity::class.java)
+        Log.d("Asdfasdf", "1 $idRepo")
         intent.putExtra(getString(R.string.idRepo), idRepo)
         startActivity(intent)
     }

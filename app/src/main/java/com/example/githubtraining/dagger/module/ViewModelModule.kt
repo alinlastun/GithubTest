@@ -1,12 +1,13 @@
 package com.example.githubtraining.dagger.module
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import com.example.githubtraining.screen.infoUser.InfoUserViewModel
-import com.example.githubtraining.screen.login.LoginViewModel
-import com.example.githubtraining.screen.repoDetails.RepoDetailsViewModel
-import com.example.githubtraining.screen.repositories.RepositoriesViewModel
-import com.example.githubtraining.screen.settings.SettingsViewModel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.githubtraining.ui.infoUser.InfoUserViewModel
+import com.example.githubtraining.ui.login.LoginViewModel
+import com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel
+import com.example.githubtraining.ui.repositories.RepositoriesViewModel
+import com.example.githubtraining.ui.settings.SettingsViewModel
 import com.example.githubtraining.utill.ViewModelFactory
 import dagger.Binds
 import dagger.Module

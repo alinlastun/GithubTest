@@ -1,14 +1,10 @@
-package com.example.githubtraining.screen.login
+package com.example.githubtraining.ui.login
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.content.Context
-import android.content.SharedPreferences
-import android.databinding.ObservableField
-import android.util.Log
-import com.example.githubtraining.R
+
+import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.githubtraining.utill.isValidEmail
-import okhttp3.Credentials
 import javax.inject.Inject
 
 

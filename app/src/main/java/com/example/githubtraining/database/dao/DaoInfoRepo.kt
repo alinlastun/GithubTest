@@ -1,28 +1,27 @@
 package com.example.githubtraining.database.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
 @Dao
 interface DaoInfoRepo {
 
-    @Query("select * from repoInfo_table")
+    @Query("select * from infoRepoModelDB")
     fun getInfoRepo(): LiveData<MutableList<InfoRepoModelDB>>
 
-    @Query("select * from repoInfo_table")
+    @Query("select * from infoRepoModelDB")
     fun getInfoRepoList(): MutableList<InfoRepoModelDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInfoRepo(infoRepoDB:  List<InfoRepoModelDB>)
 
-    @Query("delete from repoInfo_table")
+    @Query("delete from infoRepoModelDB")
     fun deleteInfoRepo()
 
-    @Query("select * from repoInfo_table where id in (:id)")
+    @Query("select * from infoRepoModelDB where id in (:id)")
     fun getRepoById(id: Int): LiveData<InfoRepoModelDB>
 }

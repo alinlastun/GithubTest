@@ -1,16 +1,18 @@
-package com.example.githubtraining.screen.repositories
+package com.example.githubtraining.ui.repositories
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtraining.BR
 import com.example.githubtraining.R
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.databinding.RowRepoListBinding
-import com.example.githubtraining.utill.MyDiffUtilCallBack
 import com.example.githubtraining.utill.enums.ItemDisplayedType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class RepositoriesAdapter(private val clickListener: RepoItemListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAdapter<RepositoriesAdapter.DataItem, RecyclerView.ViewHolder>(RepoDiffUilCallBack()) {
 
     private var mData: MutableList<DataItem> = mutableListOf()
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -28,24 +30,36 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : Recycle
         adapterScope.launch {
             val data: MutableList<DataItem> = mutableListOf()
 
-            val reposGroupedByYear = list?.groupBy { it.created_at!!.substring(0, 4) }
+            val reposGroupedByYear = list?.groupBy { it.created_at?.substring(0, 4) }
 
             reposGroupedByYear?.entries?.forEach {
 
-                data.add(DataItem.YearsHeader(it.key))
+                it.key?.let { it1 -> DataItem.YearsHeader(it1) }?.let { it2 -> data.add(it2) }
                 for (infoRepo in it.value) {
                     data.add(DataItem.MyRepoItem(infoRepo))
                 }
             }
             withContext(Dispatchers.Main) {
-                val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallBack(mData, data))
-                diffResult.dispatchUpdatesTo(this@RepositoriesAdapter)
-                mData.clear()
-                mData.addAll(data)
+                submitList(data)
+              mData.clear()
+              mData.addAll(data)
+
 
             }
 
         }
+    }
+
+    class RepoDiffUilCallBack: DiffUtil.ItemCallback<DataItem>() {
+        override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+            return oldItem == newItem
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -117,7 +131,7 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : Recycle
         abstract val id: Long
 
         data class MyRepoItem(val infoRepoModelDB: InfoRepoModelDB) : DataItem() {
-            override val id: Long = infoRepoModelDB.id!!.toLong()
+            override val id: Long = infoRepoModelDB.id.toLong()
         }
 
         data class YearsHeader(var yearName: String) : DataItem() {

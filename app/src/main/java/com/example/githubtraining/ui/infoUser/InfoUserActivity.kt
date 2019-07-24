@@ -1,21 +1,22 @@
-package com.example.githubtraining.screen.infoUser
+package com.example.githubtraining.ui.infoUser
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+
 import android.content.Intent
 import android.content.SharedPreferences
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivityAboutUserBinding
-import com.example.githubtraining.screen.login.LoginActivity
-import com.example.githubtraining.screen.repositories.RepositoriesActivity
+import com.example.githubtraining.ui.login.LoginActivity
+import com.example.githubtraining.ui.repositories.RepositoriesActivity
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {

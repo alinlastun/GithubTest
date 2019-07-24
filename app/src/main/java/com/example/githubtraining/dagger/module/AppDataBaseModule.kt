@@ -1,7 +1,7 @@
 package com.example.githubtraining.dagger.module
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.dao.DaoInfoUser

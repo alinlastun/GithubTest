@@ -5,15 +5,15 @@
     <data>
         <variable
                 name="login"
-                type="com.example.githubtraining.screen.login.LoginViewModel"/>
+                type="com.example.githubtraining.ui.login.LoginViewModel"/>
     </data>
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
             android:id="@+id/mLoginContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,7 +71,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/nPassword"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -1,18 +1,18 @@
-package com.example.githubtraining.screen.splashScreen
+package com.example.githubtraining.ui.splashScreen
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
-import com.example.githubtraining.screen.infoUser.InfoUserActivity
-import com.example.githubtraining.screen.login.LoginActivity
-import com.example.githubtraining.screen.login.LoginViewModel
-import com.example.githubtraining.utill.ViewModelFactory
+import com.example.githubtraining.ui.infoUser.InfoUserActivity
+import com.example.githubtraining.ui.login.LoginActivity
+import com.example.githubtraining.ui.login.LoginViewModel
 import javax.inject.Inject
 
 

@@ -1,11 +1,10 @@
 package com.example.githubtraining.utill
 
-import android.databinding.BindingAdapter
-import android.util.Log
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
-@BindingAdapter(value = ["picture_url"], requireAll = false)
+@BindingAdapter("picture_url")
 fun setUrlIntoImage(mImageView: ImageView, mUrl: String) {
 
     if (!mUrl.isEmpty() && mUrl.isNotEmpty()) {

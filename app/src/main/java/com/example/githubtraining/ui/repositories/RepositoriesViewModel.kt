@@ -1,8 +1,9 @@
-package com.example.githubtraining.screen.repositories
+package com.example.githubtraining.ui.repositories
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+
+import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
 class RepositoriesViewModel @Inject constructor(private val repository: RepositoriesRepository) : ViewModel() {
@@ -14,7 +15,7 @@ class RepositoriesViewModel @Inject constructor(private val repository: Reposito
     val stuffList=repository.stuffDbList
     val mSuccessReceive = MutableLiveData<Boolean>()
     val mErrorReceive = MutableLiveData<Boolean>()
-    val mErrorMsgReceive =ObservableField("")
+    val mErrorMsgReceive = ObservableField("")
     val userNameLogged= repository.infoUserLogged
 
     val repoListLiveData = repository.getDataRepo{ success, error, errorMsg->

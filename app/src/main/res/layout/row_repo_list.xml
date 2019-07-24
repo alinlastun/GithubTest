@@ -5,10 +5,10 @@
     <data>
         <import type="android.view.View"/>
         <variable name="model" type="com.example.githubtraining.database.modelDB.InfoRepoModelDB"/>
-        <variable name="clickListener" type="com.example.githubtraining.screen.repositories.RepositoriesAdapter.RepoItemListener"/>
+        <variable name="clickListener" type="com.example.githubtraining.ui.repositories.RepositoriesAdapter.RepoItemListener"/>
     </data>
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/btn_row_list"
@@ -28,6 +28,6 @@
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

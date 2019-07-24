@@ -1,6 +1,6 @@
 package com.example.githubtraining.utill.repository
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 
 interface Repo {

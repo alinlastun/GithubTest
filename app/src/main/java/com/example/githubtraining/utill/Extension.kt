@@ -1,10 +1,11 @@
 package com.example.githubtraining.utill
 
 import android.content.Context
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.example.githubtraining.screen.repositories.RepositoriesAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+import com.example.githubtraining.ui.repositories.RepositoriesAdapter
 import java.util.regex.Pattern
 
 

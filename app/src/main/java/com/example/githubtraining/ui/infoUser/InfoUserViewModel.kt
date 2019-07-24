@@ -1,10 +1,9 @@
-package com.example.githubtraining.screen.infoUser
+package com.example.githubtraining.ui.infoUser
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Transformations
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
+import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.utill.repository.RepositoryRepoDB
 import com.example.githubtraining.utill.repository.RepositoryUserDB
@@ -21,7 +20,7 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
     val mPublicRepo = ObservableField("")
     val mPrivateRepo = ObservableField("")
 
-    lateinit var userInfo:LiveData<UserInformationModelDB>
+    lateinit var userInfo: LiveData<UserInformationModelDB>
 
 /*
     val nUrlAvatar:LiveData<String> = Transformations.map(userInfo) { repo ->

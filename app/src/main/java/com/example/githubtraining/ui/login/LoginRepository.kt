@@ -1,13 +1,8 @@
-package com.example.githubtraining.screen.login
+package com.example.githubtraining.ui.login
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
-import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.utill.repository.RepositoryUserDB
-import com.example.githubtraining.utill.repository.RepositoryWs
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class LoginRepository  @Inject constructor (private val repositoryDB : RepositoryUserDB ) {

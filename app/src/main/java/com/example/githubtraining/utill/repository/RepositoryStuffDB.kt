@@ -1,7 +1,6 @@
 package com.example.githubtraining.utill.repository
 
-import android.arch.lifecycle.LiveData
-import android.os.AsyncTask
+import androidx.lifecycle.LiveData
 import com.example.githubtraining.database.dao.DaoStuff
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import java.util.concurrent.Executor

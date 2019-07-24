@@ -1,12 +1,14 @@
-package com.example.githubtraining.screen.repoDetails
+package com.example.githubtraining.ui.repoDetails
 
 import android.app.Application
-import android.arch.lifecycle.*
-import android.content.Context
-import android.databinding.ObservableField
-import android.support.annotation.MainThread
+
 import android.text.Spanned
-import com.example.githubtraining.appComponent
+import android.util.Log
+import androidx.annotation.MainThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.Tools
 import javax.inject.Inject
@@ -17,7 +19,9 @@ class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetail
 
     private val repoId = MutableLiveData<Int>()
 
-    private val repo: LiveData<InfoRepoModelDB> =
+    fun myInfoRepo(id:Int) =  repository.getRepoById(id)
+
+     val repo: LiveData<InfoRepoModelDB> =
         Transformations.switchMap(repoId) { repoId ->
             repository.getRepoById(repoId)
         }
@@ -25,7 +29,6 @@ class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetail
     val resultInfoRepo: LiveData<Spanned> = Transformations.map(repo){
         Tools().formatInfoRepo(it,application.resources)
     }
-
     val mNameRepository: LiveData<String> =
         Transformations.map(repo) { repo ->
             repo.name

@@ -1,11 +1,7 @@
 package com.example.githubtraining.utill.repository
 
-import android.arch.lifecycle.LiveData
-import android.content.Context
-import android.os.AsyncTask
-import android.support.annotation.WorkerThread
-import com.example.githubtraining.appComponent
-import com.example.githubtraining.database.AppDataBase
+import androidx.lifecycle.LiveData
+import androidx.annotation.WorkerThread
 import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 import com.example.githubtraining.model.LoginModelError

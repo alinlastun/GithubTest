@@ -1,4 +1,4 @@
-package com.example.githubtraining.screen.settings
+package com.example.githubtraining.ui.settings
 
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.utill.repository.RepositoryStuffDB
