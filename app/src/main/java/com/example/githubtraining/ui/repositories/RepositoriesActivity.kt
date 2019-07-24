@@ -55,7 +55,7 @@ class RepositoriesActivity : AppCompatActivity() {
         })
 
 
-        mViewModel.repoListLiveData.observe(this, Observer {
+        mViewModel.infoRepoLiveData.observe(this, Observer {
             if (it != null) {
                 repoList = it
                 getCollaboratorList(it)

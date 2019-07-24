@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubtraining.utill.isValidEmail
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
@@ -14,20 +15,25 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
     val mPassword = ObservableField("")
     val mCredentialError = ObservableField("")
 
+    private val viewModelJob = SupervisorJob()
+    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     val mSuccessLogin = MutableLiveData<Boolean>()
     val mErrorLogin = MutableLiveData<Boolean>()
 
 
 
     fun login() {
-        mRepository.getDataUser{success, error,errorMsg ->
-            if(success){
-                mSuccessLogin.postValue(true)
-            }else if(error){
-                mCredentialError.set(errorMsg)
-                mErrorLogin.postValue(true)
+        viewModelScope.launch {
+            mRepository.refreshDataUser{success, error,errorMsg ->
+                if(success){
+                    mSuccessLogin.postValue(true)
+                }else if(error){
+                    mCredentialError.set(errorMsg)
+                    mErrorLogin.postValue(true)
+                }
             }
         }
+
 
     }
 
@@ -58,6 +64,8 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
         return isValidPass
     }
 
-
-
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }

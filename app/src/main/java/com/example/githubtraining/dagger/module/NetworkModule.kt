@@ -1,5 +1,6 @@
 package com.example.githubtraining.dagger.module
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -36,4 +37,11 @@ class NetworkModule {
     fun provideRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory {
         return RxJava2CallAdapterFactory.create()
     }
+
+    @Provides
+    @Singleton
+    fun provideCoroutineCallAdapterFactory(): CoroutineCallAdapterFactory {
+        return CoroutineCallAdapterFactory()
+    }
+
 }

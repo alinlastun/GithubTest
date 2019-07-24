@@ -4,12 +4,12 @@ import androidx.annotation.WorkerThread
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.githubtraining.database.dao.DaoInfoRepo
+import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
-import com.example.githubtraining.utill.repository.RepositoryRepoDB
-import com.example.githubtraining.utill.repository.RepositoryUserDB
 import javax.inject.Inject
 
-class InfoUserViewModel @Inject constructor(private val mRepositoryUser: RepositoryUserDB,private val mRepositoryRepo: RepositoryRepoDB) : ViewModel() {
+class InfoUserViewModel @Inject constructor(private val mDaoInfoRepo: DaoInfoRepo,val daoInfoUser: DaoInfoUser) : ViewModel() {
 
     val mUrlAvatar = ObservableField("")
     val mBio = ObservableField("")
@@ -47,15 +47,15 @@ class InfoUserViewModel @Inject constructor(private val mRepositoryUser: Reposit
 */
 
 
-    var mGetInfoUser = mRepositoryUser.getInfoUserFromDB{_, _, _ ->}
+    var mGetInfoUser = daoInfoUser.getInfoUser()
 
     @WorkerThread
     fun deleteInfoUserFromDB(){
-        mRepositoryUser.deleteInfoUser()
+        daoInfoUser.deleteInfoUser()
     }
     @WorkerThread
     fun deleteInfoRepo(){
-        mRepositoryRepo.deleteInfoRepo()
+        mDaoInfoRepo.deleteInfoRepo()
     }
 
 
