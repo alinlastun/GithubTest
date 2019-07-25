@@ -35,6 +35,7 @@ class LoginRepository  @Inject constructor (private val daoInfoUser: DaoInfoUser
                     listener.invoke(true,false,"")
 
                     response.body()?.let {
+                        daoInfoUser.deleteInfoUser()
                         daoInfoUser.insertInfoUser(it.asInfoUserDBModel())
                     }
                 } else {

@@ -40,6 +40,7 @@ class RepositoriesRepository @Inject constructor(
             if (response.isSuccessful) {
                 Log.d("asdfasd", "isSuccessful")
                 listener.invoke(true, false, "")
+                daoInfoRepo.deleteInfoRepo()
                 response.body()?.let { daoInfoRepo.insertInfoRepo(it) }
             } else {
                 Log.d("asdfasd", "error")

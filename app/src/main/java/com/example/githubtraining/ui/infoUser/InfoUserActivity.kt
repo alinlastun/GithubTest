@@ -19,6 +19,7 @@ import com.example.githubtraining.ui.repositories.RepositoriesActivity
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
+
     @Inject lateinit var pref: SharedPreferences
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: InfoUserViewModel
@@ -34,8 +35,6 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding.activity = this
         mBinding.lifecycleOwner = this
 
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,8 +45,6 @@ class InfoUserActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                mViewModel.deleteInfoUserFromDB()
-                mViewModel.deleteInfoRepo()
                 pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)).apply()
                 startActivity(Intent(this,LoginActivity::class.java))
                 finish()
