@@ -12,7 +12,7 @@ import com.example.githubtraining.database.modelDB.UserInformationModelDB
 interface DaoInfoUser {
 
     @Query("select * from userInformationModelDB")
-    fun getInfoUser(): LiveData<MutableList<UserInformationModelDB>>
+    fun getInfoUser(): LiveData<UserInformationModelDB>
 
     @Query("select * from userInformationModelDB")
     fun getListOfInfoUser(): MutableList<UserInformationModelDB>

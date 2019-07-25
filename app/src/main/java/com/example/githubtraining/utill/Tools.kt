@@ -47,7 +47,7 @@ class Tools {
         }
     }
 
-    private fun formatMyDate(myDate: String): String {
+     fun formatMyDate(myDate: String): String {
         val outputFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.US)
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
         val date = inputFormat.parse(myDate)

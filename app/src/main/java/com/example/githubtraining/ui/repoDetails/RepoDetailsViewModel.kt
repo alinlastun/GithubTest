@@ -19,8 +19,6 @@ class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetail
 
     private val repoId = MutableLiveData<Int>()
 
-    fun myInfoRepo(id:Int) =  repository.getRepoById(id)
-
      val repo: LiveData<InfoRepoModelDB> =
         Transformations.switchMap(repoId) { repoId ->
             repository.getRepoById(repoId)

@@ -57,8 +57,8 @@ class RepositoriesActivity : AppCompatActivity() {
 
         mViewModel.infoRepoLiveData.observe(this, Observer {
             if (it != null) {
-                repoList = it
-                getCollaboratorList(it)
+                repoList = it.toMutableList()
+                getCollaboratorList(it.toMutableList())
                 sortByItemSelected(mViewModel.sortNr)
                 for (stuff in mViewModel.stuffList) {
                     showListBySort(stuff)

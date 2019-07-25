@@ -11,7 +11,7 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 interface DaoInfoRepo {
 
     @Query("select * from infoRepoModelDB")
-    fun getInfoRepo(): LiveData<MutableList<InfoRepoModelDB>>
+    fun getInfoRepo(): LiveData<List<InfoRepoModelDB>>
 
     @Query("select * from infoRepoModelDB")
     fun getInfoRepoList(): MutableList<InfoRepoModelDB>

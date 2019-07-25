@@ -2,9 +2,11 @@ package com.example.githubtraining.ui.login
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.model.LoginModelError
+import com.example.githubtraining.model.asInfoUserDBModel
 import com.example.githubtraining.retrofit.ServiceUtil
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +30,16 @@ class LoginRepository  @Inject constructor (private val daoInfoUser: DaoInfoUser
                     application.getString(R.string.sharedPrefNoToken)
                 )!!
             ).await()
-            try {
                 if (response.isSuccessful) {
+                    Log.d("dasd","isSuccessful "  +response.message())
                     listener.invoke(true,false,"")
-                    response.body()?.let { daoInfoUser.insertInfoUser(it) }
-                } else {
 
+                    response.body()?.let {
+                        daoInfoUser.insertInfoUser(it.asInfoUserDBModel())
+                    }
+                } else {
+                    Log.d("dasd","error "  +response.errorBody())
+                    Log.d("dasd","error "  +response.message())
                     val jObjError = JSONObject(response.errorBody()?.string())
                     val mErrorModel = Gson().fromJson(jObjError.toString(), LoginModelError::class.java)
 
@@ -44,12 +50,6 @@ class LoginRepository  @Inject constructor (private val daoInfoUser: DaoInfoUser
                     }
 
                 }
-            } catch (e: HttpException) {
-                listener.invoke(false,true,response.message())
-            } catch (e: Throwable) {
-                listener.invoke(false,true,response.message())
             }
-        }
-
     }
 }

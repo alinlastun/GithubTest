@@ -3,13 +3,12 @@ package com.example.githubtraining.ui.infoUser
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
@@ -24,7 +23,6 @@ class InfoUserActivity : AppCompatActivity() {
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: InfoUserViewModel
     private lateinit var mBinding: ActivityAboutUserBinding
-    private var userName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,24 +32,9 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_about_user)
         mBinding.aboutUser = mViewModel
         mBinding.activity = this
+        mBinding.lifecycleOwner = this
 
 
-        mViewModel.mGetInfoUser.observe(this, Observer {
-            if(it!=null){
-                for (userInfoDb in it){
-                    mViewModel.mUrlAvatar.set(userInfoDb.avatar_url)
-                    mViewModel.mBio.set(userInfoDb.bio)
-                    mViewModel.mPrivateRepo.set(userInfoDb.total_private_repos.toString())
-                    mViewModel.mPublicRepo.set(userInfoDb.public_repos.toString())
-                    mViewModel.mLocation.set(userInfoDb.location.toString())
-                    mViewModel.mEmail.set(userInfoDb.email.toString())
-                    mViewModel.mCreated.set(userInfoDb.created_at.toString())
-                    mViewModel.mUpdated.set(userInfoDb.updated_at.toString())
-                    userName = userInfoDb.login.toString()
-                }
-            }
-
-        })
 
     }
 
