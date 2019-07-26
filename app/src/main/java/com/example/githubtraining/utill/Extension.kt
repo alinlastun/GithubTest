@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtraining.ui.repositories.RepositoriesAdapter
 import java.util.regex.Pattern
 
-
 fun String.isValidEmail(): Boolean {
     val expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
     val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
@@ -16,14 +15,12 @@ fun String.isValidEmail(): Boolean {
     return matcher.matches()
 }
 
-
-fun RecyclerView.setRepoAdapter2(clickListener: RepositoriesAdapter.RepoItemListener){
+fun RecyclerView.setRepoAdapter2(clickListener: RepositoriesAdapter.RepoItemListener) {
     layoutManager = NpaGridLayoutManager(context, 1)
-    val dividerItemDecoration = DividerItemDecoration(this.context,1)
+    val dividerItemDecoration = DividerItemDecoration(this.context, 1)
     this.addItemDecoration(dividerItemDecoration)
     (layoutManager as GridLayoutManager).removeAllViews()
     adapter = RepositoriesAdapter(clickListener)
-
 }
 
 private class NpaGridLayoutManager(context: Context?, spanCount: Int) : GridLayoutManager(context, spanCount) {
@@ -35,5 +32,4 @@ private class NpaGridLayoutManager(context: Context?, spanCount: Int) : GridLayo
     override fun supportsPredictiveItemAnimations(): Boolean {
         return false
     }
-
 }

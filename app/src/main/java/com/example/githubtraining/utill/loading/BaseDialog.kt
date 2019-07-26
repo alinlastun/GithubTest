@@ -2,11 +2,10 @@ package com.example.githubtraining.utill.loading
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 
-open class BaseDialog(private val nContext:Context): View.OnClickListener {
+open class BaseDialog(private val nContext:Context) {
 
     private lateinit var mContainer : ConstraintLayout
     private lateinit var mBuilder: AlertDialog.Builder
@@ -14,9 +13,8 @@ open class BaseDialog(private val nContext:Context): View.OnClickListener {
     private var mIsPopUpReady = false
 
     protected fun createView(nCustomLayout: Int) {
-        mContainer = LayoutInflater.from(nContext).inflate(nCustomLayout,null) as ConstraintLayout
+        mContainer = LayoutInflater.from(nContext).inflate(nCustomLayout, null) as ConstraintLayout
         create()
-
     }
 
     private fun create() {
@@ -34,7 +32,4 @@ open class BaseDialog(private val nContext:Context): View.OnClickListener {
             mDialog.dismiss()
     }
 
-
-    override fun onClick(v: View?) {
-    }
 }

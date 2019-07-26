@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class UserInformationModelDB constructor(
     @PrimaryKey
-    var id:Int?,
+    var id: Int?,
     var avatar_url: String?,
     var bio: String?,
     var location: String?,

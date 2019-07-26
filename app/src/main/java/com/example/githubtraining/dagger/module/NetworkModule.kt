@@ -1,5 +1,4 @@
 package com.example.githubtraining.dagger.module
-
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -43,5 +42,4 @@ class NetworkModule {
     fun provideCoroutineCallAdapterFactory(): CoroutineCallAdapterFactory {
         return CoroutineCallAdapterFactory()
     }
-
 }

@@ -1,6 +1,4 @@
 package com.example.githubtraining.ui.infoUser
-
-
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -34,7 +32,6 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding.aboutUser = mViewModel
         mBinding.activity = this
         mBinding.lifecycleOwner = this
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -45,8 +42,10 @@ class InfoUserActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                pref.edit().putString(getString(R.string.sharedPrefToken),getString(R.string.sharedPrefNoToken)).apply()
-                startActivity(Intent(this,LoginActivity::class.java))
+                pref.edit().putString(getString(R.string.sharedPrefToken),
+                    getString(R.string.sharedPrefNoToken)
+                ).apply()
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
                 return true
             }
@@ -54,8 +53,8 @@ class InfoUserActivity : AppCompatActivity() {
         }
     }
 
-    fun goToRepoActivity(){
-        startActivity(Intent(this,RepositoriesActivity::class.java))
+    fun goToRepoActivity() {
+        startActivity(Intent(this, RepositoriesActivity::class.java))
     }
 
     fun sendEmail() {
@@ -64,7 +63,8 @@ class InfoUserActivity : AppCompatActivity() {
         intent.type = "plain/text"
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("develop.android@softvision.ro"))
-        intent.putExtra(Intent.EXTRA_TEXT, "We're glad to use this app!\nWe know that our app is far away to be perfect so, please tell us how we can do it better.")
+        intent.putExtra(Intent.EXTRA_TEXT, "We're glad to use this app!" +
+            "\nWe know that our app is far away to be perfect so, please tell us how we can do it better.")
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         }

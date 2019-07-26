@@ -24,5 +24,5 @@ interface DaoInfoUser {
     fun deleteInfoUser()
 
     @Query("select login from userInformationModelDB")
-    fun getUserLogged():String
+    fun getUserLogged(): String
 }

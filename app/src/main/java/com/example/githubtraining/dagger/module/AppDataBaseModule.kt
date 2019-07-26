@@ -1,5 +1,4 @@
 package com.example.githubtraining.dagger.module
-
 import android.content.Context
 import androidx.room.Room
 import com.example.githubtraining.database.AppDataBase
@@ -13,12 +12,12 @@ import javax.inject.Singleton
 @Module
 class AppDataBaseModule {
     @Singleton @Provides
-    fun provideAppDataBase(context: Context):AppDataBase{
-        return  Room.databaseBuilder(context, AppDataBase::class.java, "demo-db").allowMainThreadQueries().build()
+    fun provideAppDataBase(context: Context): AppDataBase {
+        return Room.databaseBuilder(context, AppDataBase::class.java, "demo-db").allowMainThreadQueries().build()
     }
 
     @Singleton @Provides
-    fun provideDaoInfoRepo(db: AppDataBase):DaoInfoRepo{
+    fun provideDaoInfoRepo(db: AppDataBase): DaoInfoRepo {
         return db.daoInfoRepo()
     }
 

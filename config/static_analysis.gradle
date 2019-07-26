@@ -1,0 +1,38 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
+configurations {
+    detekt
+}
+
+detekt {
+    // When unspecified, the latest detekt version found will be used.
+    // Override to use the same version everywhere in the app.
+    //version = detekt_version
+
+    input = files("src/main/java")          // Which part of your project should be analyzed
+    config = files("../config/detekt-config.yml")     // What rules is detekt using
+    filters = ".*/resources/.*,.*/build/.*" // What paths to exclude. Use comma oder semicolon to separate
+    // If present all current findings are saved in a baseline.xml to only consider new code smells for further runs.
+//  baseline = file("$projectDir/build/reports/baseline.xml")
+//  parallel = true                         // Use it if the project gets big (>~200 files)
+
+    reports {
+        html {
+            enabled = true
+            destination = file("$projectDir/build/reports/detekt.html")
+        }
+        xml.enabled = false
+    }
+
+}
+
+// The 'detekt' task is executed by the 'check' task.
+// Make detekt fail builds if the 'maxIssues' threshold is reached
+afterEvaluate {
+    assembleDebug.dependsOn(check)
+}
+
+dependencies {
+    // Add KtLint as a formatting rule set
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC14"
+}

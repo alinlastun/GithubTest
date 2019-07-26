@@ -18,8 +18,5 @@ class MainApplication : Application() {
             .applicationContextModule(ApplicationContextModule(this))
             .serviceUtilModule(ServiceUtilModule("https://api.github.com"))
             .build()
-
-
-
     }
 }

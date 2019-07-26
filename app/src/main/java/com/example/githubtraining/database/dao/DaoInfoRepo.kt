@@ -1,5 +1,4 @@
 package com.example.githubtraining.database.dao
-
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -17,7 +16,7 @@ interface DaoInfoRepo {
     fun getInfoRepoList(): MutableList<InfoRepoModelDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertInfoRepo(infoRepoDB:  List<InfoRepoModelDB>)
+    fun insertInfoRepo(infoRepoDB: List<InfoRepoModelDB>)
 
     @Query("delete from infoRepoModelDB")
     fun deleteInfoRepo()

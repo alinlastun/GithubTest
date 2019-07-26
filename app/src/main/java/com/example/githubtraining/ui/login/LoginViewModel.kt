@@ -1,15 +1,14 @@
 package com.example.githubtraining.ui.login
-
-
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubtraining.utill.isValidEmail
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-
-class LoginViewModel @Inject constructor(private val mRepository :LoginRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val mRepository: LoginRepository) : ViewModel() {
 
     val mUser = ObservableField("")
     val mPassword = ObservableField("")
@@ -19,22 +18,17 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     val mSuccessLogin = MutableLiveData<Boolean>()
     val mErrorLogin = MutableLiveData<Boolean>()
-
-
-
     fun login() {
         viewModelScope.launch {
-            mRepository.refreshDataUser{success, error,errorMsg ->
-                if(success){
+            mRepository.refreshDataUser { success, error, errorMsg ->
+                if (success) {
                     mSuccessLogin.postValue(true)
-                }else if(error){
+                } else if (error) {
                     mCredentialError.set(errorMsg)
                     mErrorLogin.postValue(true)
                 }
             }
         }
-
-
     }
 
     fun isValidEmail(): Boolean {
@@ -43,7 +37,7 @@ class LoginViewModel @Inject constructor(private val mRepository :LoginRepositor
             isValidEmail = false
             mCredentialError.set("Username field is empty!")
             mErrorLogin.value = true
-        }else{
+        } else {
             if (!mUser.get().toString().isValidEmail()) {
                 isValidEmail = false
                 mCredentialError.set("Your username is not a valid email!")

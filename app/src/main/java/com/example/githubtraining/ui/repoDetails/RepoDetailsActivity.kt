@@ -1,6 +1,4 @@
 package com.example.githubtraining.ui.repoDetails
-
-
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
@@ -24,16 +22,13 @@ class RepoDetailsActivity : AppCompatActivity() {
         appComponent.inject(this)
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repo_details)
-        mViewModel = ViewModelProviders.of(this,factory).get(RepoDetailsViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this,
+            factory).get(RepoDetailsViewModel::class.java)
         mBinding.repoDetails = mViewModel
         mBinding.lifecycleOwner = this
 
-
-        Log.d("Asdfasdf", "2 ${intent.getIntExtra(getString(R.string.idRepo), -1)}")
         mViewModel.init(intent.getIntExtra(getString(R.string.idRepo), -1))
 
-       mViewModel.resultInfoRepo.observe(this, Observer { Log.d("Asdfasdf", "3 ${it}") })
-
+       mViewModel.resultInfoRepo.observe(this, Observer { Log.d("Asdfasdf", "3 $it") })
     }
-
 }

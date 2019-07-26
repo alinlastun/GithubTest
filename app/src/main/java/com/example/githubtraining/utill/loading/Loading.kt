@@ -11,8 +11,8 @@ class Loading(mContext: Context) : BaseDialog(mContext) {
         return this
     }
 
-    fun showLoading(nValue:Boolean): Loading {
-        if(nValue) showDialog() else dismissDialog()
+    fun showLoading(nValue: Boolean): Loading {
+        if (nValue) showDialog() else dismissDialog()
         return this
     }
 }

@@ -1,6 +1,5 @@
 package com.example.githubtraining.model
 
-import android.util.Log
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
 data class NetworkInfoUser(
@@ -18,9 +17,7 @@ data class NetworkInfoUser(
     var encodedUserPass: String?
 )
 
-fun NetworkInfoUser.asInfoUserDBModel():UserInformationModelDB {
-    Log.d("Asfaew", id.toString())
-    Log.d("Asfaew", login.toString())
+fun NetworkInfoUser.asInfoUserDBModel(): UserInformationModelDB {
     return UserInformationModelDB(
         avatar_url = avatar_url,
         created_at = created_at,
@@ -34,6 +31,4 @@ fun NetworkInfoUser.asInfoUserDBModel():UserInformationModelDB {
         bio = bio,
         login = login,
         id = id
-    )
-
-}
+    )}

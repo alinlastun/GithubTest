@@ -9,7 +9,9 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
-@Database(entities = [(UserInformationModelDB::class),(InfoRepoModelDB::class),(StuffModelDB::class)], version =1, exportSchema = false)
+@Database(entities = [(UserInformationModelDB::class),
+    (InfoRepoModelDB::class),
+    (StuffModelDB::class)], version = 1, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun daoInfoUser(): DaoInfoUser

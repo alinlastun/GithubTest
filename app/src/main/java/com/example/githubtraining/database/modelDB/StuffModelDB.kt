@@ -5,14 +5,12 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class StuffModelDB constructor (
-
+data class StuffModelDB constructor(
     @PrimaryKey
-    var id:Int=1,
+    var id: Int = 1,
     var sort: Int = 1,
     var owner: Boolean = true,
     var collaborator: Boolean = false,
     var organizationMember: Boolean = false,
     var idRadioButton: Int = -1
-
     )

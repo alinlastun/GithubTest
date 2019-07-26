@@ -1,5 +1,4 @@
 package com.example.githubtraining.database.dao
-
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -18,7 +17,7 @@ interface DaoStuff {
     fun getStuffList(): MutableList<StuffModelDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertStuff(infoStuff:  StuffModelDB)
+    fun insertStuff(infoStuff: StuffModelDB)
 
     @Query("UPDATE stuffModelDB SET sort = :mySort WHERE id =1")
     fun updateSort(mySort: Int)
@@ -26,11 +25,9 @@ interface DaoStuff {
     @Query("select sort from stuffModelDB WHERE id =1")
     fun getSortNumber(): Int
 
-
     @Query("select idRadioButton from stuffModelDB WHERE id =1")
     fun getRadioBtnId(): Int
 
     @Query("delete from stuffModelDB")
     fun deleteStuff()
-
 }

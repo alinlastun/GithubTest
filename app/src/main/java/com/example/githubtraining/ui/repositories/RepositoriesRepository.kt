@@ -26,8 +26,6 @@ class RepositoriesRepository @Inject constructor(
     var observableDataStuff = daoStuff.getStuff()
     var sortNrFormDB = daoStuff.getSortNumber()
     var stuffDbList = daoStuff.getStuffList()
-
-
     suspend fun refreshDataRepo(listener: (success: Boolean, error: Boolean, errorMsg: String) -> Unit) {
         withContext(Dispatchers.IO) {
             val response = serviceUtil.getRepoAsync(
@@ -60,6 +58,4 @@ class RepositoriesRepository @Inject constructor(
             }
         }
     }
-
-
 }

@@ -1,6 +1,4 @@
 package com.example.githubtraining.ui.repositories
-
-
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +10,11 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RepositoriesViewModel @Inject constructor(private val repository: RepositoriesRepository, private val daoInfoRepo: DaoInfoRepo,daoInfoUser: DaoInfoUser) : ViewModel() {
+class RepositoriesViewModel @Inject constructor(
+    private val repository: RepositoriesRepository,
+    private val daoInfoRepo: DaoInfoRepo,
+    daoInfoUser: DaoInfoUser
+) : ViewModel() {
 
     val mSuccessReceive = MutableLiveData<Boolean>()
     val mErrorReceive = MutableLiveData<Boolean>()
@@ -20,8 +22,8 @@ class RepositoriesViewModel @Inject constructor(private val repository: Reposito
 
     var sortNr = repository.sortNrFormDB
     val stuffData = repository.observableDataStuff
-    val stuffList=repository.stuffDbList
-    val userNameLogged= daoInfoUser.getUserLogged()
+    val stuffList = repository.stuffDbList
+    val userNameLogged = daoInfoUser.getUserLogged()
     val infoRepoLiveData = daoInfoRepo.getInfoRepo()
 
     private val viewModelJob = SupervisorJob()
@@ -31,12 +33,12 @@ class RepositoriesViewModel @Inject constructor(private val repository: Reposito
         getInfoRepo()
     }
 
-    private fun getInfoRepo(){
+    private fun getInfoRepo() {
         viewModelScope.launch {
-             repository.refreshDataRepo{ success, error, errorMsg->
-                when{
-                    success-> mSuccessReceive.postValue(true)
-                    error-> {
+             repository.refreshDataRepo { success, error, errorMsg ->
+                when {
+                    success -> mSuccessReceive.postValue(true)
+                    error -> {
                         mErrorMsgReceive.set(errorMsg)
                         mErrorReceive.postValue(true)
                     }

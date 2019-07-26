@@ -1,7 +1,5 @@
 package com.example.githubtraining.ui.repositories
-
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +16,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-
-class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAdapter<RepositoriesAdapter.DataItem, RecyclerView.ViewHolder>(RepoDiffUilCallBack()) {
+class RepositoriesAdapter(
+    private val clickListener: RepoItemListener
+) : ListAdapter<RepositoriesAdapter.DataItem, RecyclerView.ViewHolder>(RepoDiffUilCallBack()) {
 
     private var mData: MutableList<DataItem> = mutableListOf()
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -43,14 +41,11 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
                 submitList(data)
               mData.clear()
               mData.addAll(data)
-
-
             }
-
         }
     }
 
-    class RepoDiffUilCallBack: DiffUtil.ItemCallback<DataItem>() {
+    class RepoDiffUilCallBack : DiffUtil.ItemCallback<DataItem>() {
         override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -59,7 +54,6 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
         override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -77,7 +71,7 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is RepositoriesHolder -> {
-                holder.bind((mData[position] as DataItem.MyRepoItem).infoRepoModelDB,clickListener)
+                holder.bind((mData[position] as DataItem.MyRepoItem).infoRepoModelDB, clickListener)
             }
             is YearHeaderHolder -> {
                 holder.textView.text = (mData[position] as DataItem.YearsHeader).yearName
@@ -95,7 +89,7 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
             }
         }
 
-        fun bind(infoRepoModelDB: InfoRepoModelDB,clickListener: RepoItemListener) {
+        fun bind(infoRepoModelDB: InfoRepoModelDB, clickListener: RepoItemListener) {
             binding.setVariable(BR.model, infoRepoModelDB)
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -114,19 +108,16 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
             }
         }
     }
-
-
     private fun isPositionHeader(position: Int): Boolean {
         return mData[position] is DataItem.YearsHeader
     }
-
     override fun getItemViewType(position: Int): Int {
-        if (isPositionHeader(position))
-            return ItemDisplayedType.TYPE_HEADER.value
-        return ItemDisplayedType.TYPE_ITEM.value
+        return if (isPositionHeader(position)) {
+            ItemDisplayedType.TYPE_HEADER.value
+        } else {
+            ItemDisplayedType.TYPE_ITEM.value
+        }
     }
-
-
     sealed class DataItem {
         abstract val id: Long
 
@@ -136,13 +127,10 @@ class RepositoriesAdapter(private val clickListener: RepoItemListener) : ListAda
 
         data class YearsHeader(var yearName: String) : DataItem() {
             override val id: Long = Long.MIN_VALUE
-
         }
     }
 
-    class RepoItemListener(val clickListener: (idInfoRepo: Int) -> Unit){
+    class RepoItemListener(val clickListener: (idInfoRepo: Int) -> Unit) {
         fun onClick(idRepo: Int) = clickListener(idRepo)
     }
-
-
 }

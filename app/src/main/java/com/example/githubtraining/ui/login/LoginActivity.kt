@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: LoginViewModel
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mLoading :Loading
+    private lateinit var mLoading: Loading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +47,17 @@ class LoginActivity : AppCompatActivity() {
 
         mViewModel.mSuccessLogin.observe(this, Observer {
             mLoading.showLoading(false)
-            startActivity(Intent(this,InfoUserActivity::class.java))
+            startActivity(Intent(this, InfoUserActivity::class.java))
             finish()
         })
         mViewModel.mErrorLogin.observe(this, Observer {
             mLoading.showLoading(false)
-            Toast.makeText(this,mViewModel.mCredentialError.get(),Toast.LENGTH_LONG).show()
-
+            Toast.makeText(this, mViewModel.mCredentialError.get(), Toast.LENGTH_LONG).show()
         })
-
     }
 
-    private fun encodeUserPass(){
+    private fun encodeUserPass() {
         val encodedString = Credentials.basic(mViewModel.mUser.get()!!, mViewModel.mPassword.get()!!)
-        pref.edit().putString(getString(R.string.sharedPrefToken),encodedString).apply()
-
+        pref.edit().putString(getString(R.string.sharedPrefToken), encodedString).apply()
     }
-
-
 }

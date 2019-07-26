@@ -1,9 +1,6 @@
 package com.example.githubtraining.ui.repoDetails
-
 import android.app.Application
-
 import android.text.Spanned
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,10 +10,10 @@ import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.utill.Tools
 import javax.inject.Inject
 
-class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetailsRepository,application: Application): ViewModel() {
-
-
-
+class RepoDetailsViewModel @Inject constructor(
+    private val repository: RepoDetailsRepository,
+    application: Application
+) : ViewModel() {
     private val repoId = MutableLiveData<Int>()
 
      val repo: LiveData<InfoRepoModelDB> =
@@ -24,8 +21,8 @@ class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetail
             repository.getRepoById(repoId)
         }
 
-    val resultInfoRepo: LiveData<Spanned> = Transformations.map(repo){
-        Tools().formatInfoRepo(it,application.resources)
+    val resultInfoRepo: LiveData<Spanned> = Transformations.map(repo) {
+        Tools().formatInfoRepo(it, application.resources)
     }
     val mNameRepository: LiveData<String> =
         Transformations.map(repo) { repo ->
@@ -44,6 +41,4 @@ class RepoDetailsViewModel @Inject constructor(private val repository:RepoDetail
     fun init(repoId: Int) {
         this.repoId.value = repoId
     }
-
-
 }

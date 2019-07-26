@@ -9,7 +9,6 @@ import com.squareup.picasso.Picasso
 @BindingAdapter("picture_url")
 fun setUrlIntoImage(mImageView: ImageView, mUrl: LiveData<String>) {
 
-        Log.d("ASfasdf","adfd " +mUrl.value)
+        Log.d("ASfasdf", "adfd " + mUrl.value)
         Picasso.get().load(mUrl.value).into(mImageView)
-
 }

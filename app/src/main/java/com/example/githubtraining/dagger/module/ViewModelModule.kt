@@ -1,6 +1,4 @@
 package com.example.githubtraining.dagger.module
-
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubtraining.ui.infoUser.InfoUserViewModel
@@ -43,5 +41,4 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
 }
