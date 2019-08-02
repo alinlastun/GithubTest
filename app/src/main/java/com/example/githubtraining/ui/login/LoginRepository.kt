@@ -15,7 +15,7 @@ import javax.inject.Inject
 class LoginRepository @Inject constructor (
     private val daoInfoUser: DaoInfoUser,
     private val serviceUtil: ServiceUtil,
-    val application: Application
+    private val application: Application
 ) {
 
     @Inject lateinit var pref: SharedPreferences

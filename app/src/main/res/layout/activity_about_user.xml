@@ -204,7 +204,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nContainerButtomButtons"
                 android:layout_width="match_parent"

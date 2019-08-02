@@ -1,6 +1,7 @@
 package com.example.githubtraining.ui.infoUser
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.githubtraining.database.dao.DaoInfoRepo
@@ -43,5 +44,23 @@ class InfoUserViewModel @Inject constructor(
            myString = "No Information"
         }
         return myString!!
+    }
+
+    data class Item(
+        val name: String,
+        val price: Int
+    )
+
+    private val _item = MutableLiveData<Item>().apply {
+        value = Item("whatever", 5)
+    }
+    val itemPrice : LiveData<Int> = Transformations.map(_item) {
+        it.price
+    }
+
+    fun onIncrementPrice() {
+        _item.value?.let { currentItem ->
+            _item.value = currentItem.copy(price = currentItem.price + 1)
+        }
     }
 }
