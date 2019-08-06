@@ -1,6 +1,6 @@
 package com.example.githubtraining
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.example.githubtraining.database.AppDataBase
 import com.example.githubtraining.database.dao.DaoInfoUser
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
@@ -31,7 +31,7 @@ class InfoUserTest  {
     @Test
     fun insertAndGetUserInfo(){
         val userInfo = UserInformationModelDB(id = 0,created_at = "",login = "",updated_at = "",avatar_url = "test",bio = "",email = "",encodedUserPass = "",isLogin = false,location = "",public_repos = 0,total_private_repos = 0)
-        infoUserDao.insertInfoUser(userInfo)
+        //infoUserDao.insertInfoUser(userInfo)
        /* val infoUser = infoUserDao.getListOfInfoUser()
             MatcherAssert.assertThat(infoUser[0].avatar_url, `is`("test") )*/
 

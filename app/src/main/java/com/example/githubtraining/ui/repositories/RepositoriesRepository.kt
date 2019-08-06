@@ -3,8 +3,6 @@ package com.example.githubtraining.ui.repositories
 import android.app.Application
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.githubtraining.R
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.dao.DaoInfoUser
@@ -67,17 +65,14 @@ class RepositoriesRepository @Inject constructor(
     }
 
 
-    fun getRepoList(): LiveData<List<InfoRepoModelDB>> {
-        var members = Member()
-        daoStuff.getMembers().forEach { members = it }
-        return Transformations.map(daoInfoRepo.getRepoListSorted(daoStuff.getSortNumber())) { repoList ->
-            getAffiliationRepo(members,repoList)
-        }
+    fun getRepoList(): List<InfoRepoModelDB> {
+          return  getAffiliationRepo(daoInfoRepo.getRepoListSorted(daoStuff.getSortNumber()))
     }
 
-    private fun getAffiliationRepo(members: Member, repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
+    private fun getAffiliationRepo( repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
         getCollaboratorList(repoList)
-
+        var members = Member()
+        daoStuff.getMembers().forEach { members = it }
         return if (members.collaborator && !members.owner) {
             repoListCollaborator
         } else if (members.owner && !members.collaborator) {
@@ -89,7 +84,7 @@ class RepositoriesRepository @Inject constructor(
         }
     }
 
-    private fun getCollaboratorList(repoList: List<InfoRepoModelDB>) {
+    private fun getCollaboratorList(repoList : List<InfoRepoModelDB>) {
         repoListCollaborator.clear()
         repoListOwner.clear()
         for (value in repoList) {

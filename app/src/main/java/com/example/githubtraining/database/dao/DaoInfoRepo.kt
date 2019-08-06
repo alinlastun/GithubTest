@@ -26,19 +26,19 @@ abstract class DaoInfoRepo {
     abstract fun getRepoById(id: Int): LiveData<InfoRepoModelDB>
 
     @Query("select * from infoRepoModelDB order by full_name asc")
-    abstract fun getRepoSortedByFullName(): LiveData<List<InfoRepoModelDB>>
+    abstract fun getRepoSortedByFullName(): List<InfoRepoModelDB>
 
     @Query("select * from infoRepoModelDB order by created_at asc")
-    abstract fun getRepoSortedByCreated(): LiveData<List<InfoRepoModelDB>>
+    abstract fun getRepoSortedByCreated(): List<InfoRepoModelDB>
 
     @Query("select * from infoRepoModelDB order by updated_at asc")
-    abstract fun getRepoSortedByUpdated(): LiveData<List<InfoRepoModelDB>>
+    abstract fun getRepoSortedByUpdated(): List<InfoRepoModelDB>
 
     @Query("select * from infoRepoModelDB order by pushed_at asc")
-    abstract fun getRepoSortedByPushed(): LiveData<List<InfoRepoModelDB>>
+    abstract fun getRepoSortedByPushed():List<InfoRepoModelDB>
 
    
-    open fun getRepoListSorted(resultSort: Int): LiveData<List<InfoRepoModelDB>> {
+    open fun getRepoListSorted(resultSort: Int): List<InfoRepoModelDB> {
         return when (resultSort) {
             0 -> getRepoSortedByCreated()
             1 -> getRepoSortedByUpdated()

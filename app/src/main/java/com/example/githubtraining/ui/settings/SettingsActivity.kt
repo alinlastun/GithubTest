@@ -1,8 +1,6 @@
 package com.example.githubtraining.ui.settings
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -77,9 +75,7 @@ class SettingsActivity : AppCompatActivity() {
     }
    private fun showAffiliationDialog() {
        lateinit var dialog: AlertDialog
-       val arrayColors = arrayOf("Owner",
-           "Collaborator",
-           "Organization Member")
+       val arrayColors = arrayOf("Owner","Collaborator","Organization Member")
        val myArray = arrayListOf(stuffDb.owner,
            stuffDb.collaborator,
            stuffDb.organizationMember)
@@ -101,10 +97,4 @@ class SettingsActivity : AppCompatActivity() {
        dialog.show()
    }
 
-    override fun onBackPressed() {
-        val intent = Intent()
-        setResult(RESULT_OK, intent)
-        finish()
-        Log.d("asdfasd","onBackPressed")
-    }
 }

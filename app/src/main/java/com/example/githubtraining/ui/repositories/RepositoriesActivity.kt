@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.appComponent
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.ui.repoDetails.RepoDetailsActivity
 import com.example.githubtraining.ui.settings.SettingsActivity
 import com.example.githubtraining.utill.loading.Loading
@@ -25,7 +24,6 @@ class RepositoriesActivity : AppCompatActivity() {
     @Inject lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: RepositoriesViewModel
     private lateinit var mLoading: Loading
-    private var repoList :List<InfoRepoModelDB> =  mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +44,10 @@ class RepositoriesActivity : AppCompatActivity() {
             Toast.makeText(this, mViewModel.mErrorMsgReceive.get(), Toast.LENGTH_LONG).show()
         })
 
-        mViewModel.repoList.observe(this, Observer {
-            repoList=it
-            (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList( it) })
+        mViewModel.stuffLiveData.observe(this, Observer {
+            (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(mViewModel.getRepoList())
+        })
+
 
 
     }

@@ -2,6 +2,7 @@ package com.example.githubtraining.ui.repositories
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -15,10 +16,14 @@ class RepositoriesViewModel @Inject constructor(
     val mSuccessReceive = MutableLiveData<Boolean>()
     val mErrorReceive = MutableLiveData<Boolean>()
     val mErrorMsgReceive = ObservableField("")
-    val repoList= repository.getRepoList()
-
+    //val repoList= repository.getRepoList()
+    val stuffLiveData = repository.stuffLiveData
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    fun getRepoList(): List<InfoRepoModelDB>{
+        return repository.getRepoList()
+    }
 
     init {
         getInfoRepo()
