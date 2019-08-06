@@ -1,6 +1,8 @@
 package com.example.githubtraining.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -78,10 +80,10 @@ class SettingsActivity : AppCompatActivity() {
        val arrayColors = arrayOf("Owner",
            "Collaborator",
            "Organization Member")
-       val myarray = arrayListOf(stuffDb.owner,
+       val myArray = arrayListOf(stuffDb.owner,
            stuffDb.collaborator,
            stuffDb.organizationMember)
-       val arrayChecked: BooleanArray = myarray.toBooleanArray()
+       val arrayChecked: BooleanArray = myArray.toBooleanArray()
        val builder = AlertDialog.Builder(this)
        builder.setTitle("Affiliation")
        builder.setMultiChoiceItems(arrayColors, arrayChecked) { _, which, isChecked ->
@@ -98,4 +100,11 @@ class SettingsActivity : AppCompatActivity() {
        dialog = builder.create()
        dialog.show()
    }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        setResult(RESULT_OK, intent)
+        finish()
+        Log.d("asdfasd","onBackPressed")
+    }
 }

@@ -23,7 +23,7 @@ class RepositoriesAdapter(
     private var mData: MutableList<DataItem> = mutableListOf()
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
-    fun addHeaderAndSubmitList(list: MutableList<InfoRepoModelDB>?) {
+    fun addHeaderAndSubmitList(list: List<InfoRepoModelDB>?) {
 
         adapterScope.launch {
             val data: MutableList<DataItem> = mutableListOf()

@@ -5,16 +5,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.ActivityAboutUserBinding
 import com.example.githubtraining.ui.login.LoginActivity
+import com.example.githubtraining.ui.repositories.RepositoriesActivity
 import javax.inject.Inject
 
 class InfoUserActivity : AppCompatActivity() {
@@ -34,9 +33,6 @@ class InfoUserActivity : AppCompatActivity() {
         mBinding.activity = this
         mBinding.lifecycleOwner = this
 
-        mViewModel.itemPrice.observe(this, Observer {
-            Toast.makeText(this@InfoUserActivity, "Price is $it", Toast.LENGTH_SHORT).show()
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,8 +55,7 @@ class InfoUserActivity : AppCompatActivity() {
     }
 
     fun goToRepoActivity() {
-        // startActivity(Intent(this, RepositoriesActivity::class.java))
-        mViewModel.onIncrementPrice()
+         startActivity(Intent(this, RepositoriesActivity::class.java))
     }
 
     fun sendEmail() {

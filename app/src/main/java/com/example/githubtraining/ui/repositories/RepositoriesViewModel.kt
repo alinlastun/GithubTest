@@ -2,8 +2,6 @@ package com.example.githubtraining.ui.repositories
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubtraining.database.dao.DaoInfoRepo
-import com.example.githubtraining.database.dao.DaoInfoUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,26 +9,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RepositoriesViewModel @Inject constructor(
-    private val repository: RepositoriesRepository,
-    private val daoInfoRepo: DaoInfoRepo,
-    daoInfoUser: DaoInfoUser
+    private val repository: RepositoriesRepository
 ) : ViewModel() {
 
     val mSuccessReceive = MutableLiveData<Boolean>()
     val mErrorReceive = MutableLiveData<Boolean>()
     val mErrorMsgReceive = ObservableField("")
-
-    var sortNr = repository.sortNrFormDB
-    val stuffData = repository.observableDataStuff
-    val stuffList = repository.stuffDbList
-    val userNameLogged = daoInfoUser.getUserLogged()
-    val infoRepoLiveData = daoInfoRepo.getInfoRepo()
+    val repoList= repository.getRepoList()
 
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         getInfoRepo()
+
     }
 
     private fun getInfoRepo() {
