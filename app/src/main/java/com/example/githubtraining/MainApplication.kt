@@ -16,7 +16,7 @@ class MainApplication : Application() {
 
         appComponent = DaggerAppComponent.builder()
             .applicationContextModule(ApplicationContextModule(this))
-            .serviceUtilModule(ServiceUtilModule("https://api.github.com"))
+            .serviceUtilModule(ServiceUtilModule())
             .build()
     }
 }

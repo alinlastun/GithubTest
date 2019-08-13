@@ -2,7 +2,6 @@ package com.example.githubtraining.ui.repositories
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.dao.DaoInfoUser
@@ -41,12 +40,10 @@ class RepositoriesRepository @Inject constructor(
             ).await()
 
             if (response.isSuccessful) {
-                Log.d("asdfasd", "isSuccessful")
                 listener.invoke(true, false, "")
                 daoInfoRepo.deleteInfoRepo()
                 response.body()?.let { daoInfoRepo.insertInfoRepo(it) }
             } else {
-                Log.d("asdfasd", "error")
                 val jObjError = JSONObject(response.errorBody()?.string())
                 val mErrorModel = Gson().fromJson(jObjError.toString(), LoginModelError::class.java)
 
@@ -66,7 +63,7 @@ class RepositoriesRepository @Inject constructor(
 
 
     fun getRepoList(): List<InfoRepoModelDB> {
-          return  getAffiliationRepo(daoInfoRepo.getRepoListSorted(daoStuff.getSortNumber()))
+          return  getAffiliationRepo(getRepoListSorted(daoStuff.getSortNumber()))
     }
 
     private fun getAffiliationRepo( repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
@@ -96,6 +93,16 @@ class RepositoriesRepository @Inject constructor(
                 } else {
                 }
             }
+        }
+    }
+
+     private fun getRepoListSorted(resultSort: Int): List<InfoRepoModelDB> {
+        return when (resultSort) {
+            0 -> daoInfoRepo.getRepoSortedByCreated()
+            1 -> daoInfoRepo.getRepoSortedByUpdated()
+            2 -> daoInfoRepo.getRepoSortedByPushed()
+            3 -> daoInfoRepo.getRepoSortedByFullName()
+            else -> throw Exception("Unknown InfoRepoModelDB")
         }
     }
 }

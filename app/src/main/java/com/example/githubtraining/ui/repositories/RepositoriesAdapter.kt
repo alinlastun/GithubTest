@@ -57,10 +57,10 @@ class RepositoriesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            ItemDisplayedType.TYPE_HEADER.value -> YearHeaderHolder.form(parent)
-            ItemDisplayedType.TYPE_ITEM.value -> RepositoriesHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType $viewType")
+        return when (ItemDisplayedType.values()[viewType]) {
+            ItemDisplayedType.TYPE_HEADER -> YearHeaderHolder.form(parent)
+            ItemDisplayedType.TYPE_ITEM -> RepositoriesHolder.from(parent)
+
         }
     }
 

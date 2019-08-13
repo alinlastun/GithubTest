@@ -1,5 +1,6 @@
 package com.example.githubtraining.dagger.module
 import com.example.githubtraining.retrofit.ServiceUtil
+import com.example.githubtraining.utilities.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -8,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 @Module(includes = [NetworkModule::class])
-class ServiceUtilModule(val BaseUrl: String) {
+class ServiceUtilModule {
 
     @Provides
     @Singleton
@@ -26,7 +27,7 @@ class ServiceUtilModule(val BaseUrl: String) {
             .client(client)
             .addConverterFactory(gson)
             .addCallAdapterFactory(coroutineCallAdapterFactory)
-            .baseUrl(BaseUrl).build() }
+            .baseUrl(BASE_URL).build() }
 
 
 }
