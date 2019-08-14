@@ -17,7 +17,7 @@ class RepositoriesViewModel @Inject constructor(
     val mErrorReceive = MutableLiveData<Boolean>()
     val mErrorMsgReceive = ObservableField("")
     //val repoList= repository.getRepoList()
-    val stuffLiveData = repository.stuffLiveData
+    val infoRepoLiveData = repository.infoRepoLiveData
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 

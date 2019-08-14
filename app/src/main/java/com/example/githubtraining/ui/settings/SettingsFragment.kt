@@ -1,7 +1,6 @@
 package com.example.githubtraining.ui.settings
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ class SettingsFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
-    private val stuffDb = StuffModelDB()
+    private lateinit var stuffDb : StuffModelDB
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         appComponent.inject(this)
@@ -44,12 +43,17 @@ class SettingsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        stuffDb = StuffModelDB()
         mViewModel.getStuffLiveData.observe(this, Observer {
-            stuffDb.owner = it.owner
-            stuffDb.collaborator = it.collaborator
-            stuffDb.organizationMember = it.organizationMember
+            if(it!=null){
+                stuffDb.owner = it.owner
+                stuffDb.collaborator = it.collaborator
+                stuffDb.organizationMember = it.organizationMember
+            }
+
         })
     }
+
 
 
     private fun showSortDialog() {

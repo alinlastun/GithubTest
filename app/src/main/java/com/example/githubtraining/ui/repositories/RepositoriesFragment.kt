@@ -54,7 +54,6 @@ class RepositoriesFragment : Fragment() {
             onItemRepoClicked(it)
         })
 
-
         mViewModel.mSuccessReceive.observe(this, Observer {
             mLoading.showLoading(false)
         })
@@ -62,16 +61,16 @@ class RepositoriesFragment : Fragment() {
             mLoading.showLoading(false)
             Toast.makeText(context, mViewModel.mErrorMsgReceive.get(), Toast.LENGTH_LONG).show()
         })
-
-        mViewModel.stuffLiveData.observe(this, Observer {
+        mViewModel.infoRepoLiveData.observe(this, Observer {
             (nRecylerView.adapter as RepositoriesAdapter).addHeaderAndSubmitList(mViewModel.getRepoList())
+
         })
     }
 
     private fun onItemRepoClicked(idRepo: Int) {
         val bundle = Bundle()
         bundle.putInt(getString(com.example.githubtraining.R.string.idRepo), idRepo)
-        findNavController().navigate(com.example.githubtraining.R.id.action_repositoriesFragment_to_repoDetailsFragment, bundle)
+        findNavController().navigate(R.id.action_repositoriesFragment_to_repoDetailsFragment, bundle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

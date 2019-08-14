@@ -28,7 +28,7 @@ class RepositoriesRepository @Inject constructor(
     lateinit var pref: SharedPreferences
     private val repoListCollaborator: MutableList<InfoRepoModelDB> = mutableListOf()
     private val repoListOwner: MutableList<InfoRepoModelDB> = mutableListOf()
-    val stuffLiveData = daoStuff.getStuff()
+    val infoRepoLiveData = daoInfoRepo.getInfoRepo()
 
     suspend fun refreshDataRepo(listener: (success: Boolean, error: Boolean, errorMsg: String) -> Unit) {
         withContext(Dispatchers.IO) {
@@ -63,10 +63,10 @@ class RepositoriesRepository @Inject constructor(
 
 
     fun getRepoList(): List<InfoRepoModelDB> {
-          return  getAffiliationRepo(getRepoListSorted(daoStuff.getSortNumber()))
+          return  getSortedList(getRepoListSorted(daoStuff.getSortNumber()))
     }
 
-    private fun getAffiliationRepo( repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
+    private fun getSortedList(repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
         getCollaboratorList(repoList)
         var members = Member()
         daoStuff.getMembers().forEach { members = it }
