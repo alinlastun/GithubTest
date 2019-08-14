@@ -12,7 +12,7 @@ import com.example.githubtraining.ui.login.LoginRepository
 import com.example.githubtraining.ui.repoDetails.RepoDetailsFragment
 import com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.ui.repositories.RepositoriesFragment
-import com.example.githubtraining.ui.settings.FragmentSettings
+import com.example.githubtraining.ui.settings.SettingsFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -26,6 +26,6 @@ interface AppComponent {
     fun inject(application: RepositoriesFragment)
     fun inject(application: RepoDetailsFragment)
     fun inject(application: LoginRepository)
-    fun inject(application: FragmentSettings)
+    fun inject(application: SettingsFragment)
     fun inject(application: RepoDetailsViewModel)
 }

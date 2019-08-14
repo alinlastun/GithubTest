@@ -1,6 +1,7 @@
 package com.example.githubtraining.ui.settings
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
@@ -17,7 +19,7 @@ import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.databinding.FragmentSettingsBinding
 import javax.inject.Inject
 
-class FragmentSettings : Fragment() {
+class SettingsFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
@@ -38,6 +40,15 @@ class FragmentSettings : Fragment() {
 
     fun onClickAffiliationRepo() {
         showAffiliationDialog()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mViewModel.getStuffLiveData.observe(this, Observer {
+            stuffDb.owner = it.owner
+            stuffDb.collaborator = it.collaborator
+            stuffDb.organizationMember = it.organizationMember
+        })
     }
 
 

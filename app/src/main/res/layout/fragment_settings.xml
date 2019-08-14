@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="fragment"
-                type="com.example.githubtraining.ui.settings.FragmentSettings"/>
+                type="com.example.githubtraining.ui.settings.SettingsFragment"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:tools="http://schemas.android.com/tools"
