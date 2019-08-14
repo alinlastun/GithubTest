@@ -6,7 +6,7 @@ import com.example.githubtraining.ui.login.LoginViewModel
 import com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.ui.repositories.RepositoriesViewModel
 import com.example.githubtraining.ui.settings.SettingsViewModel
-import com.example.githubtraining.utill.ViewModelFactory
+import com.example.githubtraining.utilities.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

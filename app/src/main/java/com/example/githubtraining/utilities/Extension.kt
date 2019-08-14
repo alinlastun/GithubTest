@@ -1,4 +1,4 @@
-package com.example.githubtraining.utill
+package com.example.githubtraining.utilities
 
 import android.content.Context
 import androidx.recyclerview.widget.DividerItemDecoration

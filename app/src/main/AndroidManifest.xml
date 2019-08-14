@@ -14,6 +14,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MainActivity">
+        </activity>
         <activity
                 android:name=".ui.repoDetails.RepoDetailsActivity"
                 android:label="@string/title_activity_repo_details"
@@ -36,8 +38,6 @@
                 android:name=".ui.repositories.RepositoriesActivity"
                 android:label="@string/title_activity_repositories"
                 android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".ui.infoUser.InfoUserActivity">
         </activity>
         <activity
                 android:name=".ui.login.LoginActivity"

@@ -1,4 +1,4 @@
-package com.example.githubtraining.utill.enums
+package com.example.githubtraining.utilities.enums
 
 enum class ItemDisplayedType (val value: Int){
     TYPE_HEADER(0),

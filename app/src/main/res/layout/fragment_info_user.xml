@@ -9,15 +9,15 @@
                 type="com.example.githubtraining.ui.infoUser.InfoUserViewModel"/>
 
         <variable
-                name="activity"
-                type="com.example.githubtraining.ui.infoUser.InfoUserActivity"/>
+                name="fragment"
+                type="com.example.githubtraining.ui.infoUser.InfoUserFragment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mInfoUserContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".screen.infoUser.InfoUserActivity" >
+          >
 
 
         <androidx.core.widget.NestedScrollView
@@ -216,7 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     tools:ignore="MissingConstraints"
-                    android:onClick="@{() -> activity.goToRepoActivity()}"
+                    android:onClick="@{() -> fragment.goToRepoActivity()}"
                     android:background="@drawable/btn_border">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -256,7 +256,7 @@
                     android:layout_height="50dp"
                     tools:ignore="MissingConstraints"
                     android:layout_marginTop="5dp"
-                    android:onClick="@{() -> activity.sendEmail()}"
+                    android:onClick="@{() -> fragment.sendEmail()}"
                     android:background="@drawable/btn_border"
                     app:layout_constraintTop_toBottomOf="@id/nViewRepo">
 

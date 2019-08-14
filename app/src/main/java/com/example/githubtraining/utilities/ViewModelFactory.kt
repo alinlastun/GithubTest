@@ -1,4 +1,4 @@
-package com.example.githubtraining.utill
+package com.example.githubtraining.utilities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

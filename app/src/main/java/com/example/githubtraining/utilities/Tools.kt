@@ -1,4 +1,4 @@
-package com.example.githubtraining.utill
+package com.example.githubtraining.utilities
 
 import android.content.res.Resources
 import android.os.Build

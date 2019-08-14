@@ -1,41 +1,44 @@
 package com.example.githubtraining.ui.login
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.githubtraining.R
 import com.example.githubtraining.appComponent
-import com.example.githubtraining.databinding.ActivityMainBinding
-import com.example.githubtraining.ui.infoUser.InfoUserActivity
-import com.example.githubtraining.utill.loading.Loading
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.githubtraining.databinding.FragmentLoginBinding
+import com.example.githubtraining.utilities.loading.Loading
+import kotlinx.android.synthetic.main.fragment_login.*
 import okhttp3.Credentials
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment: Fragment() {
 
-    @Inject lateinit var pref: SharedPreferences
-    @Inject lateinit var factory: ViewModelProvider.Factory
+    @Inject
+    lateinit var pref: SharedPreferences
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
 
     private lateinit var mViewModel: LoginViewModel
-    private lateinit var mBinding: ActivityMainBinding
     private lateinit var mLoading: Loading
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         appComponent.inject(this)
-        mLoading = Loading(this).refresh()
-
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding = FragmentLoginBinding.inflate(inflater,container, false)
         mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
-        mBinding.login = mViewModel
+        binding.login = mViewModel
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         nBtnLogin.setOnClickListener {
             encodeUserPass()
@@ -44,15 +47,20 @@ class LoginActivity : AppCompatActivity() {
                 mViewModel.login()
             }
         }
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        mLoading = Loading(context).refresh()
         mViewModel.mSuccessLogin.observe(this, Observer {
             mLoading.showLoading(false)
-            startActivity(Intent(this, InfoUserActivity::class.java))
-            finish()
+            findNavController().navigate(R.id.action_loginFragment_to_infoUserFragment)
+
         })
         mViewModel.mErrorLogin.observe(this, Observer {
             mLoading.showLoading(false)
-            Toast.makeText(this, mViewModel.mCredentialError.get(), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, mViewModel.mCredentialError.get(), Toast.LENGTH_LONG).show()
         })
     }
 

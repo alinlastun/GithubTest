@@ -2,7 +2,7 @@ package com.example.githubtraining.ui.login
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubtraining.utill.isValidEmail
+import com.example.githubtraining.utilities.isValidEmail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

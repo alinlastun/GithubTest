@@ -1,11 +1,11 @@
-package com.example.githubtraining.utill.loading
+package com.example.githubtraining.utilities.loading
 
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 
-open class BaseDialog(private val nContext:Context) {
+open class BaseDialog(private val nContext: Context?) {
 
     private lateinit var mContainer : ConstraintLayout
     private lateinit var mBuilder: AlertDialog.Builder
@@ -18,7 +18,7 @@ open class BaseDialog(private val nContext:Context) {
     }
 
     private fun create() {
-        mBuilder = AlertDialog.Builder(nContext).setView(mContainer)
+        mBuilder = nContext?.let { AlertDialog.Builder(it).setView(mContainer) }!!
         mDialog = mBuilder.create()
         mIsPopUpReady = true
     }

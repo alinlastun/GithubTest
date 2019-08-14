@@ -5,14 +5,14 @@
 
     <data>
         <variable
-                name="activity"
-                type="com.example.githubtraining.ui.settings.SettingsActivity"/>
+                name="fragment"
+                type="com.example.githubtraining.ui.settings.FragmentSettings"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:showIn="@layout/activity_settings"
+            tools:showIn="@layout/fragment_settings"
             tools:context=".screen.settings.SettingsActivity">
 
 
@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"
-                android:onClick="@{() -> activity.onClickAffiliationRepo()}"
+                android:onClick="@{() -> fragment.onClickAffiliationRepo()}"
         >
 
 
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:ignore="MissingConstraints"
-                android:onClick="@{() -> activity.onClickSortRepo()}"
+                android:onClick="@{() -> fragment.onClickSortRepo()}"
                 app:layout_constraintTop_toBottomOf="@id/nContainerAffiliation">
 
 

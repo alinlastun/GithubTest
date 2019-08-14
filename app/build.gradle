@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id "io.gitlab.arturbosch.detekt"version"1.0.0-RC16"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0-RC16"
 }
 
 detekt {
@@ -90,13 +90,17 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
 
 
-
     //Dagger
     implementation 'com.google.dagger:dagger:2.20'
     implementation 'com.google.dagger:dagger-android:2.16'
     implementation 'com.google.dagger:dagger-android-support:2.16'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
     kapt 'com.google.dagger:dagger-compiler:2.20'
+
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.0.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.0.0"
 
 
     testImplementation 'junit:junit:4.12'

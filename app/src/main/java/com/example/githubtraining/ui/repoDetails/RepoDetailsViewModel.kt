@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.githubtraining.database.modelDB.InfoRepoModelDB
-import com.example.githubtraining.utill.Tools
+import com.example.githubtraining.utilities.Tools
 import javax.inject.Inject
 
 class RepoDetailsViewModel @Inject constructor(

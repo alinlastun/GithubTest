@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            tools:ignore="UnusedNavigation" app:startDestination="@id/fragmentSettings">
+
+
+    <fragment android:id="@+id/loginFragment"
+              android:name="com.example.githubtraining.ui.login.LoginFragment"
+              android:label="LoginFragment"
+              tools:layout="@layout/fragment_login"
+    >
+        <action android:id="@+id/action_loginFragment_to_infoUserFragment"
+                app:destination="@id/infoUserFragment"
+                app:popUpTo="@id/loginFragment"
+                app:popUpToInclusive="true"
+
+        />
+    </fragment>
+    <fragment android:id="@+id/infoUserFragment"
+              android:name="com.example.githubtraining.ui.infoUser.InfoUserFragment"
+              android:label="InfoUserFragment"
+              tools:layout="@layout/fragment_info_user">
+        <action android:id="@+id/action_infoUserFragment_to_loginFragment"
+                app:destination="@id/loginFragment"/>
+        <action android:id="@+id/action_infoUserFragment_to_repositoriesFragment"
+                app:destination="@id/repositoriesFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/fragmentSettings"
+              android:name="com.example.githubtraining.ui.settings.FragmentSettings"
+              android:label="FragmentSettings"
+              tools:layout="@layout/fragment_settings"/>
+
+    <fragment android:id="@+id/repositoriesFragment"
+              android:name="com.example.githubtraining.ui.repositories.RepositoriesFragment"
+              android:label="RepositoriesFragment"
+              tools:layout="@layout/fragment_repositories">
+        <action android:id="@+id/action_repositoriesFragment_to_fragmentSettings"
+                app:destination="@id/fragmentSettings"/>
+        <action android:id="@+id/action_repositoriesFragment_to_repoDetailsFragment"
+                app:destination="@id/repoDetailsFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/repoDetailsFragment"
+              android:name="com.example.githubtraining.ui.repoDetails.RepoDetailsFragment"
+              android:label="RepoDetailsFragment"
+              tools:layout="@layout/fragment_repo_details"/>
+</navigation>
