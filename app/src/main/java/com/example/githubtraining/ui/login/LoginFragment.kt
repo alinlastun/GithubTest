@@ -7,20 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.githubtraining.R
-import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.FragmentLoginBinding
 import com.example.githubtraining.utilities.loading.Loading
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import okhttp3.Credentials
 import javax.inject.Inject
 
-class LoginFragment: Fragment() {
+class LoginFragment: DaggerFragment() {
 
     @Inject
     lateinit var pref: SharedPreferences
@@ -31,7 +30,6 @@ class LoginFragment: Fragment() {
     private lateinit var mLoading: Loading
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        appComponent.inject(this)
         val binding = FragmentLoginBinding.inflate(inflater,container, false)
         mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
         binding.login = mViewModel

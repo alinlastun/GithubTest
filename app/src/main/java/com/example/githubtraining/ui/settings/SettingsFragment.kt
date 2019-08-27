@@ -8,24 +8,22 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
-import com.example.githubtraining.appComponent
 import com.example.githubtraining.database.modelDB.StuffModelDB
 import com.example.githubtraining.databinding.FragmentSettingsBinding
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : DaggerFragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var mViewModel: SettingsViewModel
     private lateinit var stuffDb : StuffModelDB
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        appComponent.inject(this)
         val binding = FragmentSettingsBinding.inflate(inflater,container,false)
         mViewModel = ViewModelProviders.of(this, factory).get(SettingsViewModel::class.java)
         binding.fragment = this

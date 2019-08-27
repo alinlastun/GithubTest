@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
-import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.FragmentPagerBinding
 import com.example.githubtraining.ui.repositories.RepositoriesViewModel
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_pager.*
 import javax.inject.Inject
 
-class FragmentViewPager: Fragment() {
+class FragmentViewPager: DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -27,7 +26,6 @@ class FragmentViewPager: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        appComponent.inject(this)
         val binding = FragmentPagerBinding.inflate(inflater, container, false)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
         return binding.root

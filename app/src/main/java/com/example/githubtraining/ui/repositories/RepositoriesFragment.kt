@@ -8,20 +8,19 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.githubtraining.R
-import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.FragmentRepositoriesBinding
 import com.example.githubtraining.utilities.loading.Loading
 import com.example.githubtraining.utilities.setRepoAdapter2
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_repositories.*
 import javax.inject.Inject
 
-class RepositoriesFragment : Fragment() {
+class RepositoriesFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -29,7 +28,6 @@ class RepositoriesFragment : Fragment() {
     private lateinit var mLoading: Loading
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        appComponent.inject(this)
         val binding = FragmentRepositoriesBinding.inflate(inflater,container,false)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
         setHasOptionsMenu(true)

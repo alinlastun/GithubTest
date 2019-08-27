@@ -10,17 +10,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.githubtraining.R
-import com.example.githubtraining.appComponent
 import com.example.githubtraining.databinding.FragmentInfoUserBinding
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class InfoUserFragment : Fragment() {
+class InfoUserFragment : DaggerFragment() {
 
     @Inject
     lateinit var pref: SharedPreferences
@@ -30,7 +29,6 @@ class InfoUserFragment : Fragment() {
     lateinit var fragmentActivity:FragmentActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        appComponent.inject(this)
         val binding = FragmentInfoUserBinding.inflate(inflater,container,false)
         mViewModel = ViewModelProviders.of(this, factory).get(InfoUserViewModel::class.java)
         binding.aboutUser = mViewModel
@@ -78,5 +76,7 @@ class InfoUserFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
 }
