@@ -39,12 +39,18 @@
               tools:layout="@layout/fragment_repositories">
         <action android:id="@+id/action_repositoriesFragment_to_fragmentSettings"
                 app:destination="@id/fragmentSettings"/>
-        <action android:id="@+id/action_repositoriesFragment_to_repoDetailsFragment"
-                app:destination="@id/repoDetailsFragment"/>
+        <action android:id="@+id/action_repositoriesFragment_to_fragmentPager" app:destination="@id/fragmentPager"/>
     </fragment>
 
-    <fragment android:id="@+id/repoDetailsFragment"
-              android:name="com.example.githubtraining.ui.repoDetails.RepoDetailsFragment"
-              android:label="RepoDetailsFragment"
-              tools:layout="@layout/fragment_repo_details"/>
+
+    <fragment android:id="@+id/fragmentPager"
+              android:name="com.example.githubtraining.ui.repoDetails.FragmentViewPager"
+              android:label="FragmentPager"
+              tools:layout="@layout/fragment_pager">
+
+        <argument
+                android:name="repoId"
+            app:argType="integer" />
+
+    </fragment>
 </navigation>

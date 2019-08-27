@@ -2,6 +2,7 @@ package com.example.githubtraining.ui.repositories
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.githubtraining.R
 import com.example.githubtraining.database.dao.DaoInfoRepo
 import com.example.githubtraining.database.dao.DaoInfoUser
@@ -29,15 +30,20 @@ class RepositoriesRepository @Inject constructor(
     private val repoListCollaborator: MutableList<InfoRepoModelDB> = mutableListOf()
     private val repoListOwner: MutableList<InfoRepoModelDB> = mutableListOf()
     val infoRepoLiveData = daoInfoRepo.getInfoRepo()
+    private val TAG = "RepositoriesRepository"
 
     suspend fun refreshDataRepo(listener: (success: Boolean, error: Boolean, errorMsg: String) -> Unit) {
         withContext(Dispatchers.IO) {
-            val response = serviceUtil.getRepoAsync(
+            val response = try{serviceUtil.getRepoAsync(
                 pref.getString(
                     application.getString(R.string.sharedPrefToken),
                     application.getString(R.string.sharedPrefNoToken)
                 )!!
-            ).await()
+            )}catch (e:java.lang.Exception){
+                Log.d(TAG, "exception: $e")
+                listener(false, true, "")
+                return@withContext
+            }
 
             if (response.isSuccessful) {
                 listener.invoke(true, false, "")
@@ -49,6 +55,7 @@ class RepositoriesRepository @Inject constructor(
 
                 when {
                     response.code() == 401 -> listener.invoke(false, true, mErrorModel.message)
+
                     response.message().contains("No address associated with hostname") -> listener.invoke(
                         false,
                         true,
@@ -61,12 +68,11 @@ class RepositoriesRepository @Inject constructor(
         }
     }
 
-
     fun getRepoList(): List<InfoRepoModelDB> {
-          return  getSortedList(getRepoListSorted(daoStuff.getSortNumber()))
+        return getFinalList(getRepoListSorted(daoStuff.getSortNumber()))
     }
 
-    private fun getSortedList(repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
+    private fun getFinalList(repoList: List<InfoRepoModelDB>): List<InfoRepoModelDB> {
         getCollaboratorList(repoList)
         var members = Member()
         daoStuff.getMembers().forEach { members = it }
@@ -81,7 +87,7 @@ class RepositoriesRepository @Inject constructor(
         }
     }
 
-    private fun getCollaboratorList(repoList : List<InfoRepoModelDB>) {
+    private fun getCollaboratorList(repoList: List<InfoRepoModelDB>) {
         repoListCollaborator.clear()
         repoListOwner.clear()
         for (value in repoList) {
@@ -96,7 +102,7 @@ class RepositoriesRepository @Inject constructor(
         }
     }
 
-     private fun getRepoListSorted(resultSort: Int): List<InfoRepoModelDB> {
+    private fun getRepoListSorted(resultSort: Int): List<InfoRepoModelDB> {
         return when (resultSort) {
             0 -> daoInfoRepo.getRepoSortedByCreated()
             1 -> daoInfoRepo.getRepoSortedByUpdated()

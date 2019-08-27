@@ -2,6 +2,7 @@ package com.example.githubtraining.ui.login
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,8 @@ class LoginFragment: Fragment() {
 
         mLoading = Loading(context).refresh()
         mViewModel.mSuccessLogin.observe(this, Observer {
+            Log.d("asdfasd","ajunge")
+            encodeUserPass()
             mLoading.showLoading(false)
             findNavController().navigate(R.id.action_loginFragment_to_infoUserFragment)
 

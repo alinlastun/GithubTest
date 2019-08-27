@@ -9,7 +9,7 @@ import com.example.githubtraining.dagger.module.ViewModelModule
 import com.example.githubtraining.ui.infoUser.InfoUserFragment
 import com.example.githubtraining.ui.login.LoginFragment
 import com.example.githubtraining.ui.login.LoginRepository
-import com.example.githubtraining.ui.repoDetails.RepoDetailsFragment
+import com.example.githubtraining.ui.repoDetails.FragmentViewPager
 import com.example.githubtraining.ui.repoDetails.RepoDetailsViewModel
 import com.example.githubtraining.ui.repositories.RepositoriesFragment
 import com.example.githubtraining.ui.settings.SettingsFragment
@@ -24,8 +24,9 @@ interface AppComponent {
     fun inject(application: LoginFragment)
     fun inject(application: MainActivity)
     fun inject(application: RepositoriesFragment)
-    fun inject(application: RepoDetailsFragment)
+    fun inject(application: FragmentViewPager)
     fun inject(application: LoginRepository)
     fun inject(application: SettingsFragment)
     fun inject(application: RepoDetailsViewModel)
+
 }

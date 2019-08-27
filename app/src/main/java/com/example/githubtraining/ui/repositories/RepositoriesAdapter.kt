@@ -1,6 +1,5 @@
 package com.example.githubtraining.ui.repositories
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ class RepositoriesAdapter(
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     fun addHeaderAndSubmitList(list: List<InfoRepoModelDB>?) {
-        Log.d("afdewdf","setRepoAdapter2 list: ${list?.size}")
         adapterScope.launch {
             val data: MutableList<DataItem> = mutableListOf()
 

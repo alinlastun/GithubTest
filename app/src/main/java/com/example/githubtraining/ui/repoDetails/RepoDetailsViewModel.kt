@@ -14,6 +14,7 @@ class RepoDetailsViewModel @Inject constructor(
     private val repository: RepoDetailsRepository,
     application: Application
 ) : ViewModel() {
+    val repos = repository.getRepos()
     private val repoId = MutableLiveData<Int>()
 
      val repo: LiveData<InfoRepoModelDB> =

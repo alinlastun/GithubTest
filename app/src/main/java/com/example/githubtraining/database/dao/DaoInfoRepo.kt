@@ -14,7 +14,7 @@ interface  DaoInfoRepo {
      fun getInfoRepo(): LiveData<List<InfoRepoModelDB>>
 
     @Query("select * from infoRepoModelDB")
-     fun getInfoRepoList(): MutableList<InfoRepoModelDB>
+     fun getInfoRepoList(): List<InfoRepoModelDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun insertInfoRepo(infoRepoDB: List<InfoRepoModelDB>)

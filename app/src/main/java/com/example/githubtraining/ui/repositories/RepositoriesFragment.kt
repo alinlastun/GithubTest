@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,7 +32,7 @@ class RepositoriesFragment : Fragment() {
         appComponent.inject(this)
         val binding = FragmentRepositoriesBinding.inflate(inflater,container,false)
         mViewModel = ViewModelProviders.of(this, factory).get(RepositoriesViewModel::class.java)
-        (activity as AppCompatActivity).supportActionBar?.hide()
+        setHasOptionsMenu(true)
         return binding.root
 
     }
@@ -47,9 +46,6 @@ class RepositoriesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        nSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_repositoriesFragment_to_fragmentSettings)
-        }
         nRecylerView.setRepoAdapter2(RepositoriesAdapter.RepoItemListener {
             onItemRepoClicked(it)
         })
@@ -68,21 +64,20 @@ class RepositoriesFragment : Fragment() {
     }
 
     private fun onItemRepoClicked(idRepo: Int) {
-        val bundle = Bundle()
-        bundle.putInt(getString(com.example.githubtraining.R.string.idRepo), idRepo)
-        findNavController().navigate(R.id.action_repositoriesFragment_to_repoDetailsFragment, bundle)
+        findNavController().navigate(
+            RepositoriesFragmentDirections.actionRepositoriesFragmentToFragmentPager(idRepo)
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(com.example.githubtraining.R.menu.menu_main, menu)
+        inflater.inflate(R.menu.menu_main2, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            com.example.githubtraining.R.id.action_settings -> {
-
-                findNavController().navigate(com.example.githubtraining.R.id.action_infoUserFragment_to_loginFragment)
+           R.id.action_settings -> {
+                findNavController().navigate(R.id.action_repositoriesFragment_to_fragmentSettings)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

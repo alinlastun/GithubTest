@@ -68,7 +68,7 @@ class InfoUserFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
+            R.id.action_logout -> {
                 pref.edit().putString(getString(R.string.sharedPrefToken),
                     getString(R.string.sharedPrefNoToken)
                 ).apply()
