@@ -4,38 +4,47 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.githubtraining.R
 import com.example.githubtraining.databinding.FragmentInfoUserBinding
-import dagger.android.support.DaggerFragment
+import com.example.githubtraining.mvi.ChannelIntentProducer
+import com.example.githubtraining.mvi.IntentProducer
+import com.example.githubtraining.mvi.StateConsumer
+import com.example.githubtraining.mvi.initViewModel
+import com.example.githubtraining.mvi.intent
+import com.example.githubtraining.ui.BaseFragment
+import com.example.githubtraining.ui.infoUser.infoUserMVI.InfoUserIntent
+import com.example.githubtraining.ui.infoUser.infoUserMVI.InfoUserState
+import kotlinx.android.synthetic.main.fragment_info_user.*
 import javax.inject.Inject
 
-class InfoUserFragment : DaggerFragment() {
+class InfoUserFragment :
+    BaseFragment<FragmentInfoUserBinding>(),
+    StateConsumer<InfoUserState>,
+    IntentProducer<InfoUserIntent> by ChannelIntentProducer() {
 
+    override val contentLayoutResource = R.layout.fragment_info_user
     @Inject
     lateinit var pref: SharedPreferences
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private lateinit var mViewModel: InfoUserViewModel
     lateinit var fragmentActivity:FragmentActivity
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentInfoUserBinding.inflate(inflater,container,false)
-        mViewModel = ViewModelProviders.of(this, factory).get(InfoUserViewModel::class.java)
-        binding.aboutUser = mViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel(InfoUserViewModel::class)
         binding.fragment = this
-        binding.lifecycleOwner = this
         setHasOptionsMenu(true)
-        return binding.root
+
+
+        nViewRepo.setOnClickListener { intent(InfoUserIntent.BtnRepoListIntent) }
+        nContactEmail.setOnClickListener { intent(InfoUserIntent.BtnRepoListIntent) }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,9 +52,6 @@ class InfoUserFragment : DaggerFragment() {
         fragmentActivity = activity!!
     }
 
-    fun goToRepoActivity() {
-        findNavController().navigate(R.id.action_infoUserFragment_to_repositoriesFragment)
-    }
 
     fun sendEmail() {
         val intent = Intent(Intent.ACTION_SEND)
@@ -53,12 +59,15 @@ class InfoUserFragment : DaggerFragment() {
         intent.type = "plain/text"
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("develop.android@softvision.ro"))
-        intent.putExtra(Intent.EXTRA_TEXT, "We're glad to use this app!" +
-            "\nWe know that our app is far away to be perfect so, please tell us how we can do it better.")
+        intent.putExtra(
+            Intent.EXTRA_TEXT, "We're glad to use this app!" +
+                "\nWe know that our app is far away to be perfect so, please tell us how we can do it better."
+        )
         if (intent.resolveActivity(fragmentActivity.packageManager) != null) {
             startActivity(intent)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -67,16 +76,34 @@ class InfoUserFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                pref.edit().putString(getString(R.string.sharedPrefToken),
-                    getString(R.string.sharedPrefNoToken)
-                ).apply()
-                findNavController().navigate(R.id.action_infoUserFragment_to_loginFragment)
+
+                intent(InfoUserIntent.BtnLogoutIntent)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun clearState() {
+        intent(InfoUserIntent.ClearStateIntent)
+    }
 
+    override fun consume(state: InfoUserState) {
+        binding.model = state
 
+        when {
+            state.navTarget==InfoUserState.NavTarget.REPO_LIST -> findNavController().navigate(R.id.action_infoUserFragment_to_repositoriesFragment)
+            state.navTarget==InfoUserState.NavTarget.CONTACT_INTENT -> sendEmail()
+            state.logoutBtn -> {
+                findNavController().navigate(R.id.action_infoUserFragment_to_loginFragment)
+                pref.edit().putString(
+                    getString(R.string.sharedPrefToken),
+                    getString(R.string.sharedPrefNoToken)
+                ).apply()
+            }
+            else -> clearState()
+
+        }
+
+    }
 }

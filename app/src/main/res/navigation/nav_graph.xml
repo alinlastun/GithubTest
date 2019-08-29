@@ -39,7 +39,8 @@
               tools:layout="@layout/fragment_repositories">
         <action android:id="@+id/action_repositoriesFragment_to_fragmentSettings"
                 app:destination="@id/fragmentSettings"/>
-        <action android:id="@+id/action_repositoriesFragment_to_fragmentPager" app:destination="@id/fragmentPager"/>
+        <action android:id="@+id/action_repositoriesFragment_to_fragmentPager"
+                app:destination="@id/fragmentPager"/>
     </fragment>
 
 

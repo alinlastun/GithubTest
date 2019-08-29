@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
 
 @Dao
@@ -15,7 +14,7 @@ interface DaoInfoUser {
     fun getInfoUser(): LiveData<UserInformationModelDB>
 
     @Query("select * from userInformationModelDB")
-    fun getListOfInfoUser(): MutableList<UserInformationModelDB>
+    fun getListOfInfoUser(): UserInformationModelDB
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInfoUser(infoUserDB: UserInformationModelDB)
