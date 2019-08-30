@@ -1,17 +1,17 @@
 package com.example.githubtraining.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.githubtraining.database.modelDB.UserInformationModelDB
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DaoInfoUser {
 
     @Query("select * from userInformationModelDB")
-    fun getInfoUser(): LiveData<UserInformationModelDB>
+    fun getInfoUser(): Flow<UserInformationModelDB>
 
     @Query("select * from userInformationModelDB")
     fun getListOfInfoUser(): UserInformationModelDB
