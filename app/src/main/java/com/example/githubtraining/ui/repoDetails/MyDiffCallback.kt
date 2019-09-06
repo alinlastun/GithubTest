@@ -1,7 +1,7 @@
 package com.example.githubtraining.ui.repoDetails
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.model.InfoRepoModelDB
 
 class MyDiffCallback (private val newList: List<InfoRepoModelDB>, private val oldList: List<InfoRepoModelDB>) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

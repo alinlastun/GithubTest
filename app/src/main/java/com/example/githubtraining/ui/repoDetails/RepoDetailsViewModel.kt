@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.model.InfoRepoModelDB
 import com.example.githubtraining.utilities.Tools
 import javax.inject.Inject
 

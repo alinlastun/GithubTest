@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.githubtraining.R
-import com.example.githubtraining.database.modelDB.StuffModelDB
+import com.example.githubtraining.db.model.StuffModelDB
 import com.example.githubtraining.databinding.FragmentSettingsBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.example.githubtraining.utilities
 
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.model.InfoRepoModelDB
 import com.example.githubtraining.utilities.enums.SortType
 
 class Sort {

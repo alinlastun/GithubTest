@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtraining.BR
 import com.example.githubtraining.R
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
 import com.example.githubtraining.databinding.RowRepoListBinding
+import com.example.githubtraining.db.model.InfoRepoModelDB
 import com.example.githubtraining.utilities.enums.ItemDisplayedType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

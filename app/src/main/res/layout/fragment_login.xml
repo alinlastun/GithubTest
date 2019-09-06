@@ -2,11 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-                name="login"
-                type="com.example.githubtraining.ui.login.LoginViewModel"/>
-    </data>
     <androidx.core.widget.NestedScrollView
             android:id="@+id/mLoginContainer"
             android:layout_width="match_parent"
@@ -37,7 +32,6 @@
                     android:layout_width="wrap_content"
                     android:background="@null"
                     android:hint="@string/hint_username"
-                    android:text="@={login.MUser}"
                     android:inputType="textEmailAddress"
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"
@@ -50,7 +44,6 @@
                     android:layout_width="wrap_content"
                     android:background="@null"
                     android:hint="@string/hint_password"
-                    android:text="@={login.MPassword}"
                     android:inputType="textPassword"
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"

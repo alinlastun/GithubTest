@@ -1,4 +1,4 @@
-package com.example.githubtraining.database.modelDB
+package com.example.githubtraining.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,6 +1,6 @@
 package com.example.githubtraining.ui.settings
-import com.example.githubtraining.database.dao.DaoStuff
-import com.example.githubtraining.database.modelDB.StuffModelDB
+import com.example.githubtraining.db.dao.DaoStuff
+import com.example.githubtraining.db.model.StuffModelDB
 import javax.inject.Inject
 
 class SettingsRepository @Inject constructor(private val daoStaff: DaoStuff) {

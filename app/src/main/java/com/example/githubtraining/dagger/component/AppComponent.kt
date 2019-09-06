@@ -2,10 +2,10 @@ package com.example.githubtraining.dagger.component
 import android.app.Application
 import com.example.githubtraining.MainApplication
 import com.example.githubtraining.dagger.module.ActivityBindingModule
-import com.example.githubtraining.dagger.module.AppDataBaseModule
+import com.example.githubtraining.dagger.module.ApiModule
 import com.example.githubtraining.dagger.module.AppExecutorModule
 import com.example.githubtraining.dagger.module.ApplicationContextModule
-import com.example.githubtraining.dagger.module.ServiceUtilModule
+import com.example.githubtraining.dagger.module.DbModule
 import com.example.githubtraining.dagger.module.SharedPreferencesModule
 import com.example.githubtraining.dagger.module.ViewModelModule
 import dagger.BindsInstance
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [ViewModelModule::class, ApplicationContextModule::class,
-    SharedPreferencesModule::class,AppDataBaseModule::class, ServiceUtilModule::class,
+    SharedPreferencesModule::class,DbModule::class, ApiModule::class,
     AppExecutorModule::class, AndroidSupportInjectionModule::class, ActivityBindingModule::class ])
 
 interface AppComponent: AndroidInjector<MainApplication> {

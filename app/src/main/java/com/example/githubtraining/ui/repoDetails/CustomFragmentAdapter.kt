@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubtraining.R
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.model.InfoRepoModelDB
 
 class CustomFragmentAdapter(val context: Context) :
     RecyclerView.Adapter<CustomFragmentAdapter.MyViewHolder>() {

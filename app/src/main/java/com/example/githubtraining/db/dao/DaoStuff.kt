@@ -1,4 +1,4 @@
-package com.example.githubtraining.database.dao
+package com.example.githubtraining.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.githubtraining.database.modelDB.StuffModelDB
+import com.example.githubtraining.db.model.StuffModelDB
 import com.example.githubtraining.model.Member
 
 @Dao

@@ -1,7 +1,7 @@
 package com.example.githubtraining.ui.settings
 
 import androidx.lifecycle.ViewModel
-import com.example.githubtraining.database.modelDB.StuffModelDB
+import com.example.githubtraining.db.model.StuffModelDB
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(

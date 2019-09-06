@@ -4,13 +4,13 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.githubtraining.R
-import com.example.githubtraining.database.dao.DaoInfoRepo
-import com.example.githubtraining.database.dao.DaoInfoUser
-import com.example.githubtraining.database.dao.DaoStuff
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.dao.DaoInfoRepo
+import com.example.githubtraining.db.dao.DaoInfoUser
+import com.example.githubtraining.db.dao.DaoStuff
+import com.example.githubtraining.db.model.InfoRepoModelDB
 import com.example.githubtraining.model.LoginModelError
 import com.example.githubtraining.model.Member
-import com.example.githubtraining.retrofit.ServiceUtil
+import com.example.githubtraining.api.ApiService
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,7 +18,7 @@ import org.json.JSONObject
 import javax.inject.Inject
 
 class RepositoriesRepository @Inject constructor(
-    private val serviceUtil: ServiceUtil,
+    private val apiService: ApiService,
     private val daoInfoRepo: DaoInfoRepo,
     private val daoInfoUser: DaoInfoUser,
     private val daoStuff: DaoStuff,
@@ -34,7 +34,7 @@ class RepositoriesRepository @Inject constructor(
 
     suspend fun refreshDataRepo(listener: (success: Boolean, error: Boolean, errorMsg: String) -> Unit) {
         withContext(Dispatchers.IO) {
-            val response = try{serviceUtil.getRepoAsync(
+            val response = try{apiService.getRepoAsync(
                 pref.getString(
                     application.getString(R.string.sharedPrefToken),
                     application.getString(R.string.sharedPrefNoToken)
@@ -57,6 +57,7 @@ class RepositoriesRepository @Inject constructor(
                     response.code() == 401 -> listener.invoke(false, true, mErrorModel.message)
 
                     response.message().contains("No address associated with hostname") -> listener.invoke(
+                        false,
                         false,
                         true,
                         "No Internet Connection!!"

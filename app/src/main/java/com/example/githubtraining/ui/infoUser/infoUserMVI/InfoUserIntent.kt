@@ -7,4 +7,6 @@ sealed class InfoUserIntent : Intent{
     object BtnContactIntent: InfoUserIntent()
     object ClearStateIntent: InfoUserIntent()
     object BtnLogoutIntent: InfoUserIntent()
+
+
 }

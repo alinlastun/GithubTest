@@ -1,17 +1,17 @@
 package com.example.githubtraining.dagger.module
 import android.content.Context
 import androidx.room.Room
-import com.example.githubtraining.database.AppDataBase
-import com.example.githubtraining.database.dao.DaoInfoRepo
-import com.example.githubtraining.database.dao.DaoInfoUser
-import com.example.githubtraining.database.dao.DaoStuff
+import com.example.githubtraining.db.AppDataBase
+import com.example.githubtraining.db.dao.DaoInfoRepo
+import com.example.githubtraining.db.dao.DaoInfoUser
+import com.example.githubtraining.db.dao.DaoStuff
 import com.example.githubtraining.utilities.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppDataBaseModule {
+class DbModule {
     @Singleton @Provides
     fun provideAppDataBase(context: Context): AppDataBase {
         return Room.databaseBuilder(context, AppDataBase::class.java, DATABASE_NAME).allowMainThreadQueries().build()

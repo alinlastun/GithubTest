@@ -6,7 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
 import com.example.githubtraining.R
-import com.example.githubtraining.database.modelDB.InfoRepoModelDB
+import com.example.githubtraining.db.model.InfoRepoModelDB
 import java.text.SimpleDateFormat
 import java.util.Locale
 

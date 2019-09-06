@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -34,7 +35,7 @@ class InfoUserFragment :
     lateinit var pref: SharedPreferences
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    lateinit var fragmentActivity:FragmentActivity
+    lateinit var fragmentActivity: FragmentActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +52,6 @@ class InfoUserFragment :
         super.onActivityCreated(savedInstanceState)
         fragmentActivity = activity!!
     }
-
 
     fun sendEmail() {
         val intent = Intent(Intent.ACTION_SEND)
@@ -90,10 +90,18 @@ class InfoUserFragment :
 
     override fun consume(state: InfoUserState) {
         binding.model = state
-
+        Log.d("TimberExtensionsKt", "consume ui")
         when {
-            state.navTarget==InfoUserState.NavTarget.REPO_LIST -> findNavController().navigate(R.id.action_infoUserFragment_to_repositoriesFragment)
-            state.navTarget==InfoUserState.NavTarget.CONTACT_INTENT -> sendEmail()
+
+            state.navTarget == InfoUserState.NavTarget.REPO_LIST -> {
+                findNavController().navigate(R.id.action_infoUserFragment_to_repositoriesFragment)
+                clearState()
+            }
+            state.navTarget == InfoUserState.NavTarget.CONTACT_INTENT -> {
+                sendEmail()
+                clearState()
+            }
+
             state.logoutBtn -> {
                 findNavController().navigate(R.id.action_infoUserFragment_to_loginFragment)
                 pref.edit().putString(
@@ -101,9 +109,8 @@ class InfoUserFragment :
                     getString(R.string.sharedPrefNoToken)
                 ).apply()
             }
-            else -> clearState()
+
 
         }
-
     }
 }

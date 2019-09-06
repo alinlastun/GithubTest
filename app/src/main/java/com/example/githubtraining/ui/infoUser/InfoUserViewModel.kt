@@ -1,9 +1,7 @@
 package com.example.githubtraining.ui.infoUser
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.githubtraining.database.dao.DaoInfoUser
-import com.example.githubtraining.database.modelDB.UserInformationModelDB
+import com.example.githubtraining.db.dao.DaoInfoUser
 import com.example.githubtraining.mvi.MVICoroutineViewModel
 import com.example.githubtraining.ui.infoUser.infoUserMVI.InfoUserChange
 import com.example.githubtraining.ui.infoUser.infoUserMVI.InfoUserIntent
@@ -22,7 +20,6 @@ class InfoUserViewModel @Inject constructor(
 
     override var currentState = InfoUserState()
 
-
     init {
         change(InfoUserChange.Initialize)
     }
@@ -39,26 +36,22 @@ class InfoUserViewModel @Inject constructor(
         when (change) {
             is InfoUserChange.Initialize -> {
                 viewModelScope.launch(Dispatchers.ViewModel){
-                    daoInfoUser.getInfoUser().collect {
-                        Log.d("asdfasdf","FetchDataDB collect")
-                        fetchDataBase(it)
+                    daoInfoUser.getAllInfoUser().collect {
+                        change(InfoUserChange.FetchDataDB(it))
                     }
                 }
-                state.copy(
-
-                )
+                state.copy()
             }
             is InfoUserChange.FetchDataDB -> {
-                Log.d("asdfasdf","FetchDataDB")
                 state.copy(
-                    bio = checkString(change.userInformationModelDB.bio),
-                    created = Tools().formatMyDate(checkString(change.userInformationModelDB.created_at)),
-                    email = checkString(change.userInformationModelDB.email),
-                    location = checkString(change.userInformationModelDB.location),
-                    privateRepo = checkString(change.userInformationModelDB.total_private_repos.toString()),
-                    publicRepo = checkString(change.userInformationModelDB.public_repos.toString()),
-                    urlAvatar = checkString(change.userInformationModelDB.avatar_url),
-                    updated = Tools().formatMyDate(checkString(change.userInformationModelDB.updated_at)))
+                    bio = checkString(change.userInformation.bio),
+                    created = Tools().formatMyDate(checkString(change.userInformation.createdAt)),
+                    email = checkString(change.userInformation.email),
+                    location = checkString(change.userInformation.location),
+                    privateRepo = checkString(change.userInformation.privateRepos.toString()),
+                    publicRepo = checkString(change.userInformation.publicRepos.toString()),
+                    urlAvatar = checkString(change.userInformation.avatarUrl),
+                    updated = Tools().formatMyDate(checkString(change.userInformation.updatedAt)))
             }
             is InfoUserChange.ClearButtonState -> {
                 state.copy(
@@ -67,7 +60,6 @@ class InfoUserViewModel @Inject constructor(
                 )
             }
             is InfoUserChange.ClickViewRepoState -> {
-                Log.d("asdfasdf"," ClickViewRepoState")
                 state.copy( navTarget = InfoUserState.NavTarget.REPO_LIST )
             }
             is InfoUserChange.LogOutState ->{
@@ -80,18 +72,11 @@ class InfoUserViewModel @Inject constructor(
             InfoUserChange.LogOutState -> state.copy()
         }.exhaustive
 
-    private  fun fetchDataBase(userInformationModelDB: UserInformationModelDB){
-        Log.d("asdfasdf","FetchDataDB method")
-        InfoUserIntent.BtnRepoListIntent
-        InfoUserChange.FetchDataDB(userInformationModelDB)
-        Log.d("asdfasdf","FetchDataDB method 2")
-
-    }
-
     override suspend fun consume(intent: InfoUserIntent): InfoUserChange =
         when (intent) {
             is InfoUserIntent.BtnRepoListIntent -> {
-                InfoUserChange.ClickViewRepoState }
+                InfoUserChange.ClickViewRepoState
+            }
             is InfoUserIntent.BtnContactIntent -> {
                 InfoUserChange.ClickContactState }
             is InfoUserIntent.ClearStateIntent -> {
